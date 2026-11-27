@@ -52,3 +52,5 @@ require __DIR__.'/expenses.php';
 require __DIR__.'/business-profile.php';
 require __DIR__.'/users.php';
 require __DIR__.'/wilayah.php';
+
+require __DIR__.'/data-reset.php';
