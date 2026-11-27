@@ -1,0 +1,360 @@
+.pi-embedded .pi-standalone { display:none; }
+.pi-embedded body { margin:0; }
+.pi-embedded .pi-page { width:100%; max-width:none; padding:12px; margin:0; box-sizing:border-box; }
+.pi-panel { padding:14px; border:1px solid var(--ui-line); border-radius:10px; background:var(--ui-surface); margin-bottom:12px; }
+.pi-fields { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pi-page label { display:block; font-size:12px; margin-bottom:7px; }
+.pi-page input:not([type=checkbox]):not([type=hidden]),.pi-page select {
+    width:100%; min-height:40px; padding:8px 10px; box-sizing:border-box;
+    border:1px solid var(--ui-line-strong); border-radius:8px;
+    background:var(--ui-input); color:var(--ui-text); font:inherit; font-size:12px;
+}
+.pi-router-line { display:flex; gap:10px; align-items:center; }
+.pi-router-line select { flex:1; }
+.pi-router-line button { flex-shrink:0; }
+.pi-toolbar { display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap; margin:12px 0; }
+.pi-summary { color:var(--ui-muted); font-size:12px; line-height:1.7; }
+.pi-table-wrap { overflow:auto; max-height:48vh; border:1px solid var(--ui-line); border-radius:10px; }
+.pi-table { width:100%; border-collapse:collapse; text-align:left; }
+.pi-table th,.pi-table td { padding:10px; border-bottom:1px solid var(--ui-line); vertical-align:top; font-size:12px; }
+.pi-table th { position:sticky; top:0; z-index:1; background:var(--ui-surface); white-space:nowrap; }
+.pi-table td:nth-child(2) { min-width:190px; }
+.pi-table td:nth-child(3) { min-width:150px; }
+.pi-table td:nth-child(4) { min-width:180px; }
+.pi-table small { display:block; color:var(--ui-muted); line-height:1.7; margin-top:4px; overflow-wrap:anywhere; }
+.pi-table small.pi-warning { color:var(--ui-warning,var(--ui-muted)); }
+.pi-table input:disabled,.pi-table select:disabled { opacity:.65; }
+.pi-pick { width:17px; height:17px; margin-top:10px; }
+.pi-empty { padding:24px!important; text-align:center; color:var(--ui-muted); }
+.cpi-dialog {
+    width:min(1180px,calc(100% - 24px)); height:88vh; max-height:94vh;
+    padding:0; border:1px solid var(--ui-line); border-radius:14px;
+    background:var(--ui-surface); color:var(--ui-text); box-sizing:border-box;
+}
+.cpi-dialog::backdrop { background:rgba(0,0,0,.55); }
+.cpi-shell { display:flex; flex-direction:column; height:100%; min-height:0; }
+.cpi-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--ui-line); }
+.cpi-heading h2 { margin:0; font-size:18px; }
+#cu-pppoe-frame { display:block; width:100%; flex:1; min-height:0; border:0; background:var(--ui-surface); }
+@media(max-width:600px) {
+    .pi-fields { grid-template-columns:1fr; }
+    .cpi-dialog { width:calc(100% - 12px); height:92vh; }
+}
+
+/* PPPoE popup: gunakan seluruh tinggi yang tersedia */
+.cpi-dialog {
+    width:min(1400px,calc(100% - 24px));
+    height:94vh;
+    height:94dvh;
+    max-height:94vh;
+    max-height:94dvh;
+    overflow:hidden;
+}
+
+.pi-embedded,
+.pi-embedded body {
+    height:100%;
+    margin:0;
+    overflow:hidden;
+}
+
+.pi-embedded .pi-page {
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    min-height:0;
+    max-width:none;
+    margin:0;
+    padding:12px;
+    box-sizing:border-box;
+    overflow:auto;
+}
+
+.pi-embedded .pi-page > .cu-notice,
+.pi-embedded .pi-page > .cu-error {
+    flex-shrink:0;
+}
+
+.pi-embedded .pi-page > form.pi-submit:not(.pi-panel) {
+    display:flex;
+    flex-direction:column;
+    flex:1 1 0;
+    min-height:0;
+    margin:0;
+}
+
+.pi-embedded .pi-import-form {
+    min-height:0;
+}
+
+.pi-embedded .pi-page > form.pi-submit:not(.pi-panel) > .pi-panel,
+.pi-embedded .pi-page > form.pi-submit:not(.pi-panel) > .pi-toolbar {
+    flex-shrink:0;
+}
+
+.pi-embedded .pi-table-wrap {
+    flex:1 1 0;
+    min-height:0;
+    max-height:none;
+    overflow:auto;
+}
+
+.pi-embedded .pi-footer {
+    margin:12px 0 0;
+}
+
+@media(max-width:600px) {
+    .cpi-dialog {
+        width:calc(100% - 12px);
+        height:96vh;
+        height:96dvh;
+        max-height:96vh;
+        max-height:96dvh;
+    }
+
+    .cpi-heading {
+        padding:10px 12px;
+    }
+
+    .pi-embedded .pi-page {
+        padding:8px;
+    }
+}
+
+/* PPPoE: tiga kolom dan tanggal tagihan di footer */
+.pi-table th:first-child,
+.pi-table td:first-child {
+    width:1%;
+    white-space:nowrap;
+}
+
+.pi-table td:nth-child(2) {
+    width:55%;
+}
+
+.pi-table td:nth-child(3) {
+    min-width:200px;
+}
+
+.pi-footer {
+    justify-content:flex-end;
+    align-items:flex-end;
+    gap:12px;
+}
+
+.pi-billing-control {
+    width:250px;
+    max-width:100%;
+}
+
+.pi-billing-control label {
+    margin-bottom:6px;
+}
+
+.pi-footer #pi-import {
+    min-height:40px;
+    flex-shrink:0;
+}
+
+@media(max-width:600px) {
+    .pi-footer {
+        gap:8px;
+    }
+
+    .pi-billing-control {
+        flex:1 1 160px;
+        min-width:0;
+    }
+}
+
+/* PPPoE: checkbox pilih semua */
+.pi-table th .pi-select-all {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin:0;
+    white-space:nowrap;
+    cursor:pointer;
+}
+
+#pi-pick-all {
+    width:17px;
+    height:17px;
+    margin:0;
+    flex-shrink:0;
+}
+
+/* PPPoE mobile: hanya scroll vertikal */
+@media(max-width:700px) {
+    .pi-page,
+    .pi-page form,
+    .pi-page .pi-panel,
+    .pi-table-wrap {
+        min-width:0;
+        max-width:100%;
+        box-sizing:border-box;
+    }
+
+    .pi-table-wrap {
+        overflow-x:hidden;
+        overflow-y:auto;
+    }
+
+    .pi-table {
+        display:block;
+        width:100%;
+        max-width:100%;
+    }
+
+    .pi-table thead {
+        display:block;
+        position:sticky;
+        top:0;
+        z-index:2;
+        background:var(--ui-surface);
+    }
+
+    .pi-table thead tr {
+        display:block;
+    }
+
+    .pi-table thead th {
+        position:static;
+    }
+
+    .pi-table thead th:first-child {
+        display:block;
+        width:auto;
+        padding:12px;
+    }
+
+    .pi-table thead th:not(:first-child) {
+        display:none;
+    }
+
+    .pi-table tbody {
+        display:block;
+        width:100%;
+    }
+
+    .pi-table tbody tr {
+        display:grid;
+        grid-template-columns:26px minmax(0,1fr);
+        gap:8px 10px;
+        padding:14px 12px;
+        border-bottom:1px solid var(--ui-line);
+        box-sizing:border-box;
+    }
+
+    .pi-table tbody tr:last-child {
+        border-bottom:0;
+    }
+
+    .pi-table tbody td {
+        display:block;
+        min-width:0;
+        max-width:100%;
+        padding:0;
+        border:0;
+        box-sizing:border-box;
+        overflow-wrap:anywhere;
+        white-space:normal;
+    }
+
+    .pi-table tbody td:first-child {
+        grid-column:1;
+        grid-row:1 / span 2;
+        width:auto;
+        white-space:normal;
+    }
+
+    .pi-table tbody td:nth-child(2) {
+        grid-column:2;
+        grid-row:1;
+        width:auto;
+        min-width:0;
+    }
+
+    .pi-table tbody td:nth-child(3) {
+        grid-column:2;
+        grid-row:2;
+        width:auto;
+        min-width:0;
+    }
+
+    .pi-table tbody td:nth-child(3)::before {
+        content:"Paket billing";
+        display:block;
+        margin:3px 0 6px;
+        color:var(--ui-muted);
+        font-size:11px;
+    }
+
+    .pi-table .pi-editable {
+        display:block;
+        width:100%;
+        min-width:0;
+        max-width:100%;
+        box-sizing:border-box;
+    }
+
+    .pi-table small {
+        overflow-wrap:anywhere;
+        word-break:break-word;
+    }
+
+    .pi-table td.pi-empty {
+        grid-column:1 / -1;
+        grid-row:auto;
+        width:auto;
+        white-space:normal;
+    }
+
+    .pi-pick {
+        margin-top:11px;
+    }
+
+    .pi-router-line {
+        flex-wrap:wrap;
+    }
+
+    .pi-router-line select {
+        min-width:0;
+        flex:1 1 150px;
+    }
+
+    .pi-footer {
+        width:100%;
+        min-width:0;
+        flex-wrap:wrap;
+        gap:8px;
+    }
+
+    .pi-billing-control {
+        width:auto;
+        min-width:0;
+        flex:1 1 150px;
+    }
+
+    .pi-footer #pi-import {
+        max-width:100%;
+        white-space:normal;
+    }
+
+    .cpi-heading {
+        min-width:0;
+        padding:10px;
+    }
+
+    .cpi-heading h2 {
+        min-width:0;
+        font-size:16px;
+        overflow-wrap:anywhere;
+    }
+
+    .cpi-heading button {
+        flex-shrink:0;
+    }
+}

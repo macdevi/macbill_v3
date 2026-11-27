@@ -1,0 +1,40 @@
+.pkg-bandwidth-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+}
+.pkg-bandwidth-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 14px 0;
+    border-top: 1px solid var(--ui-line);
+    border-bottom: 1px solid var(--ui-line);
+}
+.pkg-bandwidth-summary span {
+    display: grid;
+    gap: 5px;
+    color: var(--ui-muted);
+    font-size: 12px;
+}
+.pkg-bandwidth-summary strong {
+    color: var(--ui-text);
+    font-size: 16px;
+}
+.pkg-router-sync {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 6px;
+}
+#pkg-sync-result {
+    color: var(--ui-success);
+    overflow-wrap: anywhere;
+}
+#pkg-sync-modal .pkg-check {
+    align-items: flex-start;
+    line-height: 1.7;
+    margin-top: 18px;
+}

@@ -1,0 +1,1531 @@
+/* Dashboard: ringkasan keuangan berdasarkan periode */
+.dd-finance-layout {
+    display:grid;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.dd-finance-positive { --df-accent:16,185,129; }
+.dd-finance-negative { --df-accent:239,68,68; }
+.dd-finance-income { --df-accent:59,130,246; }
+.dd-finance-expense { --df-accent:239,68,68; }
+.dd-finance-unpaid { --df-accent:245,158,11; }
+
+.dashboard-v2 .dd-finance-result,
+.dashboard-v2 .dd-finance-metric {
+    min-width:0;
+    padding:17px;
+    border:1px solid rgba(var(--df-accent),.42);
+    border-radius:13px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(var(--df-accent),.06),
+            transparent 75%
+        ),
+        var(--ui-surface,#111e32);
+    box-shadow:
+        0 0 10px rgba(var(--df-accent),.06),
+        inset 0 0 12px rgba(var(--df-accent),.025);
+}
+
+.dd-finance-result-main {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.dashboard-v2 .dd-finance-result .dd-eyebrow,
+.dashboard-v2 .dd-finance-metric .dd-eyebrow {
+    display:block;
+    color:inherit;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:normal;
+    text-transform:none;
+}
+
+.dd-finance-period {
+    margin:5px 0 0;
+    font-size:12px;
+    color:inherit;
+    opacity:.7;
+}
+
+.dashboard-v2 .dd-finance-result-value {
+    color:rgb(var(--df-accent));
+    font-size:clamp(25px,4vw,38px);
+    font-weight:700;
+    line-height:1.25;
+    font-variant-numeric:tabular-nums;
+    overflow-wrap:anywhere;
+    min-width:0;
+    max-width:100%;
+}
+
+.dd-finance-metrics {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+}
+
+.dashboard-v2 .dd-finance-value {
+    display:block;
+    margin-top:10px;
+    color:rgb(var(--df-accent));
+    font-size:clamp(19px,2.5vw,27px);
+    font-weight:700;
+    line-height:1.3;
+    font-variant-numeric:tabular-nums;
+    overflow-wrap:anywhere;
+}
+
+.dd-finance-layout .dd-note {
+    margin:10px 0 0;
+    line-height:1.65;
+}
+
+.dd-finance-layout > .dd-finance-explanation {
+    margin:0;
+    padding:0 2px;
+    font-size:11px;
+}
+
+@media(max-width:700px) {
+    .dd-finance-metrics {
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    .dashboard-v2 .dd-finance-result,
+    .dashboard-v2 .dd-finance-metric {
+        padding:14px;
+    }
+
+    .dashboard-v2 .dd-finance-metric {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);
+        align-items:center;
+        gap:6px 12px;
+    }
+
+    .dashboard-v2 .dd-finance-metric .dd-finance-value {
+        margin:0;
+        text-align:right;
+        font-size:20px;
+    }
+
+    .dd-finance-metric .dd-note {
+        grid-column:1 / -1;
+        margin:2px 0 0;
+    }
+}
+
+
+/* Dashboard: saldo paling atas dan pemilih periode */
+.dashboard-v2 .dd-saldo-top {
+    margin-bottom:16px;
+}
+
+.dd-saldo-heading {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:9px;
+}
+
+.dashboard-v2 .dd-saldo-title {
+    min-width:0;
+    margin:0;
+    color:inherit;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.5;
+    text-transform:none;
+    letter-spacing:normal;
+}
+
+.dd-saldo-title span {
+    font-weight:400;
+}
+
+.dd-saldo-calendar {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    padding:0;
+    border:1px solid var(--ui-line,rgba(148,163,184,.25));
+    border-radius:10px;
+    background:transparent;
+    color:inherit;
+    cursor:pointer;
+}
+
+.dd-saldo-calendar:hover {
+    background:rgba(148,163,184,.09);
+}
+
+.dd-saldo-calendar:focus-visible,
+.dd-saldo-period-dialog button:focus-visible,
+.dd-saldo-period-dialog a:focus-visible,
+.dd-saldo-period-dialog input:focus-visible {
+    outline:2px solid var(--ui-accent,#3b82f6);
+    outline-offset:3px;
+}
+
+.dd-saldo-period-dialog {
+    box-sizing:border-box;
+    width:min(380px,calc(100vw - 28px));
+    max-height:85vh;
+    overflow:auto;
+    margin:auto;
+    padding:18px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.25));
+    border-radius:14px;
+    background:var(--ui-surface,#111e32);
+    color:inherit;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.dd-saldo-period-dialog::backdrop {
+    background:rgba(2,6,23,.6);
+}
+
+.dd-saldo-dialog-heading {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.dd-saldo-dialog-heading h2 {
+    margin:0;
+    color:inherit;
+    font-size:16px;
+}
+
+.dd-saldo-dialog-heading button {
+    padding:6px 9px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.25));
+    border-radius:8px;
+    background:transparent;
+    color:inherit;
+    font:inherit;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.dd-saldo-period-dialog label {
+    display:block;
+    margin-bottom:7px;
+    font-size:12px;
+}
+
+.dd-saldo-period-dialog input {
+    box-sizing:border-box;
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.3));
+    border-radius:9px;
+    background:transparent;
+    color:inherit;
+    font:inherit;
+}
+
+.dd-saldo-dialog-actions {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:18px;
+}
+
+.dd-saldo-dialog-actions a {
+    color:inherit;
+    font-size:12px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-title {
+        font-size:13px;
+    }
+
+    .dd-saldo-calendar {
+        width:36px;
+        height:36px;
+    }
+}
+
+
+/* Saldo: keterangan kecil di bawah nominal */
+.dashboard-v2 .dd-saldo-top .dd-saldo-caption {
+    margin:6px 0 0;
+    padding:0;
+    color:inherit;
+    opacity:.65;
+    font-size:11px;
+    font-weight:400;
+    line-height:1.5;
+}
+
+
+/* Saldo: pemilih bulan langsung dan submit otomatis */
+.dd-saldo-month-form {
+    margin:0;
+    padding:0;
+    flex-shrink:0;
+}
+
+.dd-saldo-month-picker {
+    position:relative;
+    box-sizing:border-box;
+    overflow:hidden;
+}
+
+.dd-saldo-month-picker svg {
+    pointer-events:none;
+}
+
+.dd-saldo-month-picker input {
+    position:absolute;
+    inset:0;
+    box-sizing:border-box;
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    border:0;
+    opacity:0;
+    cursor:pointer;
+}
+
+.dd-saldo-month-picker input::-webkit-calendar-picker-indicator {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    cursor:pointer;
+}
+
+.dd-saldo-month-picker:focus-within {
+    outline:2px solid var(--ui-accent,#3b82f6);
+    outline-offset:3px;
+}
+
+
+/* Saldo: biru soft dan ornamen uang transparan */
+.dashboard-v2 .dd-saldo-top {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    background:
+        linear-gradient(
+            115deg,
+            rgba(59,130,246,.16) 0%,
+            rgba(59,130,246,.09) 55%,
+            rgba(59,130,246,.04) 100%
+        ),
+        var(--ui-surface,#111e32);
+    border:1px solid rgba(59,130,246,.38);
+    box-shadow:
+        0 0 14px rgba(59,130,246,.07),
+        inset 0 0 18px rgba(59,130,246,.025);
+}
+
+/* Ornamen berada di belakang isi dan tidak menerima klik. */
+.dashboard-v2 .dd-saldo-top::before {
+    content:"";
+    position:absolute;
+    z-index:0;
+    right:48px;
+    top:50%;
+    transform:translateY(-50%);
+    width:180px;
+    height:125px;
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20%20viewBox%3D%220%200%20160%20110%22%20fill%3D%22none%22%20stroke%3D%22%2360a5fa%22%0A%20%20%20%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%20%20%3Cg%20transform%3D%22rotate%28-12%2080%2055%29%22%3E%0A%20%20%20%20%20%20%20%20%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%22136%22%20height%3D%2276%22%20rx%3D%2212%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12%2042c14%200%2022-8%2022-22M126%2020c0%2014%208%2022%2022%2022%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20M12%2074c14%200%2022%208%2022%2022M126%2096c0-14%208-22%2022-22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%2280%22%20cy%3D%2258%22%20r%3D%2222%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M75%2072V44h9a8%208%200%200%201%200%2016h-9M83%2060l9%2012%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+    opacity:.22;
+    pointer-events:none;
+}
+
+/* Teks serta kalender tetap di atas ornamen. */
+.dashboard-v2 .dd-saldo-top > .dd-saldo-heading,
+.dashboard-v2 .dd-saldo-top > .dd-finance-result-value,
+.dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+    position:relative;
+    z-index:1;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-calendar {
+    background:rgba(59,130,246,.08);
+    border-color:rgba(59,130,246,.3);
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-calendar:hover {
+    background:rgba(59,130,246,.16);
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top::before {
+        right:32px;
+        width:135px;
+        height:100px;
+        opacity:.17;
+    }
+}
+
+
+/* Saldo: biru soft lebih jelas */
+.dashboard-v2 .dd-saldo-top {
+    background:
+        linear-gradient(
+            115deg,
+            rgba(59,130,246,.28) 0%,
+            rgba(59,130,246,.18) 55%,
+            rgba(59,130,246,.10) 100%
+        ),
+        var(--ui-surface,#111e32);
+    border-color:rgba(59,130,246,.52);
+    box-shadow:
+        0 0 14px rgba(59,130,246,.10),
+        inset 0 0 18px rgba(59,130,246,.04);
+}
+
+
+/* Saldo: biru lebih tegas dan ikon uang emas */
+.dashboard-v2 .dd-saldo-top {
+    background:
+        linear-gradient(
+            115deg,
+            rgba(59,130,246,.34) 0%,
+            rgba(59,130,246,.23) 55%,
+            rgba(59,130,246,.14) 100%
+        ),
+        var(--ui-surface,#111e32);
+    border-color:rgba(59,130,246,.58);
+    box-shadow:
+        0 0 14px rgba(59,130,246,.12),
+        inset 0 0 18px rgba(59,130,246,.05);
+}
+
+.dashboard-v2 .dd-saldo-top::before {
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20%20viewBox%3D%220%200%20160%20110%22%20fill%3D%22none%22%20stroke%3D%22%23fbbf24%22%0A%20%20%20%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%20%20%3Cg%20transform%3D%22rotate%28-12%2080%2055%29%22%3E%0A%20%20%20%20%20%20%20%20%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%22136%22%20height%3D%2276%22%20rx%3D%2212%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12%2042c14%200%2022-8%2022-22M126%2020c0%2014%208%2022%2022%2022%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20M12%2074c14%200%2022%208%2022%2022M126%2096c0-14%208-22%2022-22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%2280%22%20cy%3D%2258%22%20r%3D%2222%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M75%2072V44h9a8%208%200%200%201%200%2016h-9M83%2060l9%2012%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+    opacity:.30;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top::before {
+        opacity:.24;
+    }
+}
+
+
+/* Dashboard: ikon kalender dari file PNG */
+.dashboard-v2 .dd-saldo-month-picker {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:42px;
+    min-height:42px;
+}
+
+.dashboard-v2 .dd-saldo-month-picker .dd-saldo-calendar-image {
+    display:block;
+    width:28px;
+    height:28px;
+    max-width:none;
+    object-fit:contain;
+    flex-shrink:0;
+    pointer-events:none;
+}
+
+/* Input transparan tetap berada di atas gambar untuk memilih bulan. */
+.dashboard-v2 .dd-saldo-month-picker input {
+    z-index:2;
+}
+
+
+/* Dashboard: kalender bulan dan tanggal dinamis */
+.dashboard-v2 .dd-saldo-month-picker {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:52px;
+    min-width:48px;
+    min-height:52px;
+    padding:4px;
+    border-radius:10px;
+}
+
+.dashboard-v2 .dd-calendar-live {
+    display:flex;
+    flex-direction:column;
+    width:36px;
+    height:40px;
+    flex-shrink:0;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.45);
+    border-radius:6px;
+    background:#eff6ff;
+    box-shadow:0 2px 5px rgba(0,0,0,.16);
+    pointer-events:none;
+}
+
+.dashboard-v2 .dd-calendar-live-month {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:14px;
+    flex-shrink:0;
+    background:#2563eb;
+    color:#fff;
+    font-size:9px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:.5px;
+}
+
+.dashboard-v2 .dd-calendar-live-day {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:1;
+    color:#1e3a8a;
+    font-size:21px;
+    font-weight:800;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+}
+
+.dashboard-v2 .dd-saldo-month-picker input {
+    z-index:2;
+}
+
+
+/* Dashboard: kalender besar dengan tahun */
+.dashboard-v2 .dd-saldo-month-picker {
+    width:88px;
+    height:96px;
+    min-width:88px;
+    min-height:96px;
+    padding:7px;
+    border-radius:14px;
+}
+
+.dashboard-v2 .dd-calendar-live {
+    width:72px;
+    height:80px;
+    border-radius:10px;
+    box-shadow:0 3px 8px rgba(0,0,0,.18);
+}
+
+.dashboard-v2 .dd-calendar-live-month {
+    height:26px;
+    font-size:15px;
+    letter-spacing:1px;
+}
+
+.dashboard-v2 .dd-calendar-live-day {
+    min-height:0;
+    font-size:34px;
+    line-height:1;
+}
+
+.dashboard-v2 .dd-calendar-live-year {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:18px;
+    flex-shrink:0;
+    padding-bottom:3px;
+    box-sizing:border-box;
+    color:#475569;
+    font-size:11px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:.5px;
+    font-variant-numeric:tabular-nums;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-heading {
+    align-items:center;
+}
+
+.dashboard-v2 .dd-saldo-month-form {
+    flex-shrink:0;
+}
+
+
+/* Dashboard: card saldo ringkas HP dengan kalender besar */
+@media (max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 88px;
+        grid-template-rows:auto auto auto;
+        column-gap:12px;
+        row-gap:4px;
+        align-content:center;
+        padding:14px;
+    }
+
+    /* Judul dan form menjadi item grid tanpa mengubah Blade. */
+    .dashboard-v2 .dd-saldo-top > .dd-saldo-heading {
+        display:contents;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-saldo-title {
+        grid-column:1;
+        grid-row:1;
+        align-self:end;
+        position:relative;
+        z-index:1;
+        margin:0;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-saldo-month-form {
+        grid-column:2;
+        grid-row:1 / 4;
+        align-self:center;
+        justify-self:end;
+        position:relative;
+        z-index:1;
+        margin:0;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+        grid-column:1;
+        grid-row:2;
+        display:block;
+        align-self:center;
+        margin:0;
+        min-width:0;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+        grid-column:1;
+        grid-row:3;
+        align-self:start;
+        margin:0;
+    }
+}
+
+
+/* Dashboard: ornamen uang emas cerah di tengah card */
+.dashboard-v2 .dd-saldo-top::before {
+    left:50%;
+    right:auto;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20%20viewBox%3D%220%200%20160%20110%22%20fill%3D%22none%22%0A%20%20%20%20stroke%3D%22url%28%23gold%29%22%20stroke-width%3D%225%22%0A%20%20%20%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff3a3%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22%23ffd54a%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23f5b400%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20transform%3D%22rotate%28-12%2080%2055%29%22%3E%0A%20%20%20%20%20%20%20%20%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%22136%22%20height%3D%2276%22%20rx%3D%2212%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12%2042c14%200%2022-8%2022-22M126%2020c0%2014%208%2022%2022%2022%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20M12%2074c14%200%2022%208%2022%2022M126%2096c0-14%208-22%2022-22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%2280%22%20cy%3D%2258%22%20r%3D%2222%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M75%2072V44h9a8%208%200%200%201%200%2016h-9M83%2060l9%2012%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+    opacity:.46;
+    filter:drop-shadow(0 0 5px rgba(255,205,55,.25));
+    pointer-events:none;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top::before {
+        left:50%;
+        right:auto;
+        opacity:.40;
+    }
+}
+
+
+/* Dashboard: keterangan saldo putih */
+.dashboard-v2 .dd-saldo-top .dd-saldo-caption {
+    color:#ffffff;
+    opacity:1;
+}
+
+
+/* Dashboard: ornamen uang hijau dan teks saldo kuning */
+.dashboard-v2 .dd-saldo-top::before {
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20%20viewBox%3D%220%200%20160%20110%22%20fill%3D%22none%22%0A%20%20%20%20stroke%3D%22url%28%23moneyGreen%29%22%20stroke-width%3D%225%22%0A%20%20%20%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22moneyGreen%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23bbf7d0%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22%234ade80%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2322c55e%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20transform%3D%22rotate%28-12%2080%2055%29%22%3E%0A%20%20%20%20%20%20%20%20%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%22136%22%20height%3D%2276%22%20rx%3D%2212%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12%2042c14%200%2022-8%2022-22M126%2020c0%2014%208%2022%2022%2022%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20M12%2074c14%200%2022%208%2022%2022M126%2096c0-14%208-22%2022-22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%2280%22%20cy%3D%2258%22%20r%3D%2222%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M75%2072V44h9a8%208%200%200%201%200%2016h-9M83%2060l9%2012%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+    filter:drop-shadow(0 0 5px rgba(74,222,128,.25));
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-title,
+.dashboard-v2 .dd-saldo-top > .dd-finance-result-value,
+.dashboard-v2 .dd-saldo-top .dd-saldo-caption {
+    color:#ffd54a;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-caption {
+    opacity:1;
+}
+
+
+/* Dashboard: saldo bergaya kartu ATM */
+.dashboard-v2 .dd-saldo-top {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 88px;
+    grid-template-rows:auto auto auto;
+    column-gap:18px;
+    row-gap:8px;
+    align-content:center;
+    padding:24px;
+    border-radius:22px;
+    border:1px solid rgba(147,197,253,.42);
+    background:
+        radial-gradient(
+            ellipse at 0% 0%,
+            rgba(96,165,250,.30),
+            transparent 60%
+        ),
+        linear-gradient(
+            125deg,
+            #173d75 0%,
+            #124b92 48%,
+            #102b53 100%
+        );
+    box-shadow:
+        0 10px 24px rgba(2,6,23,.20),
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 -1px 0 rgba(2,6,23,.20);
+}
+
+/* Garis dekoratif seperti lapisan pada permukaan kartu. */
+.dashboard-v2 .dd-saldo-top::after {
+    content:"";
+    position:absolute;
+    right:-70px;
+    bottom:-150px;
+    width:340px;
+    height:340px;
+    border:1px solid rgba(191,219,254,.12);
+    border-radius:50%;
+    box-shadow:
+        0 0 0 28px rgba(191,219,254,.035),
+        0 0 0 58px rgba(191,219,254,.025);
+    z-index:0;
+    pointer-events:none;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-saldo-heading {
+    display:contents;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-title {
+    grid-column:1;
+    grid-row:1;
+    align-self:end;
+    position:relative;
+    z-index:1;
+    margin:0;
+    color:#ffd54a;
+    font-size:13px;
+    font-weight:600;
+    line-height:1.5;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-form {
+    grid-column:2;
+    grid-row:1 / 4;
+    align-self:center;
+    justify-self:end;
+    position:relative;
+    z-index:1;
+    margin:0;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+    grid-column:1;
+    grid-row:2;
+    display:block;
+    align-self:center;
+    margin:0;
+    min-width:0;
+    color:#ffd54a;
+    font-size:clamp(27px,4vw,38px);
+    font-weight:700;
+    line-height:1.25;
+    font-variant-numeric:tabular-nums;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+    grid-column:1;
+    grid-row:3;
+    align-self:start;
+    margin:0;
+    color:#ffd54a;
+    opacity:1;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-picker {
+    background:rgba(255,255,255,.045);
+    border-color:rgba(191,219,254,.30);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-picker:hover {
+    background:rgba(255,255,255,.09);
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        padding:17px;
+        border-radius:18px;
+        column-gap:12px;
+        row-gap:6px;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-saldo-title {
+        font-size:12px;
+        letter-spacing:.6px;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+        font-size:clamp(25px,6vw,30px);
+    }
+}
+
+
+/* Dashboard: desain ulang ATM lengkap v2 */
+.dashboard-v2 .dd-saldo-top {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    box-sizing:border-box;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 88px;
+    grid-template-rows:auto 58px auto auto;
+    column-gap:20px;
+    row-gap:8px;
+    align-content:start;
+    min-height:236px;
+    margin-bottom:16px;
+    padding:24px;
+    border-radius:22px;
+    border:1px solid rgba(191,219,254,.35);
+    background:
+        radial-gradient(
+            ellipse at 5% 0%,
+            rgba(96,165,250,.32),
+            transparent 65%
+        ),
+        repeating-linear-gradient(
+            125deg,
+            transparent 0,
+            transparent 36px,
+            rgba(255,255,255,.018) 37px,
+            transparent 38px
+        ),
+        linear-gradient(
+            125deg,
+            #133668 0%,
+            #154d91 48%,
+            #0b2447 100%
+        );
+    box-shadow:
+        0 12px 26px rgba(2,6,23,.25),
+        inset 0 1px 0 rgba(255,255,255,.20),
+        inset 0 -1px 0 rgba(0,0,0,.18);
+}
+
+/* Watermark uang di sisi kanan kartu. */
+.dashboard-v2 .dd-saldo-top::before {
+    left:auto;
+    right:22px;
+    top:65%;
+    transform:translateY(-50%) rotate(-5deg);
+    width:150px;
+    height:105px;
+    opacity:.28;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* Chip dekoratif: tidak menambahkan fungsi pembayaran. */
+.dashboard-v2 .dd-saldo-top::after {
+    content:"";
+    position:absolute;
+    left:24px;
+    top:67px;
+    right:auto;
+    bottom:auto;
+    width:46px;
+    height:35px;
+    box-sizing:border-box;
+    border:1px solid rgba(255,232,158,.70);
+    border-radius:7px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 31%,
+            rgba(112,76,15,.48) 32%,
+            rgba(112,76,15,.48) 34%,
+            transparent 35%,
+            transparent 65%,
+            rgba(112,76,15,.48) 66%,
+            rgba(112,76,15,.48) 68%,
+            transparent 69%
+        ),
+        linear-gradient(
+            0deg,
+            transparent 31%,
+            rgba(112,76,15,.48) 32%,
+            rgba(112,76,15,.48) 34%,
+            transparent 35%,
+            transparent 65%,
+            rgba(112,76,15,.48) 66%,
+            rgba(112,76,15,.48) 68%,
+            transparent 69%
+        ),
+        linear-gradient(135deg,#fff0b0,#d7aa43 55%,#f8dc83);
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.45),
+        0 2px 4px rgba(0,0,0,.15);
+    z-index:1;
+    pointer-events:none;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-saldo-heading {
+    display:contents;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-title {
+    grid-column:1;
+    grid-row:1;
+    align-self:start;
+    position:relative;
+    z-index:1;
+    margin:0;
+    color:#ffe49a;
+    font-size:12px;
+    font-weight:600;
+    line-height:1.5;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-form {
+    grid-column:2;
+    grid-row:1 / 3;
+    align-self:start;
+    justify-self:end;
+    position:relative;
+    z-index:2;
+    margin:0;
+}
+
+/* Kalender menjadi panel emas yang menyatu dengan kartu. */
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-picker {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    width:88px;
+    height:96px;
+    min-width:88px;
+    min-height:96px;
+    padding:7px;
+    border-radius:13px;
+    border:1px solid rgba(255,218,119,.35);
+    background:rgba(5,20,43,.30);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-month-picker:hover {
+    background:rgba(5,20,43,.48);
+}
+
+.dashboard-v2 .dd-saldo-top .dd-calendar-live {
+    box-sizing:border-box;
+    width:72px;
+    height:80px;
+    border:1px solid rgba(255,218,119,.45);
+    border-radius:8px;
+    background:linear-gradient(145deg,#17334f,#10263f);
+    box-shadow:0 3px 8px rgba(0,0,0,.18);
+}
+
+.dashboard-v2 .dd-saldo-top .dd-calendar-live-month {
+    height:24px;
+    background:linear-gradient(110deg,#ffe6a0,#dfb653);
+    color:#49330d;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.3px;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-calendar-live-day {
+    color:#ffe49a;
+    font-size:32px;
+    font-weight:700;
+    line-height:1;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-calendar-live-year {
+    height:18px;
+    padding-bottom:3px;
+    color:#e8c97a;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+    grid-column:1 / -1;
+    grid-row:3;
+    display:block;
+    align-self:end;
+    position:relative;
+    z-index:1;
+    min-width:0;
+    max-width:100%;
+    margin:10px 0 0;
+    color:#ffe49a;
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:clamp(28px,3.5vw,38px);
+    font-weight:700;
+    line-height:1.25;
+    letter-spacing:.5px;
+    font-variant-numeric:tabular-nums;
+    overflow-wrap:anywhere;
+    text-shadow:0 2px 2px rgba(0,0,0,.18);
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+    grid-column:1 / -1;
+    grid-row:4;
+    align-self:start;
+    position:relative;
+    z-index:1;
+    margin:0;
+    color:#ffe49a;
+    opacity:1;
+    font-size:10px;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:.25px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        min-height:214px;
+        padding:18px;
+        border-radius:18px;
+        column-gap:12px;
+        row-gap:6px;
+        grid-template-rows:auto 58px auto auto;
+    }
+
+    .dashboard-v2 .dd-saldo-top::after {
+        left:18px;
+        top:59px;
+    }
+
+    .dashboard-v2 .dd-saldo-top::before {
+        left:auto;
+        right:12px;
+        top:66%;
+        width:135px;
+        height:100px;
+        opacity:.25;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-saldo-title {
+        font-size:11px;
+        letter-spacing:1px;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+        margin-top:8px;
+        font-size:clamp(25px,6.5vw,32px);
+        letter-spacing:0;
+    }
+}
+
+
+/* Dashboard: ornamen dua lingkaran di kanan bawah kartu */
+.dashboard-v2 .dd-saldo-top::before {
+    content:"";
+    left:auto;
+    right:24px;
+    top:auto;
+    bottom:21px;
+    width:64px;
+    height:40px;
+    transform:none;
+    background-image:
+        radial-gradient(
+            circle 19px at 43px 20px,
+            rgba(255,166,0,.94) 0 98%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle 19px at 21px 20px,
+            #eb001b 0 98%,
+            transparent 100%
+        );
+    background-size:100% 100%;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:1;
+    filter:none;
+    z-index:1;
+    pointer-events:none;
+}
+
+/* Sisakan ruang agar keterangan tidak bertabrakan dengan ornamen. */
+.dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+    box-sizing:border-box;
+    padding-right:80px;
+    min-height:28px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top::before {
+        left:auto;
+        right:18px;
+        top:auto;
+        bottom:17px;
+        width:64px;
+        height:40px;
+        opacity:1;
+    }
+}
+
+
+/* Dashboard: identitas usaha pada kartu saldo */
+
+/* Ornamen lama diganti oleh elemen Blade di bawah ini. */
+.dashboard-v2 .dd-saldo-top::before {
+    content:none;
+    display:none;
+}
+
+/* Nominal tetap memakai lebar kartu; bagian bawah dibagi dua. */
+.dashboard-v2 .dd-saldo-top > .dd-saldo-caption {
+    grid-column:1;
+    grid-row:4;
+    padding:0;
+    min-height:0;
+    align-self:end;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-card-business-brand {
+    grid-column:2;
+    grid-row:4;
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    align-self:end;
+    justify-self:end;
+    gap:3px;
+    width:88px;
+    min-width:0;
+}
+
+.dashboard-v2 .dd-card-brand-circles {
+    position:relative;
+    display:block;
+    width:64px;
+    height:40px;
+    flex-shrink:0;
+}
+
+.dashboard-v2 .dd-card-brand-circle-red,
+.dashboard-v2 .dd-card-brand-circle-orange {
+    position:absolute;
+    top:1px;
+    display:block;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+}
+
+.dashboard-v2 .dd-card-brand-circle-red {
+    left:2px;
+    background:#eb001b;
+}
+
+.dashboard-v2 .dd-card-brand-circle-orange {
+    right:2px;
+    background:rgba(255,166,0,.94);
+}
+
+.dashboard-v2 .dd-card-business-name {
+    display:block;
+    box-sizing:border-box;
+    width:100%;
+    margin:0;
+    color:#fff1c4;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.25;
+    text-align:center;
+    letter-spacing:.15px;
+    overflow-wrap:anywhere;
+}
+
+
+/* Dashboard: nama usaha di tengah dua lingkaran */
+.dashboard-v2 .dd-saldo-top > .dd-card-business-brand {
+    position:relative;
+    width:88px;
+    height:40px;
+    gap:0;
+    justify-content:center;
+}
+
+.dashboard-v2 .dd-card-business-name {
+    position:absolute;
+    top:50%;
+    left:0;
+    transform:translateY(-50%);
+    z-index:2;
+    width:100%;
+    padding:0 2px;
+    color:#ffffff;
+    font-size:10px;
+    font-weight:700;
+    line-height:1.15;
+    text-align:center;
+    letter-spacing:0;
+    text-shadow:
+        0 1px 2px rgba(0,0,0,.65),
+        0 0 3px rgba(0,0,0,.30);
+    overflow-wrap:anywhere;
+}
+
+
+/* Dashboard: ukuran nama usaha HP 14px desktop 16px */
+.dashboard-v2 .dd-card-business-name {
+    font-size:16px;
+    font-weight:700;
+    line-height:1.15;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-card-business-name {
+        font-size:14px;
+    }
+}
+
+
+/* Dashboard: ukuran kartu saldo HP 200px desktop 236px */
+.dashboard-v2 .dd-saldo-top {
+    min-height:236px;
+    padding:24px;
+    border-radius:21px;
+    row-gap:8px;
+    margin-bottom:16px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        min-height:200px;
+        padding:18px;
+        border-radius:16px;
+        row-gap:6px;
+        margin-bottom:16px;
+    }
+}
+
+
+/* Dashboard: rapatkan tinggi kartu saldo khusus HP v1 */
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        height:auto;
+        min-height:0;
+        padding:12px 18px;
+        grid-template-rows:auto auto auto auto;
+        row-gap:4px;
+        align-content:start;
+        border-radius:16px;
+        margin-bottom:16px;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+        margin-top:0;
+    }
+
+    .dashboard-v2 .dd-saldo-top::after {
+        left:18px;
+        top:43px;
+    }
+}
+
+
+/* Dashboard: kartu saldo HP lebih pendek v2 */
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top {
+        height:auto;
+        min-height:0;
+        padding:8px 18px;
+        grid-template-rows:auto auto auto auto;
+        row-gap:2px;
+        align-content:start;
+    }
+
+    .dashboard-v2 .dd-saldo-top > .dd-finance-result-value {
+        margin-top:0;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-saldo-month-picker {
+        width:72px;
+        min-width:72px;
+        height:76px;
+        min-height:76px;
+        padding:5px;
+        border-radius:10px;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-calendar-live {
+        width:60px;
+        height:64px;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-calendar-live-month {
+        height:20px;
+        flex-shrink:0;
+        font-size:10px;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-calendar-live-day {
+        font-size:26px;
+    }
+
+    .dashboard-v2 .dd-saldo-top .dd-calendar-live-year {
+        height:14px;
+        flex-shrink:0;
+        padding-bottom:2px;
+        font-size:9px;
+    }
+
+    .dashboard-v2 .dd-saldo-top::after {
+        left:18px;
+        top:33px;
+        width:40px;
+        height:30px;
+    }
+}
+
+
+/* Dashboard: geser chip HP turun 10px */
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top::after {
+        top:43px;
+    }
+}
+
+
+/* Dashboard: user di atas dan label saldo di bawah nominal */
+.dashboard-v2 .dd-saldo-top .dd-saldo-title {
+    text-transform:none;
+    letter-spacing:.2px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    min-width:0;
+    max-width:100%;
+}
+
+.dashboard-v2 .dd-saldo-top > .dd-saldo-details {
+    grid-column:1;
+    grid-row:4;
+    position:relative;
+    z-index:1;
+    min-width:0;
+    margin:0;
+    padding:0;
+    align-self:start;
+}
+
+.dashboard-v2 .dd-saldo-details > .dd-saldo-period-label {
+    margin:0;
+    padding:0;
+    color:#ffe49a;
+    font-size:12px;
+    font-weight:600;
+    line-height:1.25;
+}
+
+.dashboard-v2 .dd-saldo-top .dd-saldo-details > .dd-saldo-caption {
+    margin:2px 0 0;
+    padding:0;
+    min-height:0;
+    color:#ffe49a;
+    opacity:1;
+    font-size:10px;
+    font-weight:400;
+    line-height:1.3;
+    letter-spacing:.25px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-details > .dd-saldo-period-label {
+        font-size:11px;
+    }
+}
+
+
+/* Dashboard: perbesar nama user dan renggangkan huruf */
+.dashboard-v2 .dd-saldo-top .dd-saldo-title {
+    font-size:16px;
+    font-weight:600;
+    line-height:1.3;
+    letter-spacing:1px;
+}
+
+@media(max-width:600px) {
+    .dashboard-v2 .dd-saldo-top .dd-saldo-title {
+        font-size:14px;
+    }
+}
+
+
+/* Ringkasan keuangan: kotak lebih pendek */
+.dd-finance-layout {
+    gap:8px;
+    margin-bottom:16px;
+}
+
+.dd-finance-layout .dd-finance-metrics {
+    gap:8px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric {
+    padding:10px 13px;
+    border-radius:11px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-eyebrow {
+    font-size:11px;
+    line-height:1.3;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-finance-value {
+    margin-top:4px;
+    font-size:clamp(16px,2vw,21px);
+    line-height:1.2;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-note {
+    margin:3px 0 0;
+    font-size:10px;
+    line-height:1.4;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) {
+    padding:12px 14px;
+    border-radius:11px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) .dd-finance-result-value {
+    font-size:clamp(21px,3.2vw,28px);
+    line-height:1.2;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) .dd-finance-period {
+    margin-top:2px;
+    font-size:11px;
+}
+
+@media(max-width:700px) {
+    .dd-finance-layout .dd-finance-metrics {
+        gap:7px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric {
+        padding:9px 12px;
+        gap:2px 12px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-finance-value {
+        font-size:17px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-note {
+        margin-top:1px;
+    }
+}
+
+
+/* Ringkasan keuangan: kotak lebih pendek v2 */
+.dd-finance-layout {
+    gap:6px;
+    margin-bottom:14px;
+}
+
+.dd-finance-layout .dd-finance-metrics {
+    gap:6px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric {
+    padding:7px 12px;
+    border-radius:10px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-eyebrow {
+    font-size:10.5px;
+    line-height:1.25;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-finance-value {
+    margin-top:2px;
+    font-size:clamp(15px,1.8vw,19px);
+    line-height:1.15;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-note {
+    margin:1px 0 0;
+    font-size:9px;
+    line-height:1.3;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) {
+    padding:9px 13px;
+    border-radius:10px;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) .dd-finance-result-value {
+    font-size:clamp(19px,2.8vw,24px);
+    line-height:1.15;
+}
+
+.dashboard-v2 .dd-finance-layout .dd-finance-result:not(.dd-saldo-top) .dd-finance-period {
+    margin-top:1px;
+    font-size:10px;
+}
+
+@media(max-width:700px) {
+    .dd-finance-layout .dd-finance-metrics {
+        gap:6px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric {
+        padding:6px 11px;
+        gap:1px 10px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-finance-value {
+        font-size:16px;
+    }
+
+    .dashboard-v2 .dd-finance-layout .dd-finance-metric .dd-note {
+        margin-top:0;
+    }
+}

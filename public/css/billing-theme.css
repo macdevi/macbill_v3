@@ -1,0 +1,525 @@
+/*
+Acuan halaman baru:
+background: var(--ui-bg)
+panel: var(--ui-surface)
+teks: var(--ui-text)
+teks sekunder: var(--ui-muted)
+border: 1px solid var(--ui-line)
+aksen: var(--ui-accent)
+*/
+:root,
+html[data-theme="dark"]{
+    color-scheme:dark;
+    --ui-bg:#020617;
+    --ui-surface:#0f172a;
+    --ui-surface-soft:#172033;
+    --ui-text:#f8fafc;
+    --ui-muted:#94a3b8;
+    --ui-line:rgba(148,163,184,.18);
+    --ui-accent:#22d3ee;
+    --ui-success:#34d399;
+    --ui-danger:#fb7185;
+    --ui-shadow:0 12px 32px rgba(2,6,23,.22);
+}
+html[data-theme="light"]{
+    color-scheme:light;
+    --ui-bg:#edf3f8;
+    --ui-surface:#ffffff;
+    --ui-surface-soft:#f1f5f9;
+    --ui-text:#14263d;
+    --ui-muted:#5b6d82;
+    --ui-line:rgba(71,85,105,.18);
+    --ui-accent:#087f96;
+    --ui-success:#047857;
+    --ui-danger:#be123c;
+    --ui-shadow:0 8px 28px rgba(30,58,85,.06);
+    --login-text:var(--ui-text);
+    --login-muted:var(--ui-muted);
+    --login-line:var(--ui-line);
+    --flat-text:var(--ui-text);
+    --flat-muted:var(--ui-muted);
+    --flat-line:var(--ui-line);
+}
+.topbar .theme-toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    padding:0;
+    border:1px solid var(--ui-line);
+    border-radius:12px;
+    background:var(--ui-surface-soft);
+    color:var(--ui-accent);
+    cursor:pointer;
+}
+.topbar .theme-toggle:hover{
+    border-color:var(--ui-accent);
+}
+.topbar .theme-toggle:focus-visible{
+    outline:2px solid var(--ui-accent);
+    outline-offset:3px;
+}
+
+/* Fondasi light */
+html[data-theme="light"],
+html[data-theme="light"] body{
+    color:var(--ui-text);
+    background:var(--ui-bg) !important;
+}
+html[data-theme="light"] body{
+    background:
+        radial-gradient(circle at 10% 0%,rgba(6,182,212,.06),transparent 30rem),
+        linear-gradient(135deg,#f5f8fc,#eaf1f7) !important;
+}
+html[data-theme="light"] :is(.workspace,.content){
+    background:transparent !important;
+    color:var(--ui-text);
+}
+html[data-theme="light"] .sidebar{
+    background:#f8fafc !important;
+    border-color:var(--ui-line) !important;
+    color:var(--ui-text);
+}
+html[data-theme="light"] .topbar{
+    background:rgba(248,250,252,.95) !important;
+    border-color:var(--ui-line) !important;
+    color:var(--ui-text);
+}
+html[data-theme="light"] :is(.hero,.stats .stat,.card){
+    background:linear-gradient(145deg,#ffffff,#f8fbfd) !important;
+    border-color:var(--ui-line) !important;
+    box-shadow:var(--ui-shadow) !important;
+}
+
+/* Titoli e testo */
+html[data-theme="light"] :is(
+    .topbar .breadcrumb,.topbar .account-name,
+    .hero .greeting-title,.stats .stat-value,
+    .card-head h2,.empty h3,.step h3,
+    .mt-compact-header h2,.mt-compact-info strong,
+    .mt-compact-traffic strong
+){
+    color:var(--ui-text) !important;
+}
+html[data-theme="light"] :is(
+    .hero p,.hero .device-datetime,.hero #device-clock,
+    .hero .device-timezone,.topbar .breadcrumb .parent,
+    .topbar .account-role,.stats .stat-note,
+    .card-head span,.empty p,.step p,
+    .mt-compact-info span,.mt-wan-label,
+    .mt-compact-traffic small,.footer,.footer>div
+){
+    color:var(--ui-muted) !important;
+}
+html[data-theme="light"] .stats .stat-head{
+    color:#42566e !important;
+}
+html[data-theme="light"] .hero-month-profit>div{
+    color:var(--ui-success) !important;
+}
+html[data-theme="light"] :is(
+    .card-head,.hero .device-datetime,
+    .hero .device-timezone,.mt-compact-info>div+div,
+    .mt-compact-traffic
+){
+    border-color:var(--ui-line) !important;
+}
+
+/* Navigation */
+html[data-theme="light"] .sidebar a{
+    color:#40546b !important;
+}
+html[data-theme="light"] .sidebar a:hover{
+    background:rgba(8,127,150,.06) !important;
+    color:var(--ui-accent) !important;
+}
+html[data-theme="light"] .sidebar :is(a.active,a[aria-current="page"]){
+    color:#086f83 !important;
+    background:linear-gradient(135deg,#dff4f7,#e7f6ef) !important;
+    box-shadow:inset 3px 0 0 #0891b2;
+}
+html[data-theme="light"] .sidebar-note{
+    background:#edf3f7 !important;
+    border-color:var(--ui-line) !important;
+    color:var(--ui-muted) !important;
+}
+html[data-theme="light"] .sidebar-note strong{
+    color:var(--ui-text) !important;
+}
+html[data-theme="light"] .sidebar :is(.brand-name,.brand-title){
+    color:var(--ui-text) !important;
+}
+
+/* Boutons et avatar */
+html[data-theme="light"] .topbar .menu-toggle{
+    color:#087f96 !important;
+    background:#e6f4f7 !important;
+    border-color:rgba(8,127,150,.23) !important;
+}
+html[data-theme="light"] .topbar .avatar{
+    color:#086f83 !important;
+    background:linear-gradient(135deg,#d4f1f5,#def4e9) !important;
+    border-color:rgba(8,127,150,.24) !important;
+    box-shadow:none;
+}
+html[data-theme="light"] .topbar .logout{
+    color:#be123c !important;
+    background:#fff1f2 !important;
+    border-color:#fecdd3 !important;
+}
+html[data-theme="light"] .topbar .logout:hover{
+    background:#ffe4e6 !important;
+}
+
+/* Statistiques */
+html[data-theme="light"] .network-stats .network-stat-total{
+    --stat-glow:8,145,178;
+}
+html[data-theme="light"] .network-stats .network-stat-online{
+    --stat-glow:5,150,105;
+}
+html[data-theme="light"] .network-stats .network-stat-offline{
+    --stat-glow:100,116,139;
+}
+html[data-theme="light"] .network-stats .network-stat-isolir{
+    --stat-glow:225,29,72;
+}
+html[data-theme="light"] .network-stats .network-stat .stat-icon{
+    color:rgb(var(--stat-glow)) !important;
+    border-color:rgba(var(--stat-glow),.22) !important;
+    background:rgba(var(--stat-glow),.08) !important;
+}
+
+/* Informations router et composants secondaires */
+html[data-theme="light"] .mt-compact-traffic{
+    background:#f5f8fb;
+}
+html[data-theme="light"] .mt-rx{color:#047857}
+html[data-theme="light"] .mt-tx{color:#1d4ed8}
+html[data-theme="light"] .mikrotik-panel .mikrotik-api-status[data-state="unknown"]{
+    color:#52647a;
+    background:#f1f5f9;
+    border-color:var(--ui-line);
+}
+html[data-theme="light"] .mikrotik-panel .mikrotik-api-status[data-state="connected"]{
+    color:#047857;
+    background:#ecfdf5;
+    border-color:#a7f3d0;
+}
+html[data-theme="light"] .mikrotik-panel .mikrotik-api-status[data-state="disconnected"]{
+    color:#be123c;
+    background:#fff1f2;
+    border-color:#fecdd3;
+}
+html[data-theme="light"] .system-note{
+    background:rgba(8,127,150,.04) !important;
+    border-color:rgba(8,127,150,.18) !important;
+    color:var(--ui-muted) !important;
+}
+html[data-theme="light"] .empty-icon{
+    color:#087f96 !important;
+    background:#e6f4f7 !important;
+}
+html[data-theme="light"] .step-number{
+    color:#087f96 !important;
+    background:#e6f4f7 !important;
+    border-color:var(--ui-line) !important;
+}
+html[data-theme="light"] .hero .internet-animation{
+    opacity:.22;
+}
+html[data-theme="light"] .hero .internet-animation .art-line{
+    stroke:#0891b2;
+}
+html[data-theme="light"] .hero .internet-animation .art-node{
+    fill:#e0f2f5;
+    stroke:#0891b2;
+}
+html[data-theme="light"] .hero .internet-animation>g{
+    stroke:#087f96;
+}
+@media(max-width:600px){
+    .topbar .theme-toggle{
+        width:34px;
+        height:36px;
+        border-radius:11px;
+    }
+    .topbar .account{gap:7px}
+}
+
+/* Kontras teks navigasi pada light theme */
+html[data-theme="light"] .sidebar{
+    color:#334155 !important;
+}
+html[data-theme="light"] .sidebar :is(
+    .nav-label,
+    .nav-title,
+    .nav-heading,
+    .nav-section,
+    .nav-section-title,
+    .menu-label,
+    .menu-title,
+    .menu-heading,
+    .menu-section-title,
+    .sidebar-label,
+    .sidebar-heading,
+    .sidebar-section-title
+){
+    color:#52647a !important;
+    opacity:1 !important;
+}
+html[data-theme="light"] .sidebar a,
+html[data-theme="light"] .sidebar a :is(span,small),
+html[data-theme="light"] .sidebar :is(
+    .submenu,.sub-menu,.nav-submenu,.menu-children
+){
+    color:#334155 !important;
+    opacity:1 !important;
+}
+html[data-theme="light"] .sidebar a svg{
+    color:#52647a !important;
+    opacity:1 !important;
+}
+html[data-theme="light"] .sidebar a:hover,
+html[data-theme="light"] .sidebar a:hover :is(span,small,svg){
+    color:#086f83 !important;
+}
+html[data-theme="light"] .sidebar :is(
+    a.active,a[aria-current="page"]
+),
+html[data-theme="light"] .sidebar :is(
+    a.active,a[aria-current="page"]
+) :is(span,small,svg){
+    color:#075e70 !important;
+    opacity:1 !important;
+}
+
+/* Kontras tegas seluruh teks sidebar pada light theme */
+html[data-theme="light"] body .sidebar,
+html[data-theme="light"] body .sidebar *{
+    color:#1e293b !important;
+    -webkit-text-fill-color:#1e293b !important;
+    opacity:1 !important;
+    text-shadow:none !important;
+}
+
+/* Menu aktif dan hover tetap memakai aksen teal gelap */
+html[data-theme="light"] body .sidebar a:hover,
+html[data-theme="light"] body .sidebar a:hover *,
+html[data-theme="light"] body .sidebar a.active,
+html[data-theme="light"] body .sidebar a.active *,
+html[data-theme="light"] body .sidebar a[aria-current="page"],
+html[data-theme="light"] body .sidebar a[aria-current="page"] *{
+    color:#075e70 !important;
+    -webkit-text-fill-color:#075e70 !important;
+}
+
+/* Catatan tetap jelas, tidak abu-abu terang */
+html[data-theme="light"] body .sidebar .sidebar-note,
+html[data-theme="light"] body .sidebar .sidebar-note *{
+    color:#334155 !important;
+    -webkit-text-fill-color:#334155 !important;
+}
+
+/* Ikon brand router: khusus light theme */
+html[data-theme="light"] body .sidebar .brand .brand-mark{
+    display:grid;
+    place-items:center;
+    flex-shrink:0;
+    width:44px;
+    height:44px;
+    border:1px solid #a5d8df !important;
+    border-radius:14px;
+    background:linear-gradient(135deg,#d9f1f5,#e3f4ed) !important;
+    color:#086f83 !important;
+    -webkit-text-fill-color:#086f83 !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.85) !important;
+    opacity:1 !important;
+}
+html[data-theme="light"] body .sidebar .brand .brand-mark *,
+html[data-theme="light"] body .sidebar .brand:hover .brand-mark *{
+    color:#086f83 !important;
+    -webkit-text-fill-color:#086f83 !important;
+    opacity:1 !important;
+}
+html[data-theme="light"] body .sidebar .brand .brand-mark svg{
+    width:25px;
+    height:25px;
+    fill:none !important;
+    stroke:#086f83 !important;
+}
+html[data-theme="light"] body .sidebar .brand .brand-mark::before,
+html[data-theme="light"] body .sidebar .brand .brand-mark::after{
+    display:none !important;
+}
+html[data-theme="light"] body .sidebar .brand strong{
+    color:#14263d !important;
+    -webkit-text-fill-color:#14263d !important;
+}
+html[data-theme="light"] body .sidebar .brand small{
+    color:#52647a !important;
+    -webkit-text-fill-color:#52647a !important;
+}
+
+/* UNIFIED THEME TOKENS START
+   Komponen baru memakai --ui-*.
+   File halaman mengatur layout, bukan palet tema sendiri.
+*/
+:root,
+html[data-theme="dark"] {
+    --ui-color-scheme: dark;
+    --ui-bg: #0b1425;
+    --ui-surface: #111e32;
+    --ui-surface-soft: #1e293b;
+    --ui-surface-hover: #334155;
+    --ui-input: #0b1425;
+    --ui-text: #e2e8f0;
+    --ui-muted: #94a3b8;
+    --ui-line: #334155;
+    --ui-line-strong: #475569;
+    --ui-accent: #5eead4;
+    --ui-primary: #0f766e;
+    --ui-primary-hover: #115e59;
+    --ui-primary-line: #0d9488;
+    --ui-on-primary: #ffffff;
+    --ui-success: #99f6e4;
+    --ui-success-bg: #12342f;
+    --ui-success-line: #216359;
+    --ui-danger: #fda4af;
+    --ui-danger-bg: #321e2d;
+    --ui-danger-hover: #4c2034;
+    --ui-danger-line: #9f3450;
+    --ui-danger-solid: #be123c;
+    --ui-danger-solid-hover: #9f1239;
+    --ui-danger-solid-line: #e11d48;
+    --ui-info: #93c5fd;
+    --ui-backdrop: rgb(2 6 23 / 78%);
+    --ui-modal-shadow: 0 28px 90px rgb(0 0 0 / 45%);
+    --ui-disabled-opacity: .6;
+    --ui-login-art: radial-gradient(ellipse at 45% 42%,#143b51 0%,#0b1a2c 48%,#091321 90%);
+}
+
+html[data-theme="light"] {
+    --ui-color-scheme: light;
+    --ui-bg: #edf3f8;
+    --ui-surface: #ffffff;
+    --ui-surface-soft: #f1f5f9;
+    --ui-surface-hover: #e2e8f0;
+    --ui-input: #ffffff;
+    --ui-text: #14263d;
+    --ui-muted: #52647a;
+    --ui-line: #d5dfe9;
+    --ui-line-strong: #a7b7c9;
+    --ui-accent: #087f86;
+    --ui-primary: #0f766e;
+    --ui-primary-hover: #115e59;
+    --ui-primary-line: #0f766e;
+    --ui-on-primary: #ffffff;
+    --ui-success: #04634d;
+    --ui-success-bg: #ecfdf5;
+    --ui-success-line: #a7d9c5;
+    --ui-danger: #a61036;
+    --ui-danger-bg: #fff1f2;
+    --ui-danger-hover: #ffe4e6;
+    --ui-danger-line: #edacbb;
+    --ui-danger-solid: #be123c;
+    --ui-danger-solid-hover: #9f1239;
+    --ui-danger-solid-line: #be123c;
+    --ui-info: #1d4ed8;
+    --ui-backdrop: rgb(15 23 42 / 42%);
+    --ui-modal-shadow: 0 24px 70px rgb(15 23 42 / 18%);
+    --ui-login-art: radial-gradient(ellipse at 45% 42%,#d7eff3 0%,#e8f3f7 48%,#f1f6fb 90%);
+}
+
+/* Tombol tema dipakai bersama, termasuk halaman paket. */
+.theme-toggle,
+.topbar .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--ui-line);
+    border-radius: 10px;
+    background: var(--ui-surface-soft);
+    color: var(--ui-accent);
+    cursor: pointer;
+}
+.theme-toggle:hover {
+    border-color: var(--ui-accent);
+    background: var(--ui-surface-hover);
+}
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 3px;
+}
+.pkg-topbar > .theme-toggle { margin-left: auto; }
+#login-theme-control {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 100;
+}
+
+/* Alias halaman login lama, memakai palet yang sama. */
+html[data-theme] {
+    --bg: var(--ui-bg);
+    --surface: var(--ui-surface);
+    --line: var(--ui-line);
+    --text: var(--ui-text);
+    --muted: var(--ui-muted);
+    --cyan: var(--ui-accent);
+    color-scheme: var(--ui-color-scheme);
+}
+body.billing-login {
+    background: var(--ui-bg);
+    color: var(--ui-text);
+}
+.billing-login .visual {
+    background: var(--ui-login-art);
+    border-color: var(--ui-line);
+}
+.billing-login .main { background: var(--ui-bg); }
+.billing-login :is(label,.notice strong) { color: var(--ui-text); }
+.billing-login :is(.visual-footer,.badge,.input-icon,.toggle,.notice,.footer) {
+    color: var(--ui-muted);
+}
+.billing-login .badge { border-color: var(--ui-line); }
+.billing-login .logo {
+    background: var(--ui-surface-soft);
+    border-color: var(--ui-line);
+    color: var(--ui-accent);
+}
+.billing-login input:is([type=email],[type=password],[type=text]) {
+    background: var(--ui-input);
+    border-color: var(--ui-line-strong);
+    color: var(--ui-text);
+}
+.billing-login input::placeholder { color: var(--ui-muted); opacity: 1; }
+.billing-login input:focus { border-color: var(--ui-accent); }
+.billing-login input[aria-invalid=true] { border-color: var(--ui-danger); }
+.billing-login .toggle:hover {
+    background: var(--ui-surface-hover);
+    color: var(--ui-text);
+}
+.billing-login .submit {
+    background: var(--ui-primary);
+    border-color: var(--ui-primary-line);
+    color: var(--ui-on-primary);
+}
+.billing-login .submit:hover { background: var(--ui-primary-hover); }
+.billing-login .error {
+    background: var(--ui-danger-bg);
+    border-color: var(--ui-danger-line);
+    color: var(--ui-danger);
+}
+.billing-login .status {
+    background: var(--ui-success-bg);
+    border-color: var(--ui-success-line);
+    color: var(--ui-success);
+}
+/* UNIFIED THEME TOKENS END */

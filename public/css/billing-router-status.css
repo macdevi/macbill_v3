@@ -1,0 +1,79 @@
+/* Status koneksi API MikroTik pada dashboard. */
+#router-live-panel .mikrotik-api-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#router-live-panel .mikrotik-api-status > i {
+    display: inline-block;
+    position: relative;
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: none;
+    animation: none;
+}
+
+#router-live-panel .mikrotik-api-status > i::before {
+    content: none;
+}
+
+#router-live-panel .mikrotik-api-status > i::after {
+    content: none;
+}
+
+#router-live-panel .mikrotik-api-status[data-state="connected"] {
+    color: var(--ui-success);
+    background: var(--ui-success-bg);
+    border: 1px solid var(--ui-success-line);
+}
+
+#router-live-panel .mikrotik-api-status[data-state="connected"] > i::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: none;
+    animation: billing-router-heartbeat 2.4s ease-out infinite;
+}
+
+#router-live-panel .mikrotik-api-status[data-state="disconnected"] {
+    color: var(--ui-danger);
+    background: var(--ui-danger-bg);
+    border: 1px solid var(--ui-danger-line);
+}
+
+#router-live-panel .mikrotik-api-status[data-state="unknown"] {
+    color: var(--ui-muted);
+    background: var(--ui-surface-soft);
+    border: 1px solid var(--ui-line);
+}
+
+@keyframes billing-router-heartbeat {
+    0% {
+        transform: scale(1);
+        opacity: .75;
+    }
+    65% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #router-live-panel .mikrotik-api-status[data-state="connected"] > i::after {
+        animation: none;
+        content: none;
+    }
+}

@@ -1,0 +1,33 @@
+#router-isolation-settings {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ui-line);
+}
+#router-isolation-settings h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: var(--ui-text);
+}
+#router-isolation-settings label {
+    display: block;
+    margin: 14px 0 7px;
+    font-size: 14px;
+    color: var(--ui-text);
+}
+#router-isolation-settings select {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--ui-line-strong);
+    border-radius: 10px;
+    background: var(--ui-input);
+    color: var(--ui-text);
+    font: inherit;
+}
+#router-isolation-settings select:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 2px;
+}
+#router-load-profiles { margin-top: 12px; }
+#router-isolation-profile-fields[hidden] { display: none; }

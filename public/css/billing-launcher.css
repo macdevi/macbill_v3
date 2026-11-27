@@ -1,0 +1,541 @@
+.billing-launcher-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 8px;
+    min-height: 40px;
+    padding: 9px 12px;
+    border: 1px solid var(--ui-line);
+    border-radius: 11px;
+    background: var(--ui-surface-soft);
+    color: var(--ui-text);
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+.billing-launcher-trigger:hover {
+    color: var(--ui-accent);
+    border-color: var(--ui-accent);
+}
+.billing-launcher {
+    width: min(560px, calc(100vw - 28px));
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    border: 1px solid var(--ui-line-strong);
+    border-radius: 20px;
+    background: var(--ui-surface);
+    color: var(--ui-text);
+    box-shadow: var(--ui-modal-shadow);
+    color-scheme: var(--ui-color-scheme);
+    transform-origin: center;
+}
+.billing-launcher:not([open]) { display: none; }
+.billing-launcher::backdrop {
+    background: var(--ui-backdrop);
+    opacity: 0;
+    transition: opacity 260ms ease;
+}
+.billing-launcher.is-visible::backdrop { opacity: 1; }
+.billing-launcher-panel { padding: 25px; }
+.billing-launcher-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.billing-launcher-heading h2 {
+    margin: 0 0 5px;
+    color: var(--ui-text);
+    font-size: 21px;
+    font-weight: 650;
+    letter-spacing: -.4px;
+}
+.billing-launcher-heading p {
+    margin: 0;
+    color: var(--ui-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+.billing-launcher-close {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--ui-line);
+    border-radius: 11px;
+    background: var(--ui-surface-soft);
+    color: var(--ui-muted);
+    cursor: pointer;
+}
+.billing-launcher-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+.billing-launcher-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    min-width: 0;
+    min-height: 115px;
+    box-sizing: border-box;
+    padding: 15px 7px 12px;
+    border: 1px solid var(--ui-line);
+    border-radius: 14px;
+    background: transparent;
+    color: var(--ui-text);
+    font: inherit;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease;
+}
+.billing-launcher-item:hover:not(:disabled),
+.billing-launcher-item.is-active {
+    border-color: var(--ui-accent);
+    background: var(--ui-surface-soft);
+}
+.billing-launcher-icon {
+    display: grid;
+    place-items: center;
+    height: 32px;
+    margin-bottom: 9px;
+    color: var(--ui-text);
+}
+.billing-launcher-item.is-active .billing-launcher-icon,
+.billing-launcher-item:hover:not(:disabled) .billing-launcher-icon {
+    color: var(--ui-accent);
+}
+.billing-launcher-label {
+    color: var(--ui-text);
+    font-size: 12px;
+    font-weight: 550;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+.billing-launcher-caption {
+    margin-top: 4px;
+    color: var(--ui-muted);
+    font-size: 9px;
+    line-height: 1.5;
+}
+.billing-launcher-item.is-pending {
+    background: transparent;
+    opacity: .55;
+    cursor: not-allowed;
+}
+.billing-launcher-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ui-line);
+    color: var(--ui-muted);
+    font-size: 10px;
+    text-align: center;
+}
+.billing-launcher-trigger:focus-visible,
+.billing-launcher-close:focus-visible,
+.billing-launcher-item:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 3px;
+}
+body.billing-launcher-open { overflow: hidden; }
+
+/* Lepaskan ruang yang sebelumnya disediakan untuk sidebar dashboard. */
+body.billing-launcher-layout .shell {
+    display: block !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding-left: 0 !important;
+}
+body.billing-launcher-layout .workspace {
+    width: 100% !important;
+    min-width: 0;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    grid-column: auto !important;
+}
+body.billing-launcher-layout .topbar-left { min-width: 0; }
+
+@media (max-width: 600px) {
+    .billing-launcher-panel { padding: 19px 15px; }
+    .billing-launcher-heading { margin-bottom: 17px; }
+    .billing-launcher-heading h2 { font-size: 19px; }
+    .billing-launcher-heading p { max-width: 27ch; font-size: 10px; }
+    .billing-launcher-grid { gap: 8px; }
+    .billing-launcher-item {
+        min-height: 103px;
+        padding: 12px 5px 10px;
+        border-radius: 12px;
+    }
+    .billing-launcher-label { font-size: 10px; }
+    .billing-launcher-caption { font-size: 8px; }
+    .billing-launcher-icon { height: 29px; margin-bottom: 6px; }
+    .billing-launcher-icon svg { width: 24px; height: 24px; }
+    .billing-launcher-trigger { padding: 8px 10px; gap: 6px; font-size: 11px; }
+    .billing-header-end .billing-header-shortcut { display: none; }
+}
+@media (max-width: 360px) {
+    .billing-header-end .billing-launcher-trigger span { display: none; }
+    .billing-header-end .billing-launcher-trigger { width: 40px; padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .billing-launcher::backdrop,
+    .billing-launcher-item { transition: none; }
+}
+
+/* Akun bersama di bagian bawah launcher. */
+.billing-launcher-user {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ui-line);
+}
+
+.billing-launcher-user-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--ui-line);
+    border-radius: 12px;
+    background: var(--ui-surface-soft);
+    color: var(--ui-accent);
+}
+
+.billing-launcher-user-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.billing-launcher-user-info strong {
+    color: var(--ui-text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.billing-launcher-user-info > span {
+    color: var(--ui-muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.billing-launcher-logout-form {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.billing-launcher-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--ui-danger-line);
+    border-radius: 10px;
+    background: var(--ui-danger-bg);
+    color: var(--ui-danger);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.billing-launcher-logout:hover {
+    background: var(--ui-danger-hover);
+}
+
+.billing-launcher-logout:focus-visible {
+    outline: 2px solid var(--ui-danger);
+    outline-offset: 3px;
+}
+
+.billing-launcher-user + .billing-launcher-footer {
+    margin-top: 14px;
+    padding-top: 0;
+    border-top: 0;
+}
+
+@media (max-width: 600px) {
+    .billing-launcher-user {
+        gap: 9px;
+        margin-top: 17px;
+        padding-top: 15px;
+    }
+
+    .billing-launcher-user-info strong {
+        font-size: 12px;
+    }
+
+    .billing-launcher-logout {
+        gap: 5px;
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+/* Bottom navigation (HP) */
+.billing-bottom-nav { display: none; }
+
+@media (max-width: 760px) {
+    .billing-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 40;
+        display: flex;
+        align-items: stretch;
+        gap: 2px;
+        padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--ui-line-strong);
+        background: var(--ui-surface);
+        box-shadow: 0 -6px 18px rgba(0, 0, 0, .08);
+    }
+    .billing-bottom-item {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        min-height: 52px;
+        padding: 6px 2px;
+        border: 0;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--ui-muted);
+        font: inherit;
+        font-size: 10px;
+        line-height: 1.3;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .billing-bottom-item span {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .billing-bottom-item.is-active {
+        background: var(--ui-surface-soft);
+        color: var(--ui-accent);
+        font-weight: 600;
+    }
+    .billing-bottom-item:focus-visible {
+        outline: 2px solid var(--ui-accent);
+        outline-offset: -2px;
+    }
+    body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+    .billing-launcher-trigger { display: none; }
+}
+
+@media print {
+    .billing-bottom-nav { display: none; }
+}
+
+/* Desktop full navigation */
+.billing-desktop-nav {
+    display:none;
+}
+
+@media (min-width:761px) {
+    body {
+        padding-bottom:var(--billing-desktop-nav-space, 130px);
+    }
+
+    .billing-launcher-trigger {
+        display:none;
+    }
+
+    .billing-desktop-nav {
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:40;
+        display:flex;
+        align-items:center;
+        gap:14px;
+        box-sizing:border-box;
+        padding:10px 16px;
+        border-top:1px solid var(--ui-line-strong);
+        background:var(--ui-surface);
+        color:var(--ui-text);
+        box-shadow:0 -5px 18px rgba(0,0,0,.07);
+    }
+
+    .billing-desktop-links {
+        display:flex;
+        flex:1;
+        flex-wrap:wrap;
+        align-items:stretch;
+        gap:5px;
+        min-width:0;
+    }
+
+    .billing-desktop-item {
+        display:flex;
+        flex:1 1 76px;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:5px;
+        box-sizing:border-box;
+        min-width:0;
+        min-height:58px;
+        padding:8px 6px;
+        border:1px solid transparent;
+        border-radius:11px;
+        background:transparent;
+        color:var(--ui-muted);
+        font:inherit;
+        font-size:11px;
+        line-height:1.4;
+        text-align:center;
+        text-decoration:none;
+        cursor:pointer;
+    }
+
+    .billing-desktop-item svg {
+        flex-shrink:0;
+    }
+
+    .billing-desktop-item:hover:not(:disabled),
+    .billing-desktop-item.is-active {
+        border-color:var(--ui-line);
+        background:var(--ui-surface-soft);
+        color:var(--ui-accent);
+    }
+
+    .billing-desktop-item.is-active {
+        font-weight:600;
+    }
+
+    .billing-desktop-item.is-pending {
+        opacity:.45;
+        cursor:not-allowed;
+    }
+
+    .billing-desktop-account {
+        display:flex;
+        flex:0 0 auto;
+        align-items:center;
+        gap:12px;
+        padding-left:14px;
+        border-left:1px solid var(--ui-line);
+    }
+
+    .billing-desktop-user {
+        display:flex;
+        flex-direction:column;
+        gap:3px;
+        max-width:150px;
+        overflow-wrap:anywhere;
+    }
+
+    .billing-desktop-user strong {
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .billing-desktop-user > span {
+        color:var(--ui-muted);
+        font-size:10px;
+    }
+
+    .billing-desktop-account form {
+        margin:0;
+    }
+
+    .billing-desktop-logout {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        min-height:40px;
+        padding:8px 10px;
+        border:1px solid var(--ui-danger-line);
+        border-radius:10px;
+        background:var(--ui-danger-bg);
+        color:var(--ui-danger);
+        font:inherit;
+        font-size:11px;
+        cursor:pointer;
+    }
+
+    .billing-desktop-item:focus-visible,
+    .billing-desktop-logout:focus-visible {
+        outline:2px solid var(--ui-accent);
+        outline-offset:2px;
+    }
+}
+
+@media (min-width:761px) and (max-width:1100px) {
+    .billing-desktop-nav {
+        gap:8px;
+        padding:8px 10px;
+    }
+
+    .billing-desktop-user {
+        display:none;
+    }
+
+    .billing-desktop-account {
+        padding-left:8px;
+    }
+}
+
+@media print {
+    .billing-desktop-nav {
+        display:none !important;
+    }
+
+    body {
+        padding-bottom:0 !important;
+    }
+}
+
+/* Menu bawah: 6 item */
+.billing-bottom-nav{grid-template-columns:repeat(6,minmax(0,1fr))}
+.billing-bottom-item{min-width:0}
+.billing-bottom-item span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.billing-bottom-item.is-pending{opacity:.45;cursor:not-allowed}
+
+/* Warna menu per fungsi */
+.billing-bottom-item svg,
+.billing-desktop-item svg{color:var(--tone,currentColor)}
+.billing-bottom-item.is-active,
+.billing-desktop-item.is-active{
+    color:var(--tone,inherit);
+    background:color-mix(in srgb,var(--tone,#ffffff) 15%,transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tone,#ffffff) 38%,transparent);
+}
+.billing-bottom-item.is-active span,
+.billing-desktop-item.is-active span{color:var(--tone,inherit)}
+.billing-launcher-grid .billing-launcher-item .billing-launcher-icon{
+    color:var(--tone,inherit);
+    background:color-mix(in srgb,var(--tone,#ffffff) 16%,transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tone,#ffffff) 28%,transparent);
+}
+.billing-launcher-grid .billing-launcher-item.is-active{
+    border-color:color-mix(in srgb,var(--tone,#ffffff) 55%,transparent);
+    background:color-mix(in srgb,var(--tone,#ffffff) 10%,transparent);
+}
+.billing-launcher-grid .billing-launcher-item.is-pending{opacity:.5}

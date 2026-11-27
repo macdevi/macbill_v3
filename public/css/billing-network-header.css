@@ -1,0 +1,359 @@
+
+/* Dekorasi header bersama: hanya lapisan visual. */
+.topbar.billing-network-header {
+    isolation: isolate;
+    --network-line: var(--ui-line);
+    --network-node: var(--ui-accent);
+}
+
+.topbar.billing-network-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: .48;
+    background-image:
+        radial-gradient(circle, var(--network-node) 0 2px, transparent 3px),
+        radial-gradient(circle, var(--network-node) 0 2px, transparent 3px),
+        radial-gradient(circle, var(--network-node) 0 2px, transparent 3px),
+        radial-gradient(circle, var(--network-node) 0 2px, transparent 3px),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line));
+    background-size:
+        8px 8px,
+        8px 8px,
+        8px 8px,
+        8px 8px,
+        160px 1px,
+        1px 25px,
+        210px 1px,
+        1px 22px,
+        140px 1px,
+        90px 1px;
+    background-position:
+        right 405px top 13px,
+        right 245px top 38px,
+        right 35px top 16px,
+        left 35% top 47px,
+        right 249px top 17px,
+        right 249px top 17px,
+        right 39px top 42px,
+        right 39px top 20px,
+        left 35% top 51px,
+        left 26% top 25px;
+    background-repeat: no-repeat;
+}
+
+.topbar.billing-network-header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--ui-line) 18%,
+        var(--ui-accent) 50%,
+        var(--ui-line) 82%,
+        transparent
+    );
+    opacity: .5;
+}
+
+/* Isi header tetap berada di atas pola jaringan. */
+.topbar.billing-network-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Tombol tetap memiliki bidang yang jelas di atas dekorasi. */
+.billing-network-header .billing-header-shortcut {
+    background: var(--ui-surface);
+}
+
+html[data-theme="light"] .topbar.billing-network-header::before {
+    opacity: .38;
+}
+
+@media (max-width: 640px) {
+    .topbar.billing-network-header::before {
+        opacity: .3;
+        background-size:
+            7px 7px,
+            7px 7px,
+            7px 7px,
+            7px 7px,
+            90px 1px,
+            1px 22px,
+            110px 1px,
+            1px 20px,
+            65px 1px,
+            45px 1px;
+        background-position:
+            right 205px top 10px,
+            right 115px top 32px,
+            right 5px top 12px,
+            left 30% top 48px,
+            right 119px top 13px,
+            right 119px top 13px,
+            right 9px top 35px,
+            right 9px top 15px,
+            left 30% top 51px,
+            left 20% top 22px;
+    }
+
+    html[data-theme="light"] .topbar.billing-network-header::before {
+        opacity: .27;
+    }
+
+    .topbar.billing-network-header::after {
+        opacity: .35;
+    }
+}
+
+/* Paket data bergerak. Lapisan ini tidak menerima klik. */
+.topbar.billing-network-header > .billing-network-packets {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.billing-network-packets .network-packet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ui-accent);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.billing-network-packets .network-packet-one {
+    top: 15px;
+    right: 407px;
+    animation: network-packet-one 7s linear infinite;
+}
+
+.billing-network-packets .network-packet-two {
+    top: 40px;
+    right: 247px;
+    animation: network-packet-two 8.5s linear infinite;
+    animation-delay: -3s;
+}
+
+.billing-network-packets .network-packet-three {
+    top: 49px;
+    left: 35%;
+    animation: network-packet-three 9s linear infinite;
+    animation-delay: -5s;
+}
+
+@keyframes network-packet-one {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    7%   { opacity: .65; }
+    50%  { transform: translate(160px, 0); opacity: .65; }
+    66%  { transform: translate(160px, 25px); opacity: .65; }
+    76%  { transform: translate(160px, 25px); opacity: 0; }
+    100% { transform: translate(160px, 25px); opacity: 0; }
+}
+
+@keyframes network-packet-two {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    8%   { opacity: .55; }
+    62%  { transform: translate(210px, 0); opacity: .55; }
+    72%  { transform: translate(210px, -22px); opacity: .55; }
+    82%  { transform: translate(210px, -22px); opacity: 0; }
+    100% { transform: translate(210px, -22px); opacity: 0; }
+}
+
+@keyframes network-packet-three {
+    0%   { transform: translateX(0); opacity: 0; }
+    10%  { opacity: .4; }
+    66%  { transform: translateX(140px); opacity: .4; }
+    80%  { transform: translateX(140px); opacity: 0; }
+    100% { transform: translateX(140px); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+    .billing-network-packets .network-packet {
+        width: 4px;
+        height: 4px;
+    }
+
+    .billing-network-packets .network-packet-one {
+        top: 11px;
+        right: 207px;
+        animation-name: network-packet-one-mobile;
+    }
+
+    .billing-network-packets .network-packet-two {
+        top: 33px;
+        right: 117px;
+        animation-name: network-packet-two-mobile;
+    }
+
+    .billing-network-packets .network-packet-three {
+        display: none;
+    }
+
+    @keyframes network-packet-one-mobile {
+        0%   { transform: translate(0, 0); opacity: 0; }
+        8%   { opacity: .5; }
+        50%  { transform: translate(90px, 0); opacity: .5; }
+        68%  { transform: translate(90px, 22px); opacity: .5; }
+        80%  { transform: translate(90px, 22px); opacity: 0; }
+        100% { transform: translate(90px, 22px); opacity: 0; }
+    }
+
+    @keyframes network-packet-two-mobile {
+        0%   { transform: translate(0, 0); opacity: 0; }
+        8%   { opacity: .45; }
+        60%  { transform: translate(110px, 0); opacity: .45; }
+        74%  { transform: translate(110px, -20px); opacity: .45; }
+        84%  { transform: translate(110px, -20px); opacity: 0; }
+        100% { transform: translate(110px, -20px); opacity: 0; }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .billing-network-packets .network-packet {
+        animation: none;
+        display: none;
+    }
+}
+
+
+/* ALL NETWORK NODES MOVING */
+
+/* Hilangkan empat titik bawaan. Jalur garis tetap ditampilkan. */
+.topbar.billing-network-header::before {
+    background-image:
+        none,
+        none,
+        none,
+        none,
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line)),
+        linear-gradient(var(--network-line), var(--network-line));
+}
+
+/* Semua titik terus terlihat dan bergerak bolak-balik. */
+.billing-network-packets .network-packet {
+    opacity: .6;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+.billing-network-packets .network-packet-one {
+    animation-name: network-node-route-one;
+    animation-duration: 6s;
+    animation-delay: -1s;
+}
+
+.billing-network-packets .network-packet-two {
+    animation-name: network-node-route-two;
+    animation-duration: 7.5s;
+    animation-delay: -4s;
+}
+
+.billing-network-packets .network-packet-three {
+    animation-name: network-node-route-three;
+    animation-duration: 8s;
+    animation-delay: -2s;
+}
+
+.billing-network-packets .network-packet-four {
+    top: 23px;
+    left: 26%;
+    animation: network-node-route-four 6.5s ease-in-out -3s infinite alternate;
+}
+
+@keyframes network-node-route-one {
+    0% { transform: translate(0, 0); }
+    75% { transform: translate(160px, 0); }
+    100% { transform: translate(160px, 25px); }
+}
+
+@keyframes network-node-route-two {
+    0% { transform: translate(0, 0); }
+    80% { transform: translate(210px, 0); }
+    100% { transform: translate(210px, -22px); }
+}
+
+@keyframes network-node-route-three {
+    from { transform: translateX(0); }
+    to { transform: translateX(140px); }
+}
+
+@keyframes network-node-route-four {
+    from { transform: translateX(0); }
+    to { transform: translateX(90px); }
+}
+
+@media (max-width: 640px) {
+    .billing-network-packets .network-packet-one {
+        animation-name: network-node-route-one-mobile;
+    }
+
+    .billing-network-packets .network-packet-two {
+        animation-name: network-node-route-two-mobile;
+    }
+
+    .billing-network-packets .network-packet-three {
+        display: block;
+        top: 49px;
+        left: 30%;
+        animation-name: network-node-route-three-mobile;
+    }
+
+    .billing-network-packets .network-packet-four {
+        top: 20px;
+        left: 20%;
+        animation-name: network-node-route-four-mobile;
+    }
+
+    @keyframes network-node-route-one-mobile {
+        0% { transform: translate(0, 0); }
+        75% { transform: translate(90px, 0); }
+        100% { transform: translate(90px, 22px); }
+    }
+
+    @keyframes network-node-route-two-mobile {
+        0% { transform: translate(0, 0); }
+        80% { transform: translate(110px, 0); }
+        100% { transform: translate(110px, -20px); }
+    }
+
+    @keyframes network-node-route-three-mobile {
+        from { transform: translateX(0); }
+        to { transform: translateX(65px); }
+    }
+
+    @keyframes network-node-route-four-mobile {
+        from { transform: translateX(0); }
+        to { transform: translateX(45px); }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .billing-network-packets .network-packet {
+        animation: none;
+        display: none;
+    }
+}

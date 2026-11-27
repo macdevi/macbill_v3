@@ -1,0 +1,445 @@
+.sc-card{position:relative;overflow:hidden;box-sizing:border-box;min-width:0;margin-bottom:20px;padding:20px;border-radius:20px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(130deg,#1c293b,#101925);box-shadow:0 12px 28px rgba(0,0,0,.27);color:#e8eff8}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sc-title{margin:0;color:inherit;font-size:12px;font-weight:650;letter-spacing:1.8px;line-height:1.4;text-transform:uppercase}
+.sc-badge{padding:6px 9px;border-radius:20px;background:rgba(255,255,255,.06);color:#b8cada;font-size:10px;letter-spacing:1px;white-space:nowrap}
+.sc-split{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px}
+.sc-total{min-width:0;cursor:pointer;border-radius:10px}
+.sc-total:focus-visible,.sc-chip:focus-visible{outline:2px solid #60a5fa;outline-offset:3px}
+.sc-total strong{display:block;color:#fff;font-size:38px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sc-total span{display:block;margin-top:4px;color:#b5c9e0;font-size:12px}
+.sc-ring{flex-shrink:0;display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background:conic-gradient(#4ee2aa 0 calc(var(--dc-on,0)*1%),#ff7b7b calc(var(--dc-on,0)*1%) calc(var(--dc-off-end,0)*1%),rgba(148,163,184,.22) 0)}
+.sc-ring>div{display:grid;place-content:center;width:76px;height:76px;border-radius:50%;background:#132334;text-align:center}
+.sc-ring b{color:#fff;font-size:18px;line-height:1.1}
+.sc-ring small{margin-top:2px;color:#9aafc8;font-size:9px;letter-spacing:.5px}
+.sc-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+.sc-chip{--c:#4ee2aa;box-sizing:border-box;min-width:0;padding:10px 11px;border:1px solid rgba(255,255,255,.11);border-radius:12px;background:rgba(255,255,255,.04);cursor:pointer;transition:.15s}
+.sc-chip:hover{background:rgba(255,255,255,.09);border-color:var(--c);transform:translateY(-1px)}
+.sc-chip:focus-visible{border-color:var(--c)}
+.sc-offline{--c:#ff7b7b}
+.sc-isolir{--c:#f5b83d}
+.sc-name{display:flex;align-items:center;gap:6px;color:#b8cada;font-size:11px}
+.sc-name i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.sc-chip strong{display:block;margin-top:5px;color:#fff;font-size:22px;line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sc-chip em{display:block;margin-top:2px;color:#8da7c5;font-size:10px;font-style:normal}
+.sc-hint{margin:12px 0 0;color:#7f97b3;font-size:11px}
+.sc-note{margin:6px 0 0;color:#7f97b3;font-size:10px;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:600px){.sc-card{padding:16px;border-radius:16px;margin-bottom:17px}.sc-split{margin-top:14px}.sc-total strong{font-size:34px}.sc-ring{width:84px;height:84px}.sc-ring>div{width:66px;height:66px}.sc-ring b{font-size:16px}.sc-chips{margin-top:16px;gap:7px}.sc-chip{padding:9px 8px}.sc-chip strong{font-size:20px}.sc-chip em{display:none}.sc-name{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.sc-chip{transition:none}.sc-chip:hover{transform:none}}
+
+
+/* Status pelanggan: kartu ringkas tanpa badge */
+.sc-card {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    column-gap:14px;
+    row-gap:0;
+    padding:16px 18px;
+    margin-bottom:16px;
+}
+
+.sc-top,
+.sc-split {
+    display:contents;
+}
+
+.sc-top .sc-title {
+    grid-column:1;
+    grid-row:1;
+    align-self:end;
+}
+
+.sc-total {
+    grid-column:1;
+    grid-row:2;
+    align-self:start;
+    margin-top:6px;
+}
+
+.sc-total strong {
+    font-size:34px;
+}
+
+.sc-ring {
+    grid-column:2;
+    grid-row:1 / 3;
+    align-self:center;
+    width:84px;
+    height:84px;
+}
+
+.sc-ring > div {
+    width:66px;
+    height:66px;
+}
+
+.sc-ring b {
+    font-size:16px;
+}
+
+.sc-chips {
+    grid-column:1 / -1;
+    grid-row:3;
+    margin-top:14px;
+    gap:8px;
+}
+
+.sc-chip {
+    padding:9px 11px;
+}
+
+.sc-chip strong {
+    margin-top:3px;
+    font-size:20px;
+}
+
+.sc-chip em {
+    display:none;
+}
+
+.sc-note {
+    grid-column:1 / -1;
+    grid-row:4;
+    margin:8px 0 0;
+}
+
+@media(max-width:600px) {
+    .sc-card {
+        padding:14px;
+        column-gap:10px;
+        margin-bottom:14px;
+    }
+
+    .sc-total {
+        margin-top:4px;
+    }
+
+    .sc-total strong {
+        font-size:30px;
+    }
+
+    .sc-ring {
+        width:72px;
+        height:72px;
+    }
+
+    .sc-ring > div {
+        width:56px;
+        height:56px;
+    }
+
+    .sc-ring b {
+        font-size:14px;
+    }
+
+    .sc-ring small {
+        font-size:8px;
+    }
+
+    .sc-chips {
+        margin-top:12px;
+        gap:7px;
+    }
+
+    .sc-chip {
+        padding:8px;
+    }
+
+    .sc-chip strong {
+        font-size:18px;
+    }
+
+    .sc-note {
+        margin-top:6px;
+    }
+}
+
+
+/* Status pelanggan: ikon dan latar per status */
+.sc-chip.sc-online { --c:#4ee2aa; --rgb:78,226,170; }
+.sc-chip.sc-offline { --c:#ff7b7b; --rgb:255,123,123; }
+.sc-chip.sc-isolir { --c:#f5b83d; --rgb:245,184,61; }
+
+.sc-chip.sc-online,
+.sc-chip.sc-offline,
+.sc-chip.sc-isolir {
+    border-color:rgba(var(--rgb),.42);
+    background:linear-gradient(
+        135deg,
+        rgba(var(--rgb),.20) 0%,
+        rgba(var(--rgb),.07) 70%,
+        rgba(var(--rgb),.03) 100%
+    );
+    box-shadow:0 0 12px rgba(var(--rgb),.08);
+}
+
+.sc-chip.sc-online:hover,
+.sc-chip.sc-offline:hover,
+.sc-chip.sc-isolir:hover,
+.sc-chip.sc-online:focus-visible,
+.sc-chip.sc-offline:focus-visible,
+.sc-chip.sc-isolir:focus-visible {
+    border-color:rgba(var(--rgb),.75);
+    background:linear-gradient(
+        135deg,
+        rgba(var(--rgb),.30) 0%,
+        rgba(var(--rgb),.11) 70%,
+        rgba(var(--rgb),.05) 100%
+    );
+}
+
+.sc-chip .sc-name {
+    gap:8px;
+    color:#dbe7f5;
+    font-weight:600;
+}
+
+.sc-chip .sc-icon {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border:1px solid rgba(var(--rgb),.50);
+    border-radius:8px;
+    background:rgba(var(--rgb),.20);
+    color:var(--c);
+}
+
+.sc-chip .sc-icon svg {
+    display:block;
+    width:16px;
+    height:16px;
+}
+
+@media(max-width:600px) {
+    .sc-chip .sc-name {
+        gap:6px;
+    }
+
+    .sc-chip .sc-icon {
+        width:22px;
+        height:22px;
+        border-radius:7px;
+    }
+
+    .sc-chip .sc-icon svg {
+        width:13px;
+        height:13px;
+    }
+}
+
+
+/* Status pelanggan: latar ungu */
+.sc-card {
+    border-color:rgba(196,181,253,.28);
+    background:
+        radial-gradient(circle at 90% 8%, rgba(167,139,250,.30), transparent 45%),
+        linear-gradient(135deg, #5b21b6 0%, #3b1585 52%, #1f0f45 100%);
+    box-shadow:0 12px 28px rgba(46,16,101,.50);
+}
+
+.sc-ring > div {
+    background:#2a1458;
+}
+
+.sc-total span {
+    color:#ddd0fa;
+}
+
+.sc-ring small,
+.sc-chip em {
+    color:#c4b5fd;
+}
+
+.sc-note {
+    color:#b9a8e6;
+}
+
+.sc-chip .sc-name {
+    color:#ece4ff;
+}
+
+
+/* Status pelanggan: ungu gelap halus */
+.sc-card {
+    border-color:rgba(196,181,253,.16);
+    background:
+        radial-gradient(circle at 90% 8%, rgba(167,139,250,.13), transparent 48%),
+        linear-gradient(135deg, #382a68 0%, #241648 55%, #140c2c 100%);
+    box-shadow:0 12px 28px rgba(15,8,35,.55);
+}
+
+.sc-ring > div {
+    background:#1c1040;
+}
+
+.sc-total span {
+    color:#cfc4ea;
+}
+
+.sc-ring small,
+.sc-chip em {
+    color:#b3a6d9;
+}
+
+.sc-note {
+    color:#a396c9;
+}
+
+
+/* Status pelanggan: warna sesuai preview 02 */
+.sc-card {
+    border-color:#ffffff20;
+    background:linear-gradient(130deg,#302b5b,#172844);
+    box-shadow:0 12px 28px rgba(0,0,0,.20);
+}
+
+.sc-ring > div {
+    background:#132334;
+}
+
+.sc-total span {
+    color:#b5c9e0;
+}
+
+.sc-ring small,
+.sc-chip em {
+    color:#9aafc8;
+}
+
+.sc-note {
+    color:#829ab6;
+}
+
+
+/* Status pelanggan: total rata tengah dengan label */
+.sc-total {
+    justify-self:start;
+    width:fit-content;
+    text-align:center;
+}
+
+
+/* Status pelanggan: angka chip rata tengah */
+.sc-chip strong {
+    text-align:center;
+}
+
+
+/* Status pelanggan: chip dan kartu lebih pendek */
+.sc-card {
+    padding:14px 18px;
+    margin-bottom:14px;
+}
+
+.sc-chips {
+    margin-top:10px;
+    gap:7px;
+}
+
+.sc-chip {
+    padding:6px 10px;
+    border-radius:10px;
+}
+
+.sc-chip .sc-name {
+    gap:6px;
+    font-size:10.5px;
+}
+
+.sc-chip .sc-icon {
+    width:20px;
+    height:20px;
+    border-radius:6px;
+}
+
+.sc-chip .sc-icon svg {
+    width:12px;
+    height:12px;
+}
+
+.sc-chip strong {
+    margin-top:2px;
+    font-size:16px;
+    line-height:1.15;
+}
+
+.sc-note {
+    margin-top:6px;
+}
+
+@media(max-width:600px) {
+    .sc-card {
+        padding:12px 14px;
+        margin-bottom:14px;
+    }
+
+    .sc-chips {
+        margin-top:9px;
+        gap:6px;
+    }
+
+    .sc-chip {
+        padding:6px 8px;
+    }
+
+    .sc-chip .sc-name {
+        gap:5px;
+        font-size:10px;
+    }
+
+    .sc-chip .sc-icon {
+        width:18px;
+        height:18px;
+        border-radius:5px;
+    }
+
+    .sc-chip .sc-icon svg {
+        width:11px;
+        height:11px;
+    }
+
+    .sc-chip strong {
+        font-size:15px;
+    }
+
+    .sc-note {
+        margin-top:5px;
+    }
+}
+
+
+/* Status pelanggan: chip satu baris */
+.sc-chip {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:2px 6px;
+    padding:7px 10px;
+}
+
+.sc-chip .sc-name {
+    flex:0 1 auto;
+    min-width:0;
+}
+
+.sc-chip strong {
+    flex:0 0 auto;
+    margin:0 0 0 auto;
+    text-align:right;
+    font-size:17px;
+    line-height:1.1;
+}
+
+@media(max-width:600px) {
+    .sc-chip {
+        gap:2px 4px;
+        padding:7px 8px;
+    }
+
+    .sc-chip strong {
+        font-size:15px;
+    }
+}

@@ -1,0 +1,768 @@
+.dc-card {
+    display:grid;
+    grid-template-columns:clamp(110px,20vw,180px) minmax(0,1fr);
+    gap:12px;
+    padding:15px;
+    margin-bottom:20px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.16));
+    border-radius:17px;
+    background:var(--ui-surface,#111e32);
+    min-width:0;
+}
+
+.dc-online {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    aspect-ratio:1;
+    min-width:0;
+    border:1px solid rgba(52,211,153,.3);
+    border-radius:13px;
+    background:rgba(52,211,153,.08);
+}
+
+.dc-online > span {
+    color:var(--ui-text,#e2e8f0);
+    font-size:13px;
+}
+
+.dc-online > strong {
+    color:var(--ui-success,#34d399);
+    font-size:clamp(32px,4vw,48px);
+    line-height:1;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    font-variant-numeric:tabular-nums;
+}
+
+.dc-side {
+    display:grid;
+    grid-template-rows:repeat(3,minmax(0,1fr));
+    gap:9px;
+    min-width:0;
+}
+
+.dc-item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    min-width:0;
+    padding:10px 15px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.16));
+    border-radius:11px;
+    background:var(--ui-input,rgba(148,163,184,.04));
+}
+
+.dc-item > span {
+    min-width:0;
+    font-size:12px;
+    color:var(--ui-muted,#94a3b8);
+    overflow-wrap:anywhere;
+}
+
+.dc-item > strong {
+    font-size:23px;
+    line-height:1.1;
+    font-variant-numeric:tabular-nums;
+    overflow-wrap:anywhere;
+    color:var(--ui-text,#e2e8f0);
+}
+
+.dc-isolated > strong {
+    color:var(--ui-danger,#fb7185);
+}
+
+.dc-note {
+    grid-column:1 / -1;
+    min-width:0;
+    margin:0;
+    color:var(--ui-muted,#94a3b8);
+    font-size:10px;
+    line-height:1.6;
+    overflow-wrap:anywhere;
+}
+
+@media(max-width:600px) {
+    .dc-card {
+        grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);
+        gap:9px;
+        padding:11px;
+        margin-bottom:17px;
+        border-radius:14px;
+    }
+
+    .dc-online {
+        gap:10px;
+        border-radius:11px;
+    }
+
+    .dc-online > span {
+        font-size:12px;
+    }
+
+    .dc-online > strong {
+        font-size:clamp(27px,8vw,38px);
+    }
+
+    .dc-side {
+        gap:7px;
+    }
+
+    .dc-item {
+        padding:7px 9px;
+        gap:7px;
+        border-radius:9px;
+    }
+
+    .dc-item > span {
+        font-size:10px;
+    }
+
+    .dc-item > strong {
+        font-size:20px;
+    }
+
+    .dc-note {
+        font-size:9px;
+    }
+}
+
+/* Dashboard koneksi: warna sesuai fungsi card */
+.dc-card {
+    padding:15px;
+    border-color:var(--ui-line,rgba(148,163,184,.18));
+    background:
+        linear-gradient(135deg,rgba(59,130,246,.05),transparent 55%),
+        var(--ui-surface,#111e32);
+}
+
+.dc-online,
+.dc-item {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.18);
+}
+
+/* Online: hijau */
+.dc-online {
+    background:linear-gradient(145deg,#059669 0%,#047857 100%);
+    box-shadow:0 7px 18px rgba(5,150,105,.16);
+}
+
+.dc-online > span {
+    color:#ecfdf5;
+    font-weight:600;
+}
+
+.dc-online > strong {
+    color:#ffffff;
+    text-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+/* Berlangganan: biru */
+.dc-side > .dc-item:first-child {
+    background:linear-gradient(115deg,#2563eb 0%,#1d4ed8 100%);
+    box-shadow:0 4px 12px rgba(37,99,235,.12);
+}
+
+.dc-side > .dc-item:first-child > span {
+    color:#eff6ff;
+}
+
+.dc-side > .dc-item:first-child > strong {
+    color:#ffffff;
+}
+
+/* Offline: kuning-oranye */
+.dc-item.dc-offline {
+    background:linear-gradient(115deg,#fbbf24 0%,#f59e0b 100%);
+    border-color:rgba(146,64,14,.15);
+    box-shadow:0 4px 12px rgba(245,158,11,.12);
+}
+
+.dc-item.dc-offline > span,
+.dc-item.dc-offline > strong {
+    color:#422006;
+}
+
+/* Isolir: merah-merah muda */
+.dc-item.dc-isolated {
+    background:linear-gradient(115deg,#e11d48 0%,#be123c 100%);
+    box-shadow:0 4px 12px rgba(225,29,72,.12);
+}
+
+.dc-item.dc-isolated > span {
+    color:#fff1f2;
+}
+
+.dc-item.dc-isolated > strong {
+    color:#ffffff;
+}
+
+.dc-item > span {
+    font-weight:600;
+}
+
+.dc-online > span,
+.dc-online > strong,
+.dc-item > span,
+.dc-item > strong {
+    position:relative;
+    z-index:1;
+}
+
+/* Ornamen statis, tidak menutupi teks atau menerima klik */
+.dc-online::after {
+    content:"";
+    position:absolute;
+    width:125%;
+    aspect-ratio:1;
+    right:-65%;
+    bottom:-45%;
+    border:20px solid rgba(255,255,255,.10);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+}
+
+.dc-item::after {
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    right:-25px;
+    top:50%;
+    transform:translateY(-50%);
+    border:14px solid rgba(255,255,255,.10);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+}
+
+.dc-note {
+    padding-top:2px;
+}
+
+@media(max-width:600px) {
+    .dc-card {
+        padding:11px;
+    }
+
+    .dc-online {
+        box-shadow:0 4px 12px rgba(5,150,105,.12);
+    }
+
+    .dc-item::after {
+        width:75px;
+        height:75px;
+        right:-22px;
+        border-width:11px;
+    }
+}
+
+/* Dashboard koneksi: ikon animasi dan revisi warna */
+
+/* Offline: merah */
+.dc-item.dc-offline {
+    background:linear-gradient(115deg,#dc2626 0%,#b91c1c 100%);
+    border-color:rgba(255,255,255,.18);
+    box-shadow:0 4px 12px rgba(220,38,38,.14);
+}
+
+.dc-item.dc-offline > span,
+.dc-item.dc-offline > strong {
+    color:#ffffff;
+}
+
+/* Isolir: abu-abu */
+.dc-item.dc-isolated {
+    background:linear-gradient(115deg,#64748b 0%,#475569 100%);
+    border-color:rgba(255,255,255,.18);
+    box-shadow:0 4px 12px rgba(71,85,105,.14);
+}
+
+.dc-item.dc-isolated > span,
+.dc-item.dc-isolated > strong {
+    color:#ffffff;
+}
+
+/* Label dan ikon */
+.dc-label {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+}
+
+.dc-label > span {
+    min-width:0;
+    overflow-wrap:anywhere;
+}
+
+.dc-icon {
+    display:block;
+    flex-shrink:0;
+    width:21px;
+    height:21px;
+    transform-origin:center;
+}
+
+.dc-online > .dc-label {
+    flex-direction:column;
+    gap:8px;
+}
+
+.dc-online .dc-icon {
+    width:30px;
+    height:30px;
+}
+
+/* Online: sinyal muncul perlahan */
+.dc-icon-online .dci-signal {
+    animation:dc-signal-breathe 2.8s ease-in-out infinite;
+}
+
+/* Berlangganan: gerakan ringan ikon pelanggan */
+.dc-icon-customers {
+    animation:dc-customers-float 4s ease-in-out infinite;
+}
+
+/* Offline: getaran singkat, lalu diam */
+.dc-icon-offline {
+    animation:dc-offline-shake 5s ease-in-out infinite;
+}
+
+/* Isolir: gerakan ringan bagian atas gembok */
+.dc-icon-isolated .dci-shackle {
+    animation:dc-lock-settle 4.5s ease-in-out infinite;
+}
+
+@keyframes dc-signal-breathe {
+    0%,100% { opacity:.45; }
+    50% { opacity:1; }
+}
+
+@keyframes dc-customers-float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-2px); }
+}
+
+@keyframes dc-offline-shake {
+    0%,6%,100% { transform:translateX(0); }
+    1%,3%,5% { transform:translateX(-1.5px); }
+    2%,4% { transform:translateX(1.5px); }
+}
+
+@keyframes dc-lock-settle {
+    0%,15%,35%,100% { transform:translateY(0); }
+    25% { transform:translateY(-1px); }
+}
+
+@media(max-width:600px) {
+    .dc-label {
+        gap:6px;
+    }
+
+    .dc-icon {
+        width:17px;
+        height:17px;
+    }
+
+    .dc-online > .dc-label {
+        gap:6px;
+    }
+
+    .dc-online .dc-icon {
+        width:25px;
+        height:25px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .dc-card .dc-icon,
+    .dc-card .dc-icon * {
+        animation:none!important;
+        transform:none!important;
+        opacity:1;
+    }
+}
+
+
+/* Card pelanggan: soft outline dan glow mengikuti tema */
+
+/* Warna aksen tetap sesuai fungsi masing-masing card. */
+.dc-card .dc-online {
+    --dc-accent:16,185,129;
+}
+
+.dc-card .dc-side > .dc-item:first-child {
+    --dc-accent:59,130,246;
+}
+
+.dc-card .dc-item.dc-offline {
+    --dc-accent:239,68,68;
+}
+
+.dc-card .dc-item.dc-isolated {
+    --dc-accent:148,163,184;
+}
+
+/* Hapus warna penuh, pertahankan semburat tipis dan garis bercahaya. */
+.dc-card .dc-online,
+.dc-card .dc-side > .dc-item {
+    color:inherit;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(var(--dc-accent),.065) 0%,
+            rgba(var(--dc-accent),.018) 55%,
+            transparent 100%
+        );
+    border:1px solid rgba(var(--dc-accent),.48);
+    box-shadow:
+        0 0 10px rgba(var(--dc-accent),.075),
+        inset 0 0 12px rgba(var(--dc-accent),.035);
+}
+
+/* Hilangkan ornamen lingkaran dari desain warna penuh. */
+.dc-card .dc-online::after,
+.dc-card .dc-side > .dc-item::after {
+    display:none;
+}
+
+/* Label dan angka mewarisi warna teks dari tema aktif. */
+.dc-card .dc-online > span,
+.dc-card .dc-online > strong,
+.dc-card .dc-side > .dc-item > span,
+.dc-card .dc-side > .dc-item > strong {
+    color:inherit;
+    text-shadow:none;
+}
+
+.dc-card .dc-label > span {
+    color:inherit;
+}
+
+.dc-card .dc-online > span,
+.dc-card .dc-side > .dc-item > span {
+    opacity:.88;
+}
+
+.dc-card .dc-online > strong,
+.dc-card .dc-side > .dc-item > strong {
+    opacity:1;
+}
+
+/* Ikon menjadi aksen warna, bukan seluruh teks. */
+.dc-card .dc-online .dc-icon,
+.dc-card .dc-side > .dc-item .dc-icon {
+    color:rgb(var(--dc-accent));
+    opacity:1;
+    filter:drop-shadow(0 0 3px rgba(var(--dc-accent),.16));
+}
+
+/* Glow dibuat tetap lembut, termasuk pada layar kecil. */
+@media(max-width:600px) {
+    .dc-card .dc-online,
+    .dc-card .dc-side > .dc-item {
+        box-shadow:
+            0 0 7px rgba(var(--dc-accent),.06),
+            inset 0 0 9px rgba(var(--dc-accent),.025);
+    }
+}
+
+
+/* Card pelanggan: teks mengikuti warna aksen */
+.dc-card .dc-online > span,
+.dc-card .dc-online > strong,
+.dc-card .dc-side > .dc-item > span,
+.dc-card .dc-side > .dc-item > strong {
+    color:rgb(var(--dc-accent));
+    opacity:1;
+}
+
+.dc-card .dc-label > span {
+    color:inherit;
+}
+
+/* Angka tetap bersih, tanpa tambahan glow pada teks. */
+.dc-card .dc-online > strong,
+.dc-card .dc-side > .dc-item > strong {
+    text-shadow:none;
+}
+
+/* Card pelanggan: judul Status Pelanggan */
+.dc-card > .dc-title {
+    grid-column:1 / -1;
+    flex-basis:100%;
+    margin:0 0 12px;
+    padding:0;
+    color:inherit;
+    font-size:14px;
+    font-weight:650;
+    line-height:1.4;
+    letter-spacing:normal;
+    text-transform:none;
+}
+
+@media(max-width:600px) {
+    .dc-card > .dc-title {
+        margin-bottom:10px;
+        font-size:13px;
+    }
+}
+
+
+/* Detail pelanggan: petunjuk klik dan popup */
+.dc-card [data-dc-detail] { cursor:pointer; position:relative; }
+.dc-card [data-dc-detail]:focus-visible { outline:2px solid rgb(var(--dc-accent)); outline-offset:3px; }
+.dc-card .dc-side > [data-dc-detail] { padding-right:29px; }
+.dc-card [data-dc-detail] > .dc-label { position:static; }
+.dc-card .dc-click-hand {
+    position:absolute; right:8px; bottom:8px; width:16px; height:16px;
+    color:rgb(var(--dc-accent)); pointer-events:none;
+    animation:dc-hand-tap 3.6s ease-in-out infinite; transform-origin:60% 70%;
+}
+.dc-card .dc-side .dc-click-hand { top:50%; bottom:auto; margin-top:-8px; }
+.dc-card .dc-online .dc-click-hand { right:10px; bottom:10px; width:18px; height:18px; }
+.dc-card .dc-click-rays { animation:dc-hand-rays 3.6s ease-in-out infinite; }
+@keyframes dc-hand-tap {
+    0%,14%,32%,100% { transform:translateY(0) scale(1); }
+    22% { transform:translateY(2px) scale(.92); }
+}
+@keyframes dc-hand-rays { 0%,14%,35%,100% { opacity:.25; } 23% { opacity:1; } }
+.dc-detail-modal {
+    width:min(760px,calc(100vw - 24px)); max-height:86vh;
+    padding:0; margin:auto; border-radius:16px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.28));
+    background:var(--ui-surface,#111e32); color:inherit;
+    box-shadow:0 20px 70px rgba(0,0,0,.3);
+}
+.dc-detail-modal[open] { display:flex; flex-direction:column; }
+.dc-detail-modal::backdrop { background:rgba(2,6,23,.65); }
+.dc-detail-header,.dc-detail-footer {
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; padding:16px 18px;
+}
+.dc-detail-header { border-bottom:1px solid var(--ui-line,rgba(148,163,184,.2)); }
+.dc-detail-header > div { min-width:0; }
+.dc-detail-header h2 { margin:0; font-size:16px; color:inherit; }
+.dc-detail-header p { margin:6px 0 0; font-size:11px; line-height:1.6; opacity:.75; }
+.dc-detail-modal button {
+    border:1px solid var(--ui-line,rgba(148,163,184,.3)); border-radius:8px;
+    background:transparent; color:inherit; padding:7px 10px;
+    font:inherit; font-size:12px; cursor:pointer;
+}
+.dc-detail-modal button:disabled { opacity:.4; cursor:default; }
+.dc-detail-modal button:focus-visible,.dc-detail-modal input:focus-visible {
+    outline:2px solid var(--ui-accent,#3b82f6); outline-offset:2px;
+}
+.dc-detail-tools { padding:12px 18px; }
+.dc-detail-tools label { display:block; margin-bottom:6px; font-size:12px; }
+.dc-detail-tools input {
+    display:block; box-sizing:border-box; width:100%; padding:10px 12px;
+    border:1px solid var(--ui-line,rgba(148,163,184,.3));
+    border-radius:9px; background:transparent; color:inherit; font:inherit;
+}
+.dc-detail-tools input::placeholder { color:inherit; opacity:.55; }
+.dc-detail-table-wrap { min-height:0; overflow:auto; flex:1; margin:0 18px; }
+.dc-detail-table { border-collapse:collapse; width:100%; text-align:left; font-size:12px; }
+.dc-detail-table th,.dc-detail-table td {
+    padding:11px 9px; vertical-align:top; color:inherit; background:transparent;
+    border-bottom:1px solid var(--ui-line,rgba(148,163,184,.15)); overflow-wrap:anywhere;
+}
+.dc-detail-table th { font-weight:600; white-space:nowrap; }
+.dc-detail-table td:first-child { min-width:130px; }
+.dc-detail-table td small { display:block; margin-top:4px; opacity:.65; font-size:10px; }
+.dc-detail-footer { font-size:11px; flex-wrap:wrap; }
+.dc-detail-footer > div { display:flex; gap:7px; }
+.dc-detail-sr {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+@media(max-width:600px) {
+    .dc-detail-header,.dc-detail-footer { padding:12px; }
+    .dc-detail-tools { padding:10px 12px; }
+    .dc-detail-table-wrap { margin:0 12px; }
+    .dc-detail-header h2 { font-size:14px; }
+}
+@media(prefers-reduced-motion:reduce) {
+    .dc-card .dc-click-hand,.dc-card .dc-click-rays {
+        animation:none!important; transform:none!important; opacity:1;
+    }
+}
+
+
+/* Ikon tangan: putih di navy, gelap di light */
+.dc-card .dc-click-hand {
+    color:var(--dc-hand-ink,#ffffff);
+    filter:none;
+}
+
+
+/* Ikon tangan: mengarah dan mengetuk angka pelanggan */
+
+/* Label kembali memakai ruang normal; tangan kini berada dekat angka. */
+.dc-card .dc-side > [data-dc-detail] {
+    padding-right:15px;
+}
+
+.dc-card .dc-number-target {
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    overflow:visible;
+    color:rgb(var(--dc-accent));
+    opacity:1;
+}
+
+/* Pembungkus angka tidak mengikuti susunan vertikal label Online. */
+.dc-card .dc-online > .dc-number-target {
+    flex-direction:row;
+}
+
+.dc-card .dc-number-target > strong {
+    display:block;
+    color:inherit;
+    opacity:1;
+    text-shadow:none;
+    font-variant-numeric:tabular-nums;
+}
+
+/* Pertahankan hierarki ukuran angka. */
+.dc-card .dc-online .dc-number-target > strong {
+    font-size:clamp(32px,5vw,48px);
+    font-weight:700;
+    line-height:1.1;
+}
+
+.dc-card .dc-side .dc-number-target > strong {
+    font-size:20px;
+    font-weight:700;
+    line-height:1.2;
+}
+
+/* Jari berada di bawah sisi kanan angka, mengarah ke angka. */
+.dc-card .dc-number-target > .dc-click-hand,
+.dc-card .dc-online .dc-number-target > .dc-click-hand,
+.dc-card .dc-side .dc-number-target > .dc-click-hand {
+    position:absolute;
+    top:auto;
+    right:-9px;
+    bottom:-10px;
+    left:auto;
+    margin:0;
+    width:17px;
+    height:17px;
+    z-index:2;
+    pointer-events:none;
+    color:var(--dc-hand-ink,#ffffff);
+    filter:none;
+    transform-origin:50% 80%;
+    animation:dc-hand-press-number 3.6s ease-in-out infinite;
+}
+
+.dc-card .dc-online .dc-number-target > .dc-click-hand {
+    right:-10px;
+    bottom:-11px;
+    width:20px;
+    height:20px;
+}
+
+/* Bergerak mendekati angka, lalu kembali dengan jeda. */
+@keyframes dc-hand-press-number {
+    0%,14%,34%,100% {
+        transform:translate(0,0) rotate(-18deg);
+    }
+    23% {
+        transform:translate(-2px,-4px) rotate(-18deg) scale(.94);
+    }
+}
+
+@media(max-width:600px) {
+    .dc-card .dc-side > [data-dc-detail] {
+        padding-right:12px;
+    }
+
+    .dc-card .dc-side .dc-number-target > strong {
+        font-size:17px;
+    }
+
+    .dc-card .dc-side .dc-number-target > .dc-click-hand {
+        right:-7px;
+        bottom:-8px;
+        width:14px;
+        height:14px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .dc-card .dc-number-target > .dc-click-hand {
+        animation:none!important;
+        transform:rotate(-18deg)!important;
+    }
+}
+
+
+/* Ikon tangan: mirror dan jarak aman dari angka */
+
+/* Sisakan ruang di kiri angka untuk tangan. */
+.dc-card .dc-number-target {
+    padding-left:19px;
+}
+
+.dc-card .dc-online > .dc-number-target {
+    padding-left:22px;
+}
+
+/* Pindahkan tangan ke kiri, tetap berada dalam area card. */
+.dc-card .dc-number-target > .dc-click-hand,
+.dc-card .dc-online .dc-number-target > .dc-click-hand,
+.dc-card .dc-side .dc-number-target > .dc-click-hand {
+    left:0;
+    right:auto;
+    top:auto;
+    bottom:-5px;
+    margin:0;
+    transform-origin:center;
+    animation:dc-hand-mirror-press 3.6s ease-in-out infinite;
+}
+
+.dc-card .dc-online .dc-number-target > .dc-click-hand {
+    bottom:-6px;
+}
+
+/* Mirror horizontal; gerakan mengetuk tetap menuju angka. */
+@keyframes dc-hand-mirror-press {
+    0%,14%,34%,100% {
+        transform:translate(0,0) scaleX(-1) rotate(-18deg);
+    }
+    23% {
+        transform:translate(2px,-3px) scaleX(-1) rotate(-18deg);
+    }
+}
+
+@media(max-width:600px) {
+    .dc-card .dc-side .dc-number-target {
+        padding-left:17px;
+    }
+
+    .dc-card .dc-side .dc-number-target > .dc-click-hand {
+        left:0;
+        right:auto;
+        bottom:-4px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .dc-card .dc-number-target > .dc-click-hand {
+        animation:none!important;
+        transform:scaleX(-1) rotate(-18deg)!important;
+    }
+}
