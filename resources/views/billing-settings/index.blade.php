@@ -240,6 +240,56 @@
                 Penerbitan tagihan serta eksekusi isolir belum dijalankan.
             </p>
         </form>
+
+        <section class="settings-section" aria-labelledby="reset-heading">
+            <div class="settings-section-heading">
+                <span class="settings-number" aria-hidden="true">07</span>
+                <div>
+                    <h2 id="reset-heading">Reset data billing</h2>
+                    <p>Kosongkan router, paket, pelanggan, tagihan, pembayaran, dan pengeluaran. Pengguna, wilayah, dan pengaturan di atas tidak diubah.</p>
+                </div>
+            </div>
+
+            <table style="width:100%;margin-top:18px;border-collapse:collapse">
+                <tbody>
+                    @foreach(\App\Services\BillingReset::counts() as $table => $count)
+                        <tr>
+                            <td style="padding:6px 0"><code>{{ $table }}</code></td>
+                            <td style="padding:6px 0;text-align:right">{{ number_format($count, 0, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <p class="settings-help">Hanya database aplikasi yang dikosongkan. Akun PPPoE di MikroTik tidak diubah. Tindakan ini tidak bisa dibatalkan, jadi cadangkan database dan catat data router serta paket lebih dulu.</p>
+
+            @if(! config('billing_reset.enabled'))
+                <p class="settings-help" style="margin-top:18px">
+                    Fitur dimatikan. Set <code>BILLING_RESET_ENABLED=true</code> di <code>.env</code>,
+                    jalankan <code>php artisan config:clear</code>, lalu muat ulang halaman ini.
+                </p>
+            @else
+                <form method="POST" action="{{ route('data-reset.destroy') }}"
+                    onsubmit="return confirm('Semua data billing akan dihapus permanen. Lanjutkan?')">
+                    @csrf
+                    @method('DELETE')
+
+                    <div class="settings-field" style="margin-top:18px">
+                        <label for="reset-confirmation">Ketik KOSONGKAN</label>
+                        <input id="reset-confirmation" name="confirmation" type="text" required autocomplete="off">
+                    </div>
+
+                    <div class="settings-field" style="margin-top:18px">
+                        <label for="reset-password">Kata sandi Anda</label>
+                        <input id="reset-password" name="password" type="password" required autocomplete="current-password">
+                    </div>
+
+                    <div class="settings-save-row">
+                        <p>Hanya super admin yang bisa melakukan ini.</p>
+                        <button class="settings-save" type="submit" style="background:#b42318">Kosongkan semua data</button>
+                    </div>
+                </form>
+            @endif
+        </section>
     </main>
 
     @include('partials.billing-launcher')
