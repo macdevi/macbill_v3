@@ -182,3 +182,38 @@
     .billing-header-back,
     .billing-header-shortcut { transition: none; }
 }
+
+.billing-header-dashboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    box-sizing: border-box;
+    padding: 9px 15px;
+    border: 1px solid color-mix(in srgb, var(--tone, #60a5fa) 38%, transparent);
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--tone, #60a5fa) 15%, var(--ui-surface));
+    color: var(--tone, #60a5fa);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color .16s ease, background .16s ease;
+}
+
+.billing-header-dashboard:hover { border-color: var(--tone, #60a5fa); }
+
+.billing-header-dashboard:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .billing-header-dashboard {
+        min-height: 40px;
+        padding: 8px 12px;
+        border-radius: 11px;
+        font-size: 12px;
+    }
+}

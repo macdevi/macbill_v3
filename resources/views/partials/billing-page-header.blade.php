@@ -1,9 +1,3 @@
-@php
-    $headerTitle = $headerTitle ?? 'Ruang kerja';
-    $headerBackUrl = $headerBackUrl ?? route('dashboard');
-    $headerBackLabel = $headerBackLabel ?? 'Dashboard';
-@endphp
-
 <header class="topbar billing-page-header billing-network-header">
     <div class="billing-network-packets" aria-hidden="true">
         <span class="network-packet network-packet-one"></span>
@@ -14,28 +8,22 @@
 
     <div class="billing-header-inner">
         <div class="billing-header-start">
-            <a class="billing-header-back"
-                href="{{ $headerBackUrl }}"
-                aria-label="Kembali ke {{ $headerBackLabel }}"
-                title="Kembali ke {{ $headerBackLabel }}">
-                <svg width="19" height="19" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="1.8"
+            @php($dashboardActive = request()->routeIs('dashboard'))
+            <a class="billing-header-dashboard {{ $dashboardActive ? 'is-active' : '' }}"
+                style="--tone: #60a5fa"
+                href="{{ route('dashboard') }}"
+                @if($dashboardActive) aria-current="page" @endif>
+                <svg width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.6"
                     stroke-linecap="round" stroke-linejoin="round"
                     aria-hidden="true">
-                    <path d="m12 5-7 7 7 7M5 12h14"/>
+                    <path d="M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z"/>
                 </svg>
+                <span>Dashboard</span>
             </a>
-
-            <div class="billing-header-location">
-                <a class="billing-header-parent" href="{{ $headerBackUrl }}">
-                    {{ $headerBackLabel }}
-                </a>
-                <span class="billing-header-title">{{ $headerTitle }}</span>
-            </div>
         </div>
 
         <div class="billing-header-end">
-            @include('partials.billing-launcher-button')
             @can('manage-system')
                 @can('manage-users')
                 <a class="billing-header-shortcut"
