@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Scopes\CustomerOwnedScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BillingBalanceEntry extends Model
 {
@@ -24,12 +26,12 @@ class BillingBalanceEntry extends Model
         ];
     }
 
-    public function customer()
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class)->withTrashed();
     }
 
-    public function receipt()
+    public function receipt(): BelongsTo
     {
         return $this->belongsTo(
             BillingReceipt::class,
@@ -37,12 +39,12 @@ class BillingBalanceEntry extends Model
         );
     }
 
-    public function invoice()
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class);
     }
 
-    public function sourceEntry()
+    public function sourceEntry(): BelongsTo
     {
         return $this->belongsTo(
             self::class,
@@ -50,7 +52,7 @@ class BillingBalanceEntry extends Model
         );
     }
 
-    public function uses()
+    public function uses(): HasMany
     {
         return $this->hasMany(
             self::class,
@@ -58,12 +60,12 @@ class BillingBalanceEntry extends Model
         );
     }
 
-    public function createdBy()
+    public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function voidedBy()
+    public function voidedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'voided_by');
     }

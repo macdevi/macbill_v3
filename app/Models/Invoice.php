@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Scopes\CustomerOwnedScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Invoice extends Model
 {
@@ -31,29 +33,29 @@ class Invoice extends Model
         ];
     }
 
-    public function customer()
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class)->withTrashed();
     }
 
-    public function allocations()
+    public function allocations(): HasMany
     {
         return $this->hasMany(BillingAllocation::class)->where('status', 'active');
     }
 
-    public function creditUses()
+    public function creditUses(): HasMany
     {
         return $this->hasMany(BillingBalanceEntry::class)
             ->where('type', 'use')->where('status', 'active');
     }
 
-    public function historyAllocations()
+    public function historyAllocations(): HasMany
     {
         return $this->hasMany(BillingAllocation::class)
             ->orderBy('id');
     }
 
-    public function historyCreditUses()
+    public function historyCreditUses(): HasMany
     {
         return $this->hasMany(BillingBalanceEntry::class)
             ->where('type', 'use')

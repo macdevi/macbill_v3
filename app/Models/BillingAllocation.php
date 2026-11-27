@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BillingAllocation extends Model
 {
@@ -17,7 +18,7 @@ class BillingAllocation extends Model
         ];
     }
 
-    public function receipt()
+    public function receipt(): BelongsTo
     {
         return $this->belongsTo(
             BillingReceipt::class,
@@ -25,7 +26,7 @@ class BillingAllocation extends Model
         );
     }
 
-    public function invoice()
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class);
     }

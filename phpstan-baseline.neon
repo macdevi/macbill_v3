@@ -1,0 +1,2071 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property App\\Models\\InternetPackage\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\InternetPackage\>\:\:\$monthly_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 3
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Call to an undefined method object\:\:count\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Call to an undefined method object\:\:limit\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Call to an undefined method object\:\:newQuery\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:expectPrice\(\) has parameter \$inv with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:expectPrice\(\) has parameter \$why with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:fillUri\(\) has parameter \$r with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:live\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:probe\(\) has parameter \$query with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:sameSet\(\) has parameter \$exp with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:sameSet\(\) has parameter \$vis with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AuditFull\:\:sampleId\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Blade\:\:compileString\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\AuditFull\:\:\$body type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\AuditFull\:\:\$tally type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Unable to resolve the template type TNewKey in call to method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:keyBy\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: app/Console/Commands/AuditFull.php
+
+		-
+			message: '#^Property App\\Models\\User\:\:\$email_verified_at \(Illuminate\\Support\\Carbon\|null\) does not accept Carbon\\CarbonImmutable\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Console/Commands/SetupLoginAccount.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Console/Commands/SetupLoginAccount.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\BillingBalanceEntry\:\:\$saldo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:deposit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:page\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:page\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:voidUse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BalanceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BillingSettingController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BillingSettingController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BillingSettingController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BillingSettingController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BusinessProfileController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BusinessProfileController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\BusinessProfileController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/BusinessProfileController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$monthly_price\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/CustomerBulkPriceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerBulkPriceController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerBulkPriceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerBulkPriceController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerBulkPriceController.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: app/Http/Controllers/CustomerBulkPriceController.php
+
+		-
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: app/Http/Controllers/CustomerBulkPriceController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\InternetPackage\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\InternetPackage\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\InternetPackage\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\InternetPackage\>\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\InternetPackage\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\InternetPackage\>\:\:\$service_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\InternetPackage\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\InternetPackage\>\:\:routers\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:persist\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:routerWilayahMap\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:visibleRouters\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerController\:\:visibleWilayah\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$wilayah_id \(int\<0, max\>\|null\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/CustomerController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerDeletionController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerDeletionController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:count\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:confirm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:download\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:export\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:filters\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:query\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:query\(\) has parameter \$filters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelController\:\:template\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:commit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:discard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:page\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:page\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:preview\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerExcelImportController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$wilayah_id \(int\<0, max\>\|null\) does not accept int\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/CustomerExcelImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerHistoryController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerHistoryController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerIsolationController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerIsolationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerNetworkController\:\:check\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerNetworkController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerNetworkController\:\:status\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerNetworkController.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\CustomerConnectionMonitor\:\:snapshot\(\) expects App\\Models\\NetworkRouter, App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/CustomerNetworkController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$isolation_method\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$isolation_profile\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:commit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:discard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:packages\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:preview\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:response\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:response\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\CustomerPppoeImportController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Http\\Controllers\\CustomerPppoeImportController\:\:fingerprint\(\) expects App\\Models\\NetworkRouter, App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Http\\Controllers\\CustomerPppoeImportController\:\:fingerprint\(\) expects App\\Models\\NetworkRouter, Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\RouterSecretReader\:\:read\(\) expects App\\Models\\NetworkRouter, Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$wilayah_id \(int\<0, max\>\|null\) does not accept int\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/CustomerPppoeImportController.php
+
+		-
+			message: '#^Cannot call method translatedFormat\(\) on Carbon\\CarbonImmutable\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/DashboardController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\DashboardController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/DashboardController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\DashboardCustomerConnectionController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/DashboardCustomerConnectionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\DashboardCustomerDetailController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/DashboardCustomerDetailController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ExpenseController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/ExpenseController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ExpenseController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/ExpenseController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ExpenseController\:\:void\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/ExpenseController.php
+
+		-
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, int\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/ExpenseController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$isolation_method\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$isolation_profile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\>\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InternetPackageController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InternetPackageController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InternetPackageController\:\:persist\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InternetPackageController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InternetPackageController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\RouterProfileReader\:\:read\(\) expects App\\Models\\NetworkRouter, App\\Models\\NetworkRouter\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\NetworkRouter\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/InternetPackageController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:invoiceNotes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:page\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:page\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:paymentHistory\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvoiceController\:\:void\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NetworkRouterController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/NetworkRouterController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NetworkRouterController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/NetworkRouterController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NetworkRouterController\:\:persist\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/NetworkRouterController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NetworkRouterController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/NetworkRouterController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NetworkRouterController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/NetworkRouterController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageProfileDetailsController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PackageProfileDetailsController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Relations\\Pivot\:\:\$normal_profile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Cache\\Repository\:\:lock\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:blockers\(\) has parameter \$before with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:blockers\(\) has parameter \$target with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:blockers\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:number\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:preview\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:push\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PackageSyncController\:\:target\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Parameter \#1 \$boolean of function abort_unless expects bool, \(Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\)\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PackageSyncController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PasangBaruController\:\:activate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PasangBaruController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PasangBaruController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PasangBaruController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PasangBaruController\:\:run\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PasangBaruController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PasangBaruController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PasangBaruController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:nota\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:page\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:page\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:page\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PaymentController\:\:void\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Http/Controllers/RouterConnectionTestController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RouterConnectionTestController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RouterConnectionTestController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$host\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$port\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$use_tls\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$wan_interface\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Cache\\Repository\:\:lock\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RouterMonitorController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RouterMonitorController\:\:output\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RouterMonitorController\:\:output\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/RouterMonitorController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RouterProfilesController\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RouterProfilesController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:syncWilayah\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:toggle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\UserManagementController\:\:validated\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Parameter \#1 \$sql of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\:\:whereRaw\(\) expects Illuminate\\Contracts\\Database\\Query\\Expression\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/UserManagementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:syncRelations\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\WilayahController\:\:validated\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/WilayahController.php
+
+		-
+			message: '#^Method App\\Models\\BillingAllocation\:\:invoice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingAllocation.php
+
+		-
+			message: '#^Method App\\Models\\BillingAllocation\:\:receipt\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingAllocation.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:createdBy\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:invoice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:receipt\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:sourceEntry\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:uses\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingBalanceEntry\:\:voidedBy\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingBalanceEntry.php
+
+		-
+			message: '#^Method App\\Models\\BillingReceipt\:\:allocations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingReceipt.php
+
+		-
+			message: '#^Method App\\Models\\BillingReceipt\:\:balanceEntries\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingReceipt.php
+
+		-
+			message: '#^Method App\\Models\\BillingReceipt\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingReceipt.php
+
+		-
+			message: '#^Method App\\Models\\BillingReceipt\:\:recordedBy\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingReceipt.php
+
+		-
+			message: '#^Method App\\Models\\BillingReceipt\:\:voidedBy\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/BillingReceipt.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:billingPause\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:latestChange\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:networkAction\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:package\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:router\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:trashedIds\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\Customer\:\:wilayah\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Customer.php
+
+		-
+			message: '#^Method App\\Models\\CustomerBillingPause\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CustomerBillingPause.php
+
+		-
+			message: '#^Method App\\Models\\InternetPackage\:\:routers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/InternetPackage.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:allocations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:creditUses\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:historyAllocations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:historyCreditUses\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Payment\:\:invoice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Payment.php
+
+		-
+			message: '#^Class App\\Models\\Scopes\\CustomerOwnedScope implements generic interface Illuminate\\Database\\Eloquent\\Scope but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Scopes/CustomerOwnedScope.php
+
+		-
+			message: '#^Class App\\Models\\Scopes\\WilayahScope implements generic interface Illuminate\\Database\\Eloquent\\Scope but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Scopes/WilayahScope.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:wilayah\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\Wilayah\:\:customers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Wilayah.php
+
+		-
+			message: '#^Method App\\Models\\Wilayah\:\:routers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Wilayah.php
+
+		-
+			message: '#^Method App\\Models\\Wilayah\:\:users\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Wilayah.php
+
+		-
+			message: '#^Method App\\Observers\\CustomerAuditObserver\:\:record\(\) has parameter \$changes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Observers/CustomerAuditObserver.php
+
+		-
+			message: '#^Property App\\Observers\\CustomerAuditObserver\:\:\$before with generic class WeakMap does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Observers/CustomerAuditObserver.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Observers/CustomerAuditObserver.php
+
+		-
+			message: '#^Method App\\Services\\BillingCorrections\:\:stamp\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/BillingCorrections.php
+
+		-
+			message: '#^Method App\\Services\\BillingLedger\:\:openInvoices\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Services/BillingLedger.php
+
+		-
+			message: '#^Method App\\Services\\BillingLedger\:\:receive\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/BillingLedger.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/BillingLedger.php
+
+		-
+			message: '#^Method App\\Services\\CustomerAuditValues\:\:diff\(\) has parameter \$after with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerAuditValues.php
+
+		-
+			message: '#^Method App\\Services\\CustomerAuditValues\:\:diff\(\) has parameter \$before with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerAuditValues.php
+
+		-
+			message: '#^Method App\\Services\\CustomerAuditValues\:\:diff\(\) has parameter \$eligible with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerAuditValues.php
+
+		-
+			message: '#^Method App\\Services\\CustomerAuditValues\:\:diff\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerAuditValues.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/CustomerBillingProrata.php
+
+		-
+			message: '#^Method App\\Services\\CustomerBillingProrata\:\:forPeriod\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerBillingProrata.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\CustomerBillingPause\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Services/CustomerBillingProrata.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\CustomerBillingPause\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Services/CustomerBillingProrata.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Support\\Collection\<int,array\<string, mixed\>\>\:\:all\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Services/CustomerBillingProrata.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Cache\\Repository\:\:lock\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/CustomerConnectionMonitor.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Services/CustomerConnectionMonitor.php
+
+		-
+			message: '#^Method App\\Services\\CustomerConnectionMonitor\:\:readSessions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerConnectionMonitor.php
+
+		-
+			message: '#^Method App\\Services\\CustomerConnectionMonitor\:\:snapshot\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerConnectionMonitor.php
+
+		-
+			message: '#^Method App\\Services\\CustomerConnectionMonitor\:\:state\(\) has parameter \$sessions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerConnectionMonitor.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$host\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$port\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$use_tls\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Method App\\Services\\CustomerExcelImporter\:\:read\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Method App\\Services\\CustomerExcelImporter\:\:review\(\) has parameter \$rows with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Method App\\Services\\CustomerExcelImporter\:\:review\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>service_type" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/CustomerExcelImporter.php
+
+		-
+			message: '#^Method App\\Services\\CustomerExcelWorkbook\:\:export\(\) has parameter \$customers with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerExcelWorkbook.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$isolation_method\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:routers\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Method App\\Services\\CustomerIsolation\:\:assignment\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Offset ''isolation_profile'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Offset ''normal_profile'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Offset ''pause_id'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Offset ''username'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_diff_key expects array, string given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\CustomerPppActionGateway\:\:change\(\) expects App\\Models\\NetworkRouter, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>normal_profile" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/CustomerIsolation.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$host\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$port\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$use_tls\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:routers\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Method App\\Services\\CustomerNetworkReader\:\:read\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Method App\\Services\\CustomerNetworkReader\:\:summarize\(\) has parameter \$secret with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Method App\\Services\\CustomerNetworkReader\:\:summarize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>normal_profile" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/CustomerNetworkReader.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:account\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:change\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:inspectIsolation\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:provision\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:query\(\) has parameter \$equals with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:query\(\) has parameter \$where with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:query\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:removeAccount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPppActionGateway\:\:sessions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPppActionGateway.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$monthly_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerPricing.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPricing\:\:calculate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPricing.php
+
+		-
+			message: '#^Method App\\Services\\CustomerPricing\:\:forCustomer\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerPricing.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Relations\\Pivot\:\:\$normal_profile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:routers\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Method App\\Services\\CustomerProvisioning\:\:assignment\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Method App\\Services\\CustomerProvisioning\:\:register\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\CustomerPppActionGateway\:\:provision\(\) expects App\\Models\\NetworkRouter, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$wilayah_id \(int\<0, max\>\|null\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>normal_profile" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/CustomerProvisioning.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/CustomerRemoval.php
+
+		-
+			message: '#^Offset ''router_id'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Services/CustomerRemoval.php
+
+		-
+			message: '#^Offset ''username'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Services/CustomerRemoval.php
+
+		-
+			message: '#^Parameter \#1 \$router of method App\\Services\\CustomerPppActionGateway\:\:removeAccount\(\) expects App\\Models\\NetworkRouter, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/CustomerRemoval.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$deleted_by \(int\<0, max\>\|null\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Services/CustomerRemoval.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\:\:\$aggregate_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/DashboardConnectionSummary.php
+
+		-
+			message: '#^Method App\\Services\\DashboardConnectionSummary\:\:context\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/DashboardConnectionSummary.php
+
+		-
+			message: '#^Method App\\Services\\DashboardConnectionSummary\:\:forRouter\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/DashboardConnectionSummary.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/DashboardSummary.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/DashboardSummary.php
+
+		-
+			message: '#^Method App\\Services\\DashboardSummary\:\:forMonth\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/DashboardSummary.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/DashboardSummary.php
+
+		-
+			message: '#^Method App\\Services\\ImportWilayah\:\:routers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/ImportWilayah.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$monthly_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Method App\\Services\\InvoiceGenerator\:\:candidates\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Method App\\Services\\InvoiceGenerator\:\:issue\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Method App\\Services\\InvoiceGenerator\:\:prepare\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Services/InvoiceGenerator.php
+
+		-
+			message: '#^Method App\\Services\\InvoicePeriod\:\:forIssueMonth\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/InvoicePeriod.php
+
+		-
+			message: '#^Method App\\Services\\IsolationProrata\:\:calculate\(\) has parameter \$pauses with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/IsolationProrata.php
+
+		-
+			message: '#^Method App\\Services\\IsolationProrata\:\:calculate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/IsolationProrata.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:check\(\) has parameter \$newMappings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:check\(\) has parameter \$oldProfiles with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:check\(\) has parameter \$usedRouterIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:check\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:errors\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:errors\(\) has parameter \$sync with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Method App\\Services\\PackageCustomerGuard\:\:errors\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageCustomerGuard.php
+
+		-
+			message: '#^Cannot call method disconnect\(\) on class\-string\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageProfileGateway\:\:close\(\) has parameter \$client with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageProfileGateway\:\:read\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageProfileGateway\:\:row\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageProfileGateway\:\:write\(\) has parameter \$before with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageProfileGateway\:\:write\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageProfileGateway.php
+
+		-
+			message: '#^Method App\\Services\\PackageRateLimit\:\:pair\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageRateLimit.php
+
+		-
+			message: '#^Method App\\Services\\PackageRateLimit\:\:parse\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PackageRateLimit.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PppoeImportIsolation.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PppoeImportIsolation.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$service_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PppoeImportIsolation.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:routers\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/PppoeImportIsolation.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>normal_profile" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/PppoeImportIsolation.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$number\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$paid_amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$period_end\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$period_start\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Method App\\Services\\ReceiptSnapshot\:\:baseValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Method App\\Services\\ReceiptSnapshot\:\:capture\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Method App\\Services\\ReceiptSnapshot\:\:legacyValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>code" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/ReceiptSnapshot.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$whatsapp\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ReceiptText.php
+
+		-
+			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Services/ReceiptText.php
+
+		-
+			message: '#^Method App\\Services\\ReceiptText\:\:build\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ReceiptText.php
+
+		-
+			message: '#^Offset ''values'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Services/ReceiptText.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Services/RouterProfileReader.php
+
+		-
+			message: '#^Method App\\Services\\RouterProfileReader\:\:read\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/RouterProfileReader.php
+
+		-
+			message: '#^Call to function method_exists\(\) with RouterOS\\Client and ''disconnect'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Services/RouterSecretReader.php
+
+		-
+			message: '#^Method App\\Services\\RouterSecretReader\:\:read\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/RouterSecretReader.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$whatsapp\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/WhatsAppMessage.php
+
+		-
+			message: '#^Method App\\Services\\WhatsAppMessage\:\:build\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/WhatsAppMessage.php

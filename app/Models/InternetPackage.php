@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class InternetPackage extends Model
 {
@@ -21,7 +22,7 @@ class InternetPackage extends Model
         ];
     }
 
-    public function routers()
+    public function routers(): BelongsToMany
     {
         return $this->belongsToMany(
             NetworkRouter::class,
