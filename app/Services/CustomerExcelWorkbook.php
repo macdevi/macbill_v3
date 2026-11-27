@@ -96,7 +96,7 @@ class CustomerExcelWorkbook
 
     private function base(int $validationLastRow): Spreadsheet
     {
-        $book = new Spreadsheet();
+        $book = new Spreadsheet;
         $book->getProperties()->setCreator('Tagihan dan Management Jaringan');
         $sheet = $book->getActiveSheet();
         $sheet->setTitle('Pelanggan');
@@ -233,6 +233,7 @@ class CustomerExcelWorkbook
         $guide->freezePane('A2');
 
         $book->setActiveSheetIndex(0);
+
         return $book;
     }
 }

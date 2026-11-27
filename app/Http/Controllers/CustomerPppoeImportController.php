@@ -6,6 +6,12 @@ use App\Models\BillingSetting;
 use App\Models\Customer;
 use App\Models\InternetPackage;
 use App\Models\NetworkRouter;
+use App\Models\Scopes\WilayahScope;
+use App\Models\Wilayah;
+use App\Services\CustomerIsolation;
+use App\Services\CustomerNameSuggestion;
+use App\Services\ImportWilayah;
+use App\Services\PppoeImportIsolation;
 use App\Services\RouterSecretReader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -41,7 +47,7 @@ class CustomerPppoeImportController extends Controller
     public function index()
     {
         return $this->response([
-            'routers' => \App\Services\ImportWilayah::routers()->get(),
+            'routers' => ImportWilayah::routers()->get(),
             'batch' => null,
         ]);
     }
@@ -52,12 +58,12 @@ class CustomerPppoeImportController extends Controller
             'network_router_id' => ['required', 'integer', 'exists:network_routers,id'],
         ]);
 
-        $router = \App\Services\ImportWilayah::routers()->findOrFail($data['network_router_id']);
+        $router = ImportWilayah::routers()->findOrFail($data['network_router_id']);
 
         try {
             $rows = $reader->read($router);
             foreach ($rows as &$row) {
-                $row['name'] = \App\Services\CustomerNameSuggestion::fromSecret(
+                $row['name'] = CustomerNameSuggestion::fromSecret(
                     $row['username']
                 );
             }
@@ -102,13 +108,13 @@ class CustomerPppoeImportController extends Controller
             ->where('expires_at', '>', now())
             ->first();
 
-        if (!$snapshot) {
+        if (! $snapshot) {
             return redirect()->route('customer-pppoe.index')
                 ->withErrors(['preview' => 'Preview tidak tersedia atau sudah kedaluwarsa. Baca router kembali.']);
         }
 
         $router = NetworkRouter::findOrFail($snapshot->network_router_id);
-        if (!hash_equals($snapshot->router_fingerprint, $this->fingerprint($router))) {
+        if (! hash_equals($snapshot->router_fingerprint, $this->fingerprint($router))) {
             return redirect()->route('customer-pppoe.index')
                 ->withErrors(['preview' => 'Konfigurasi koneksi router berubah. Buat preview baru.']);
         }
@@ -186,9 +192,9 @@ class CustomerPppoeImportController extends Controller
             'rows' => $visible,
             'packages' => $packages,
             'settings' => BillingSetting::current(),
-            'isolationImportReady' => \App\Services\CustomerIsolation::available(),
-            'wilayahChoices' => count(\App\Services\ImportWilayah::candidates($router->id)) > 1
-                ? \App\Models\Wilayah::whereIn('id', \App\Services\ImportWilayah::candidates($router->id))->orderBy('name')->get(['id', 'name'])
+            'isolationImportReady' => CustomerIsolation::available(),
+            'wilayahChoices' => count(ImportWilayah::candidates($router->id)) > 1
+                ? Wilayah::whereIn('id', ImportWilayah::candidates($router->id))->orderBy('name')->get(['id', 'name'])
                 : collect(),
         ]);
     }
@@ -240,14 +246,14 @@ class CustomerPppoeImportController extends Controller
                     ->where('expires_at', '>', now())
                     ->lockForUpdate()->first();
 
-                if (!$snapshot) {
+                if (! $snapshot) {
                     throw new \RuntimeException('Invalid preview');
                 }
 
                 $router = NetworkRouter::whereKey($snapshot->network_router_id)
                     ->lockForUpdate()->firstOrFail();
 
-                if (!hash_equals($snapshot->router_fingerprint, $this->fingerprint($router))) {
+                if (! hash_equals($snapshot->router_fingerprint, $this->fingerprint($router))) {
                     throw new \RuntimeException('Router changed');
                 }
 
@@ -264,9 +270,9 @@ class CustomerPppoeImportController extends Controller
 
                 foreach ($data['items'] as $index => $item) {
                     if (
-                        !ctype_digit((string) $index) ||
-                        !array_key_exists((int) $index, $rows) ||
-                        !in_array((int) $item['package_id'], $allowedPackages, true)
+                        ! ctype_digit((string) $index) ||
+                        ! array_key_exists((int) $index, $rows) ||
+                        ! in_array((int) $item['package_id'], $allowedPackages, true)
                     ) {
                         throw new \RuntimeException('Invalid selection');
                     }
@@ -298,23 +304,24 @@ class CustomerPppoeImportController extends Controller
 
                     if (
                         $existingCustomer
-                        && ($allowedArea = \App\Models\Scopes\WilayahScope::allowedIds()) !== null
-                        && !in_array((int) $existingCustomer->wilayah_id, $allowedArea, true)
+                        && ($allowedArea = WilayahScope::allowedIds()) !== null
+                        && ! in_array((int) $existingCustomer->wilayah_id, $allowedArea, true)
                     ) {
                         $skipped++;
+
                         continue;
                     }
 
-
-                    if ($existingCustomer && !$isolationSource) {
+                    if ($existingCustomer && ! $isolationSource) {
                         $skipped++;
+
                         continue;
                     }
 
                     if ($isolationSource) {
                         if (
                             $source['disabled']
-                            || !\App\Services\CustomerIsolation::available()
+                            || ! CustomerIsolation::available()
                         ) {
                             throw new \RuntimeException('Konfirmasi isolir belum sesuai.');
                         }
@@ -333,26 +340,26 @@ class CustomerPppoeImportController extends Controller
                         $customer = $existingCustomer;
                     } else {
                         $customer = new Customer([
-                        'name' => $item['name'],
-                        'service_type' => 'pppoe',
-                        'network_router_id' => $router->id,
-                        'internet_package_id' => (int) $item['package_id'],
-                        'pppoe_username' => $username,
-                        'pppoe_password' => $source['password'],
-                        'started_at' => now('Asia/Jakarta')->toDateString(),
-                        'invoice_day' => $data['invoice_day'] ?? null,
-                        'due_day' => $data['invoice_day'] ?? null,
-                        'service_status' => 'active',
-                        'price_mode' => 'package',
-                        'tax_enabled' => $defaultTaxEnabled,
-                    ]);
-                        $customer->wilayah_id = \App\Services\ImportWilayah::resolve($request->integer('wilayah_id') ?: null, (int) $router->id);
+                            'name' => $item['name'],
+                            'service_type' => 'pppoe',
+                            'network_router_id' => $router->id,
+                            'internet_package_id' => (int) $item['package_id'],
+                            'pppoe_username' => $username,
+                            'pppoe_password' => $source['password'],
+                            'started_at' => now('Asia/Jakarta')->toDateString(),
+                            'invoice_day' => $data['invoice_day'] ?? null,
+                            'due_day' => $data['invoice_day'] ?? null,
+                            'service_status' => 'active',
+                            'price_mode' => 'package',
+                            'tax_enabled' => $defaultTaxEnabled,
+                        ]);
+                        $customer->wilayah_id = ImportWilayah::resolve($request->integer('wilayah_id') ?: null, (int) $router->id);
                         $customer->save();
                         $created++;
                     }
 
                     if ($isolationSource) {
-                        $recorded = app(\App\Services\PppoeImportIsolation::class)
+                        $recorded = app(PppoeImportIsolation::class)
                             ->record($customer, $request->user());
 
                         if ($existingCustomer) {

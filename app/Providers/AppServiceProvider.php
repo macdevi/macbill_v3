@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Customer;
+use App\Observers\CustomerAuditObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // customer-audit-scoped
         $this->app->scoped(
-            \App\Observers\CustomerAuditObserver::class,
-            fn ($app) => new \App\Observers\CustomerAuditObserver()
+            CustomerAuditObserver::class,
+            fn ($app) => new CustomerAuditObserver
         );
     }
 
@@ -29,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        \App\Models\Customer::observe(\App\Observers\CustomerAuditObserver::class);
+        Customer::observe(CustomerAuditObserver::class);
     }
 
     /**

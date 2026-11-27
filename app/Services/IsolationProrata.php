@@ -44,13 +44,13 @@ class IsolationProrata
 
         foreach ($pauses as $pause) {
             if (
-                !is_array($pause)
-                || !isset($pause['paused_from'])
-                || !is_string($pause['paused_from'])
-                || !array_key_exists('resumed_on', $pause)
+                ! is_array($pause)
+                || ! isset($pause['paused_from'])
+                || ! is_string($pause['paused_from'])
+                || ! array_key_exists('resumed_on', $pause)
                 || (
                     $pause['resumed_on'] !== null
-                    && !is_string($pause['resumed_on'])
+                    && ! is_string($pause['resumed_on'])
                 )
             ) {
                 throw new InvalidArgumentException('Data jeda tidak valid.');
@@ -119,7 +119,7 @@ class IsolationProrata
             );
         }
 
-        if (!$date || $date->format('Y-m-d') !== $value) {
+        if (! $date || $date->format('Y-m-d') !== $value) {
             throw new InvalidArgumentException('Tanggal tidak valid.');
         }
 

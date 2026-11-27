@@ -59,7 +59,7 @@ class ReceiptSnapshot
         foreach ($allocations as $allocation) {
             $invoice = $allocation->invoice;
 
-            if (!$invoice) {
+            if (! $invoice) {
                 throw new \RuntimeException(
                     'Invoice alokasi tidak ditemukan saat membuat snapshot.'
                 );

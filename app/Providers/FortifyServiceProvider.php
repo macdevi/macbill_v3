@@ -4,9 +4,12 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -31,19 +34,19 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
 
         // Billing: role permissions
-        \Illuminate\Support\Facades\Gate::define(
+        Gate::define(
             'manage-users',
-            fn (\App\Models\User $user) => ($user->is_active ?? true) && $user->role === 'super_admin'
+            fn (User $user) => ($user->is_active ?? true) && $user->role === 'super_admin'
         );
 
-        \Illuminate\Support\Facades\Gate::define(
+        Gate::define(
             'manage-system',
-            fn (\App\Models\User $user) => ($user->is_active ?? true) && in_array($user->role, ['super_admin', 'admin'], true)
+            fn (User $user) => ($user->is_active ?? true) && in_array($user->role, ['super_admin', 'admin'], true)
         );
 
-        \Illuminate\Support\Facades\Gate::define(
+        Gate::define(
             'access-billing',
-            fn (\App\Models\User $user) => ($user->is_active ?? true) && in_array($user->role, ['super_admin', 'admin'], true)
+            fn (User $user) => ($user->is_active ?? true) && in_array($user->role, ['super_admin', 'admin'], true)
         );
 
         // Billing: username atau email
@@ -51,11 +54,11 @@ class FortifyServiceProvider extends ServiceProvider
             $login = trim((string) $request->input(Fortify::username()));
             $column = str_contains($login, '@') ? 'email' : 'username';
 
-            $user = \App\Models\User::query()
+            $user = User::query()
                 ->whereRaw('LOWER('.$column.') = ?', [Str::lower($login)])
                 ->first();
 
-            if ($user && ($user->is_active ?? true) && \Illuminate\Support\Facades\Hash::check(
+            if ($user && ($user->is_active ?? true) && Hash::check(
                 (string) $request->input('password'),
                 $user->password
             )) {

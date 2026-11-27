@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\BillingBalanceEntry;
 use App\Models\BillingReceipt;
-use App\Models\Customer;
-use App\Models\Invoice;
+use App\Models\BillingSetting;
 use App\Services\BillingCorrections;
 use App\Services\BillingLedger;
+use App\Services\ReceiptText;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
@@ -38,9 +37,9 @@ class PaymentController extends Controller
 
     public function nota(BillingReceipt $receipt)
     {
-        $built = \App\Services\ReceiptText::build(
+        $built = ReceiptText::build(
             $receipt,
-            \App\Models\BillingSetting::current()->receipt_template
+            BillingSetting::current()->receipt_template
         );
 
         return response()->json($built)->header('Cache-Control', 'private, no-store');

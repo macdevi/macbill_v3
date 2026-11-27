@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -32,10 +33,10 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 {
-
     protected $attributes = [
         'role' => 'admin',
     ];
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
@@ -58,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         return $this->role === 'super_admin';
     }
 
-    public function wilayah(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function wilayah(): BelongsToMany
     {
         return $this->belongsToMany(Wilayah::class, 'wilayah_user');
     }

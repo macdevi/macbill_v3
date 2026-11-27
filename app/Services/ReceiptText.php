@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\BillingAllocation;
-use App\Models\BillingBalanceEntry;
 use App\Models\BillingReceipt;
-use App\Models\Invoice;
 
 class ReceiptText
 {
@@ -32,9 +29,9 @@ class ReceiptText
     {
         $receipt->loadMissing('customer');
         $snapshot = $receipt->receipt_snapshot;
-        $legacy = !is_array($snapshot)
+        $legacy = ! is_array($snapshot)
             || ($snapshot['version'] ?? null) !== 1
-            || !is_array($snapshot['values'] ?? null);
+            || ! is_array($snapshot['values'] ?? null);
 
         $values = $legacy
             ? ReceiptSnapshot::legacyValues($receipt)
@@ -64,8 +61,8 @@ class ReceiptText
 
         if ($legacy) {
             $text .= "\n\nCatatan: nota lama tanpa snapshot. "
-                ."Sisa tagihan dan total saldo setelah transaksi "
-                ."tidak tersedia secara historis.";
+                .'Sisa tagihan dan total saldo setelah transaksi '
+                .'tidak tersedia secara historis.';
         }
 
         if ($receipt->status === 'void') {

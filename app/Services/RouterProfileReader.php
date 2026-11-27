@@ -41,7 +41,7 @@ class RouterProfileReader
 
             $names = [];
             foreach ($rows as $row) {
-                if (!is_array($row) || !isset($row['name']) || !is_string($row['name'])) {
+                if (! is_array($row) || ! isset($row['name']) || ! is_string($row['name'])) {
                     throw new \RuntimeException('Invalid profile response');
                 }
                 $names[] = $row['name'];

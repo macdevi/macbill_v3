@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Wilayah;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +17,7 @@ class UserManagementController extends Controller
     public function index()
     {
         return view('users.index', [
-            'wilayahList' => \App\Models\Wilayah::orderBy('name')->get(['id', 'name']),
+            'wilayahList' => Wilayah::orderBy('name')->get(['id', 'name']),
             'users' => User::query()
                 ->with('wilayah')
                 ->orderByRaw("CASE WHEN role = 'super_admin' THEN 0 ELSE 1 END")
@@ -76,7 +78,7 @@ class UserManagementController extends Controller
                 'role' => $data['role'],
             ]);
 
-            if (!empty($data['password'])) {
+            if (! empty($data['password'])) {
                 $user->forceFill([
                     'password' => $data['password'],
                     'remember_token' => Str::random(60),
@@ -112,11 +114,12 @@ class UserManagementController extends Controller
 
             if ($isActive && $user->role === 'super_admin' && $this->otherActiveSuperAdmins($user) === 0) {
                 $error = 'Super admin aktif terakhir tidak boleh dinonaktifkan.';
+
                 return;
             }
 
             $user->forceFill([
-                'is_active' => !$isActive,
+                'is_active' => ! $isActive,
                 'remember_token' => Str::random(60),
             ])->save();
 
@@ -124,7 +127,7 @@ class UserManagementController extends Controller
                 $this->revokeSessions($user, null);
             }
 
-            $active = !$isActive;
+            $active = ! $isActive;
         });
 
         if ($error) {
@@ -153,6 +156,7 @@ class UserManagementController extends Controller
 
                 if ($locked->role !== 'admin') {
                     $error = 'Hanya akun Admin yang dapat dihapus. Super admin cukup dinonaktifkan.';
+
                     return;
                 }
 
@@ -160,7 +164,7 @@ class UserManagementController extends Controller
                 $locked->wilayah()->detach();
                 $locked->delete();
             }, 3);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             $error = 'Akun ini masih dirujuk data lain sehingga tidak dapat dihapus. Nonaktifkan saja.';
         }
 

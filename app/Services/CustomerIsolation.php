@@ -5,10 +5,12 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\CustomerBillingPause;
 use App\Models\CustomerNetworkAction;
+use App\Models\Invoice;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -16,16 +18,15 @@ class CustomerIsolation
 {
     public function __construct(
         private CustomerPppActionGateway $gateway
-    ) {
-    }
+    ) {}
 
     public static function available(): bool
     {
         return (bool) config('manual-isolation.enabled')
-            && \Illuminate\Support\Facades\Schema::hasTable(
+            && Schema::hasTable(
                 'customer_billing_pauses'
             )
-            && \Illuminate\Support\Facades\Schema::hasTable(
+            && Schema::hasTable(
                 'customer_network_actions'
             );
     }
@@ -58,8 +59,8 @@ class CustomerIsolation
             $customer->service_type !== 'pppoe'
             || $customer->service_status !== 'active'
             || blank($customer->pppoe_username)
-            || !$customer->router
-            || !$customer->package
+            || ! $customer->router
+            || ! $customer->package
             || $customer->router->isolation_method !== 'ppp_profile'
         ) {
             $this->reject('Pelanggan atau router belum memenuhi syarat isolir PPPoE.');
@@ -97,8 +98,8 @@ class CustomerIsolation
         $reason = trim($reason);
 
         if (
-            !in_array($kind, ['isolate', 'restore'], true)
-            || !Str::isUuid($requestKey)
+            ! in_array($kind, ['isolate', 'restore'], true)
+            || ! Str::isUuid($requestKey)
             || mb_strlen($reason) < 5
             || mb_strlen($reason) > 1000
         ) {
@@ -125,14 +126,14 @@ class CustomerIsolation
 
                 if (
                     $expectedVersion !== null
-                    && !hash_equals(self::version($customer), $expectedVersion)
+                    && ! hash_equals(self::version($customer), $expectedVersion)
                 ) {
                     $this->reject('Data pelanggan atau router berubah. Muat ulang halaman.');
                 }
 
                 if (
                     $kind === 'restore'
-                    && \App\Models\Invoice::where('customer_id', $customerId)
+                    && Invoice::where('customer_id', $customerId)
                         ->where('status', '!=', 'void')
                         ->whereColumn('paid_amount', '<', 'total')
                         ->exists()
@@ -148,7 +149,7 @@ class CustomerIsolation
                 }
 
                 if ($kind === 'restore' && (
-                    !$pause || (int) $pause->id !== $expectedPauseId
+                    ! $pause || (int) $pause->id !== $expectedPauseId
                 )) {
                     $this->reject('Riwayat isolir berubah. Muat ulang halaman.');
                 }
@@ -236,9 +237,9 @@ class CustomerIsolation
             );
 
             if (
-                !$armed
+                ! $armed
                 || ($result['profile'] ?? null) !== $to
-                || !is_string($result['verified_at'] ?? null)
+                || ! is_string($result['verified_at'] ?? null)
             ) {
                 throw new \RuntimeException('Invalid gateway result');
             }
@@ -282,7 +283,7 @@ class CustomerIsolation
                         'isolation_reason' => $locked->reason,
                     ]);
                 } else {
-                    if (!$pause || (int) $pause->id !== (int) $context['pause_id']) {
+                    if (! $pause || (int) $pause->id !== (int) $context['pause_id']) {
                         throw new \RuntimeException('Pause changed');
                     }
 

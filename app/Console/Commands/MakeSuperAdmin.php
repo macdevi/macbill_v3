@@ -13,8 +13,9 @@ class MakeSuperAdmin extends Command
 
     public function handle(): int
     {
-        if (!app()->environment('local')) {
+        if (! app()->environment('local')) {
             $this->error('Perintah ini hanya diizinkan pada lingkungan lokal.');
+
             return self::FAILURE;
         }
 
@@ -24,8 +25,9 @@ class MakeSuperAdmin extends Command
 
         $user = User::whereRaw('LOWER(email) = ?', [$email])->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->error('Akun tidak ditemukan. Tidak ada perubahan.');
+
             return self::FAILURE;
         }
 
@@ -36,11 +38,13 @@ class MakeSuperAdmin extends Command
 
         if ($user->role === 'super_admin') {
             $this->info('Akun ini sudah menjadi super admin.');
+
             return self::SUCCESS;
         }
 
-        if (!$this->confirm('Jadikan akun tersebut super admin?', false)) {
+        if (! $this->confirm('Jadikan akun tersebut super admin?', false)) {
             $this->warn('Dibatalkan.');
+
             return self::SUCCESS;
         }
 

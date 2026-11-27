@@ -29,13 +29,14 @@ class GenerateInvoices extends Command
             }
 
             $period = InvoicePeriod::forIssueMonth($today->year, $today->month, (int) $day);
-            if (!$period['issued_on']->isSameDay($today)) {
+            if (! $period['issued_on']->isSameDay($today)) {
                 continue;
             }
 
-            if (!$commit) {
+            if (! $commit) {
                 [$quote, $reason] = $generator->prepare($customer, $settings, $today->year, $today->month, true);
                 $this->line($customer->code.' | '.($quote ? 'AKAN TERBIT Rp'.number_format($quote['total'], 0, ',', '.') : 'DILEWATI: '.$reason));
+
                 continue;
             }
 

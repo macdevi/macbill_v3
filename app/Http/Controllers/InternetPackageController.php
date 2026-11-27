@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\InternetPackage;
 use App\Models\NetworkRouter;
+use App\Services\PackageCustomerGuard;
+use App\Services\PackageRateLimit;
 use App\Services\RouterProfileReader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class InternetPackageController extends Controller
 {
@@ -65,7 +69,7 @@ class InternetPackageController extends Controller
             }
 
             try {
-                $parsed = \App\Services\PackageRateLimit::parse($rate);
+                $parsed = PackageRateLimit::parse($rate);
 
                 if (
                     abs(round($parsed['upload'], 3) - (float) $data['upload_mbps']) > 0.00001 ||
@@ -107,7 +111,7 @@ class InternetPackageController extends Controller
                 ])->withInput($request->except(['_token', '_method']));
             }
 
-            if (!in_array($mapping['profile'], $profiles, true)) {
+            if (! in_array($mapping['profile'], $profiles, true)) {
                 return back()->withErrors([
                     'mappings' => 'Profil '.$mapping['profile'].
                         ' tidak ditemukan pada router '.$router->name.'.',
@@ -137,18 +141,18 @@ class InternetPackageController extends Controller
 
                     $package->setRawAttributes($locked->getAttributes(), true);
 
-                    $errors = app(\App\Services\PackageCustomerGuard::class)
+                    $errors = app(PackageCustomerGuard::class)
                         ->errors($package, $data, $sync);
 
                     if ($errors !== []) {
-                        throw \Illuminate\Validation\ValidationException::withMessages($errors);
+                        throw ValidationException::withMessages($errors);
                     }
                 }
 
                 $package->fill($data)->save();
                 $package->routers()->sync($sync);
             });
-        } catch (\Illuminate\Validation\ValidationException $error) {
+        } catch (ValidationException $error) {
             return back()->withErrors($error->errors())
                 ->withInput($request->except(['_token', '_method']));
         }
@@ -159,7 +163,7 @@ class InternetPackageController extends Controller
 
     public function destroy(InternetPackage $package)
     {
-        if (\App\Models\Customer::withTrashed()->where('internet_package_id', $package->id)->exists()) {
+        if (Customer::withTrashed()->where('internet_package_id', $package->id)->exists()) {
             return redirect()->route('packages.index')->with(
                 'status',
                 'Belum dapat dihapus karena masih digunakan pelanggan. Pertahankan data untuk riwayat layanan.'

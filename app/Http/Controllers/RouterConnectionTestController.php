@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NetworkRouter;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use RouterOS\Client;
 use RouterOS\Config;
@@ -52,10 +53,10 @@ class RouterConnectionTestController extends Controller
             $resource = $resourceRows[0] ?? [];
 
             if (
-                !is_array($identity) ||
-                !is_array($resource) ||
-                !isset($identity['name'], $resource['version'], $resource['uptime']) ||
-                !array_key_exists('cpu-load', $resource)
+                ! is_array($identity) ||
+                ! is_array($resource) ||
+                ! isset($identity['name'], $resource['version'], $resource['uptime']) ||
+                ! array_key_exists('cpu-load', $resource)
             ) {
                 throw new \RuntimeException('Incomplete router response');
             }
@@ -97,7 +98,7 @@ class RouterConnectionTestController extends Controller
 
         $result['config_version'] = $router->updated_at->toIso8601String();
 
-        \Illuminate\Support\Facades\Cache::store('file')->put(
+        Cache::store('file')->put(
             'dashboard-router-check.'.$router->id,
             $result,
             now()->addDay()

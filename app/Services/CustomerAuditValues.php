@@ -42,7 +42,7 @@ class CustomerAuditValues
         $changes = [];
 
         foreach (self::FIELDS as $field => $label) {
-            if (!in_array($field, $eligible, true)) {
+            if (! in_array($field, $eligible, true)) {
                 continue;
             }
 
@@ -98,6 +98,7 @@ class CustomerAuditValues
     private static function relatedName(string $model, int $id): string
     {
         $name = $model::whereKey($id)->value('name');
+
         return $name === null
             ? 'ID '.$id.' (tidak ditemukan)'
             : $name.' · ID '.$id;

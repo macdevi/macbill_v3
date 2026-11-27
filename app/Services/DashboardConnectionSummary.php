@@ -26,11 +26,13 @@ class DashboardConnectionSummary
 
             if ($group->service_type !== 'pppoe') {
                 $unsupported += $count;
+
                 continue;
             }
 
-            if (!$group->network_router_id) {
+            if (! $group->network_router_id) {
                 $unassigned += $count;
+
                 continue;
             }
 

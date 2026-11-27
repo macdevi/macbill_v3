@@ -60,7 +60,6 @@ class DashboardSummary
 
         $finance['period_open_count'] = (clone $periodOpen)->count();
 
-
         $actionsReady = Schema::hasTable('customer_network_actions');
         $pausesReady = Schema::hasTable('customer_billing_pauses');
         $classificationReady = $actionsReady && $pausesReady;

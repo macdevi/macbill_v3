@@ -8,8 +8,9 @@ use App\Services\BillingLedger;
 use App\Services\DashboardSummary;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
     $this->dashboardActor = User::factory()->createQuietly();

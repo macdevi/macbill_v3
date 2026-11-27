@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillingBalanceEntry;
+use App\Models\BillingReceipt;
+use App\Models\BillingSetting;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Services\InvoiceGenerator;
@@ -9,6 +12,7 @@ use App\Services\InvoicePeriod;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class InvoiceController extends Controller
@@ -56,8 +60,8 @@ class InvoiceController extends Controller
         return $this->page('index', [
             'invoices' => $invoices = $query->paginate(20)->withQueryString(),
             'summary' => $summary,
-            'waTemplate' => \App\Models\BillingSetting::current()->wa_template,
-            'payKey' => (string) \Illuminate\Support\Str::uuid(),
+            'waTemplate' => BillingSetting::current()->wa_template,
+            'payKey' => (string) Str::uuid(),
             'statusFilter' => $status,
             'openByCustomer' => Invoice::whereIn('customer_id', $invoices->pluck('customer_id')->unique())
                 ->whereIn('status', ['unpaid', 'partial'])
@@ -78,10 +82,10 @@ class InvoiceController extends Controller
             'page' => ['nullable', 'integer', 'min:1', 'max:1000000'],
         ]);
 
-        $receipts = \App\Models\BillingReceipt::query()
+        $receipts = BillingReceipt::query()
             ->where('customer_id', $invoice->customer_id);
 
-        $uses = \App\Models\BillingBalanceEntry::query()
+        $uses = BillingBalanceEntry::query()
             ->where('customer_id', $invoice->customer_id)
             ->where('type', 'use');
 
@@ -103,13 +107,13 @@ class InvoiceController extends Controller
         $useIds = $rows->getCollection()
             ->where('kind', 'use')->pluck('id');
 
-        $receiptMap = \App\Models\BillingReceipt::query()
+        $receiptMap = BillingReceipt::query()
             ->where('customer_id', $invoice->customer_id)
             ->whereIn('id', $receiptIds)
             ->with('allocations.invoice:id,number')
             ->get()->keyBy('id');
 
-        $useMap = \App\Models\BillingBalanceEntry::query()
+        $useMap = BillingBalanceEntry::query()
             ->where('customer_id', $invoice->customer_id)
             ->where('type', 'use')
             ->whereIn('id', $useIds)
@@ -133,7 +137,7 @@ class InvoiceController extends Controller
             'page' => ['nullable', 'integer', 'min:1', 'max:1000000'],
         ]);
 
-        $receipts = \App\Models\BillingReceipt::query()
+        $receipts = BillingReceipt::query()
             ->where('customer_id', $invoice->customer_id)
             ->where('status', 'active')
             ->whereHas('allocations', function ($query) use ($invoice) {

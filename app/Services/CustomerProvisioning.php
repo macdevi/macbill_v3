@@ -8,7 +8,6 @@ use App\Models\CustomerNetworkAction;
 use App\Models\InternetPackage;
 use App\Models\Scopes\WilayahScope;
 use App\Models\User;
-use Carbon\CarbonImmutable;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,8 +17,7 @@ class CustomerProvisioning
 {
     public function __construct(
         private CustomerPppActionGateway $gateway
-    ) {
-    }
+    ) {}
 
     private function reject(string $message): never
     {
@@ -38,13 +36,13 @@ class CustomerProvisioning
         }
 
         $allowed = WilayahScope::allowedIds();
-        if ($allowed !== null && !in_array($wilayahId, $allowed, true)) {
+        if ($allowed !== null && ! in_array($wilayahId, $allowed, true)) {
             $this->reject('Anda tidak memiliki akses ke wilayah ini.');
         }
 
         if (
             WilayahScope::enforced()
-            && !DB::table('network_router_wilayah')
+            && ! DB::table('network_router_wilayah')
                 ->where('wilayah_id', $wilayahId)
                 ->where('network_router_id', $routerId)
                 ->exists()
@@ -53,7 +51,7 @@ class CustomerProvisioning
         }
 
         $package = InternetPackage::find((int) ($data['internet_package_id'] ?? 0));
-        if (!$package || !$package->is_active || $package->service_type !== 'pppoe') {
+        if (! $package || ! $package->is_active || $package->service_type !== 'pppoe') {
             $this->reject('Paket tidak tersedia untuk pemasangan PPPoE baru.');
         }
 
@@ -129,8 +127,8 @@ class CustomerProvisioning
             || $customer->service_status !== 'pending'
             || blank($customer->pppoe_username)
             || blank($customer->pppoe_password)
-            || !$customer->router
-            || !$customer->package
+            || ! $customer->router
+            || ! $customer->package
         ) {
             $this->reject('Pelanggan tidak memenuhi syarat aktivasi PPPoE.');
         }
@@ -158,7 +156,7 @@ class CustomerProvisioning
         User $actor,
         string $requestKey
     ): CustomerNetworkAction {
-        if (!Str::isUuid($requestKey)) {
+        if (! Str::isUuid($requestKey)) {
             $this->reject('Permintaan tindakan tidak valid.');
         }
 
@@ -237,9 +235,9 @@ class CustomerProvisioning
             );
 
             if (
-                !$armed
+                ! $armed
                 || ($result['profile'] ?? null) !== $context['normal_profile']
-                || !is_string($result['verified_at'] ?? null)
+                || ! is_string($result['verified_at'] ?? null)
             ) {
                 throw new \RuntimeException('Invalid gateway result');
             }

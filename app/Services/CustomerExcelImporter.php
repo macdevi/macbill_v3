@@ -5,21 +5,21 @@ namespace App\Services;
 use App\Models\BillingSetting;
 use App\Models\Customer;
 use App\Models\InternetPackage;
-use App\Models\NetworkRouter;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use ZipArchive;
 
 class CustomerExcelImporter
 {
     public function read(string $path): array
     {
-        if (!is_file($path) || filesize($path) > 5 * 1024 * 1024) {
+        if (! is_file($path) || filesize($path) > 5 * 1024 * 1024) {
             throw new \RuntimeException('Invalid size');
         }
 
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         if ($zip->open($path) !== true) {
             throw new \RuntimeException('Invalid XLSX');
         }
@@ -50,15 +50,15 @@ class CustomerExcelImporter
 
         $book = null;
         try {
-            $reader = new Xlsx();
-            if (!$reader->canRead($path)) {
+            $reader = new Xlsx;
+            if (! $reader->canRead($path)) {
                 throw new \RuntimeException('Unsupported file');
             }
 
             $info = collect($reader->listWorksheetInfo($path))
                 ->firstWhere('worksheetName', 'Pelanggan');
 
-            if (!$info || $info['totalRows'] > 1001 || $info['totalColumns'] > 13) {
+            if (! $info || $info['totalRows'] > 1001 || $info['totalColumns'] > 13) {
                 throw new \RuntimeException('Unsupported dimensions');
             }
 
@@ -89,6 +89,7 @@ class CustomerExcelImporter
                     // Total bulanan tidak digunakan sebagai input.
                     if ($c === 10) {
                         $values[] = '';
+
                         continue;
                     }
 
@@ -99,9 +100,9 @@ class CustomerExcelImporter
                     ) {
                         $errors[] = 'Kolom input berisi formula atau error Excel.';
                         $value = '';
-                    } elseif ($value instanceof \PhpOffice\PhpSpreadsheet\RichText\RichText) {
+                    } elseif ($value instanceof RichText) {
                         $value = $value->getPlainText();
-                    } elseif (!is_scalar($value) && $value !== null) {
+                    } elseif (! is_scalar($value) && $value !== null) {
                         $errors[] = 'Ada tipe isi sel yang tidak didukung.';
                         $value = '';
                     }
@@ -142,6 +143,7 @@ class CustomerExcelImporter
                     'read_errors' => array_values(array_unique($errors)),
                 ];
             }
+
             return $rows;
         } finally {
             $book?->disconnectWorksheets();
@@ -151,7 +153,7 @@ class CustomerExcelImporter
     public function review(array $rows, string $startedAt): array
     {
         $settings = BillingSetting::current();
-        $routers = \App\Services\ImportWilayah::routers()->get([
+        $routers = ImportWilayah::routers()->get([
             'id', 'name', 'host', 'port', 'use_tls', 'username',
         ]);
         $packages = InternetPackage::where('is_active', true)
@@ -182,12 +184,11 @@ class CustomerExcelImporter
             $matches = $routers->filter(fn ($r) => $r->name === $routerName);
             $router = $matches->count() === 1 ? $matches->first() : null;
 
-            if (!$router) {
+            if (! $router) {
                 $errors[] = 'Router tidak ditemukan atau namanya tidak unik.';
             }
 
-            $matches = $packages->filter(fn ($p) =>
-                $p->name === $packageName &&
+            $matches = $packages->filter(fn ($p) => $p->name === $packageName &&
                 in_array($p->service_type, ['pppoe', 'static'], true) &&
                 (
                     $p->service_type === 'static' ||
@@ -196,7 +197,7 @@ class CustomerExcelImporter
             );
             $package = $matches->count() === 1 ? $matches->first() : null;
 
-            if (!$package) {
+            if (! $package) {
                 $errors[] = 'Paket tidak ditemukan, nonaktif, ambigu, atau tidak sesuai router.';
             }
 
@@ -221,7 +222,7 @@ class CustomerExcelImporter
 
             if ($taxText !== '') {
                 $taxText = trim(rtrim($taxText, '%'));
-                if (!preg_match('/^[0-9]{1,3}(?:\.[0-9]{1,2})?$/D', $taxText)) {
+                if (! preg_match('/^[0-9]{1,3}(?:\.[0-9]{1,2})?$/D', $taxText)) {
                     $errors[] = 'Persentase pajak tidak valid.';
                 } else {
                     $parts = explode('.', $taxText);
@@ -352,7 +353,7 @@ class CustomerExcelImporter
             if ($row['key'] !== null && ($fileCounts[$row['key']] ?? 0) > 1) {
                 $row['errors'][] = 'Identitas berulang dalam file. Sisakan satu baris.';
             }
-            $row['ready'] = !$row['duplicate'] && $row['errors'] === [];
+            $row['ready'] = ! $row['duplicate'] && $row['errors'] === [];
         }
         unset($row);
 

@@ -17,6 +17,7 @@ use App\Services\InvoiceGenerator;
 use App\Services\InvoicePeriod;
 use App\Services\RouterSecretReader;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,9 @@ class AuditFull extends Command
     protected $description = 'Audit menyeluruh (baca-saja secara bawaan) dan tulis report.txt';
 
     private array $body = [];
+
     private array $tally = ['PASS' => 0, 'INFO' => 0, 'WARN' => 0, 'FAIL' => 0, 'SKIP' => 0];
+
     private int $secNo = 0;
 
     public function handle(): int
@@ -568,7 +571,7 @@ class AuditFull extends Command
         $prevEnforce = config('wilayah.enforce');
         $prevSession = config('session.driver');
         config(['session.driver' => 'array', 'wilayah.enforce' => true]);
-        $kernel = app(\Illuminate\Contracts\Http\Kernel::class);
+        $kernel = app(Kernel::class);
 
         $actors = [];
         foreach (User::orderBy('id')->get() as $u) {

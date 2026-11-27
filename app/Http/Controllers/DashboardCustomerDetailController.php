@@ -19,8 +19,8 @@ class DashboardCustomerDetailController extends Controller
         ]);
         $query = Customer::query();
         if ($input['category'] === 'isolated') {
-            if (!Schema::hasTable('customer_network_actions')
-                || !Schema::hasTable('customer_billing_pauses')) {
+            if (! Schema::hasTable('customer_network_actions')
+                || ! Schema::hasTable('customer_billing_pauses')) {
                 return response()->json([
                     'message' => 'Klasifikasi isolir billing belum tersedia.',
                 ], 503)->header('Cache-Control', 'private, no-store');
@@ -51,6 +51,7 @@ class DashboardCustomerDetailController extends Controller
             'service_type' => (string) $customer->service_type,
             'pppoe_username' => (string) ($customer->pppoe_username ?? ''),
         ])->values();
+
         return response()->json([
             'rows' => $rows, 'total' => $page->total(),
             'page' => $page->currentPage(), 'last_page' => $page->lastPage(),

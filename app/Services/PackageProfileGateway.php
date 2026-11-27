@@ -11,25 +11,26 @@ class PackageProfileGateway
 {
     private function connect(NetworkRouter $router): Client
     {
-            $config = new Config([
-                'host' => $router->host,
-                'port' => (int) $router->port,
-                'user' => $router->username,
-                'pass' => $router->password,
-                'ssl' => (bool) $router->use_tls,
-                'ssl_options' => [
-                    'verify_peer' => true,
-                    'verify_peer_name' => true,
-                    'allow_self_signed' => false,
-                    'ciphers' => 'DEFAULT',
-                ],
-                'timeout' => 5,
-                'socket_timeout' => 10,
-                'socket_blocking' => true,
-                'throw_timeout_exception' => true,
-                'attempts' => 1,
-                'delay' => 1,
-            ]);
+        $config = new Config([
+            'host' => $router->host,
+            'port' => (int) $router->port,
+            'user' => $router->username,
+            'pass' => $router->password,
+            'ssl' => (bool) $router->use_tls,
+            'ssl_options' => [
+                'verify_peer' => true,
+                'verify_peer_name' => true,
+                'allow_self_signed' => false,
+                'ciphers' => 'DEFAULT',
+            ],
+            'timeout' => 5,
+            'socket_timeout' => 10,
+            'socket_blocking' => true,
+            'throw_timeout_exception' => true,
+            'attempts' => 1,
+            'delay' => 1,
+        ]);
+
         return new Client($config);
     }
 
@@ -51,7 +52,7 @@ class PackageProfileGateway
                 ->equal('.proplist', '.id,name,rate-limit')
         )->read();
 
-        if (count($rows) !== 1 || !isset($rows[0]['.id'], $rows[0]['name'])
+        if (count($rows) !== 1 || ! isset($rows[0]['.id'], $rows[0]['name'])
             || $rows[0]['name'] !== $name) {
             throw new \RuntimeException('Profile unavailable');
         }
@@ -68,6 +69,7 @@ class PackageProfileGateway
         $client = null;
         try {
             $client = $this->connect($router);
+
             return $this->row($client, $name);
         } finally {
             $this->close($client);

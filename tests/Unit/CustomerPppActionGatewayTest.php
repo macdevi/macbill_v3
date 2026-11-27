@@ -6,12 +6,12 @@ use App\Services\CustomerPppActionGateway;
 class FakeCustomerPppActionGateway extends CustomerPppActionGateway
 {
     public array $calls = [];
+
     public array $responses = [];
+
     public bool $closed = false;
 
-    protected function open(NetworkRouter $router): void
-    {
-    }
+    protected function open(NetworkRouter $router): void {}
 
     protected function close(): void
     {

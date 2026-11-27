@@ -67,7 +67,7 @@ class ExpenseController extends Controller
         ]);
 
         $allowedWilayah = WilayahScope::allowedIds();
-        if ($allowedWilayah !== null && !in_array((int) $data['wilayah_id'], $allowedWilayah, true)) {
+        if ($allowedWilayah !== null && ! in_array((int) $data['wilayah_id'], $allowedWilayah, true)) {
             throw ValidationException::withMessages([
                 'wilayah_id' => 'Anda tidak memiliki akses ke wilayah ini.',
             ]);

@@ -87,7 +87,7 @@ class CustomerConnectionMonitor
         array $sessions,
         ?string $username
     ): string {
-        if (!$available || $username === null || $username === '') {
+        if (! $available || $username === null || $username === '') {
             return 'unknown';
         }
 
@@ -126,7 +126,7 @@ class CustomerConnectionMonitor
                     ->where('service', 'pppoe')
             )->read();
 
-            if (!is_array($rows) || count($rows) > 50000) {
+            if (! is_array($rows) || count($rows) > 50000) {
                 throw new \RuntimeException('Unexpected session response');
             }
 
@@ -134,9 +134,9 @@ class CustomerConnectionMonitor
 
             foreach ($rows as $row) {
                 if (
-                    !is_array($row) ||
-                    !isset($row['name'], $row['service']) ||
-                    !is_string($row['name']) ||
+                    ! is_array($row) ||
+                    ! isset($row['name'], $row['service']) ||
+                    ! is_string($row['name']) ||
                     $row['name'] === '' ||
                     $row['service'] !== 'pppoe'
                 ) {

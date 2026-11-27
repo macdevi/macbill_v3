@@ -1,14 +1,18 @@
 <?php
 
+use App\Models\BillingSetting;
 use App\Models\CustomerBillingPause;
 use App\Models\CustomerNetworkAction;
 use App\Models\User;
 use App\Services\CustomerIsolation;
 use App\Services\CustomerPppActionGateway;
 use App\Services\InvoiceGenerator;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
     config(['manual-isolation.enabled' => true]);
@@ -78,7 +82,7 @@ test('versi pelanggan lama ditolak sebelum router', function () {
         'Alasan pengujian',
         null,
         str_repeat('0', 64)
-    ))->toThrow(\Illuminate\Validation\ValidationException::class);
+    ))->toThrow(ValidationException::class);
 
     expect(CustomerNetworkAction::count())->toBe(0);
 });
@@ -88,7 +92,7 @@ test('tindakan belum pasti menahan perubahan pelanggan', function () {
 
     expect(fn () => $this->isoUiCustomer->forceFill([
         'name' => 'Nama berubah',
-    ])->save())->toThrow(\Illuminate\Validation\ValidationException::class);
+    ])->save())->toThrow(ValidationException::class);
 });
 
 test('tindakan belum pasti menahan persiapan invoice', function () {
@@ -96,7 +100,7 @@ test('tindakan belum pasti menahan persiapan invoice', function () {
 
     [$quote, $reason] = app(InvoiceGenerator::class)->prepare(
         $this->isoUiCustomer,
-        \App\Models\BillingSetting::current(),
+        BillingSetting::current(),
         2026,
         11
     );
@@ -127,7 +131,7 @@ test('buka isolir dengan sisa tagihan ditolak sebelum router', function () {
         (string) Str::uuid(),
         'Permintaan pemulihan',
         $pause->id
-    ))->toThrow(\Illuminate\Validation\ValidationException::class);
+    ))->toThrow(ValidationException::class);
 
     expect(CustomerNetworkAction::count())->toBe(0);
 });
@@ -141,7 +145,7 @@ test('halaman pencarian menyertakan tombol dan modal isolir', function () {
 });
 
 test('halaman tetap terbuka saat tabel jurnal belum tersedia', function () {
-    \Illuminate\Support\Facades\Schema::drop('customer_network_actions');
+    Schema::drop('customer_network_actions');
 
     $this->actingAs($this->isoUiActor)
         ->get(route('customers.index'))
@@ -151,7 +155,7 @@ test('halaman tetap terbuka saat tabel jurnal belum tersedia', function () {
 });
 
 test('endpoint tertutup saat tabel jurnal belum tersedia', function () {
-    \Illuminate\Support\Facades\Schema::drop('customer_network_actions');
+    Schema::drop('customer_network_actions');
 
     $this->actingAs($this->isoUiActor)
         ->post(route('customers.isolation.store', $this->isoUiCustomer))

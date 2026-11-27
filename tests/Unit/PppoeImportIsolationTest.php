@@ -9,8 +9,9 @@ use App\Services\InvoicePeriod;
 use App\Services\RouterSecretReader;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
     config(['manual-isolation.enabled' => true]);
@@ -133,7 +134,7 @@ test('impor akun isolir baru membuat pelanggan jurnal dan jeda', function () {
     expect($customer->service_status)->toBe('active')
         ->and($pause->paused_from->format('Y-m-d'))->toBe('2026-11-25')
         ->and($pause->isolated_at->copy()->setTimezone('UTC')->format('H:i:s'))
-            ->toBe('11:00:00')
+        ->toBe('11:00:00')
         ->and(CustomerNetworkAction::where('kind', 'adopt_isolation')
             ->where('status', 'succeeded')->count())->toBe(1);
 });
@@ -269,7 +270,7 @@ test('preview menyembunyikan pelanggan yang sudah terdaftar pada router', functi
         ->assertOk()
         ->assertViewHas('rows', function ($rows) {
             return $rows->every(function ($row) {
-                return !\App\Models\Customer::where(
+                return ! Customer::where(
                     'network_router_id', $this->importRouter->id
                 )->where('pppoe_username', $row['username'])->exists();
             });
@@ -332,7 +333,7 @@ test('payload JSON 500 pelanggan melewati validasi jumlah', function () {
     ]);
 
     $this->actingAs($this->importActor)
-        ->post(route('customer-pppoe.commit', (string) \Illuminate\Support\Str::uuid()), [
+        ->post(route('customer-pppoe.commit', (string) Str::uuid()), [
             'invoice_day' => 15,
             'selection_payload' => json_encode($items, JSON_THROW_ON_ERROR),
         ])
@@ -349,7 +350,7 @@ test('payload JSON lebih dari 500 pelanggan ditolak', function () {
     ]);
 
     $this->actingAs($this->importActor)
-        ->post(route('customer-pppoe.commit', (string) \Illuminate\Support\Str::uuid()), [
+        ->post(route('customer-pppoe.commit', (string) Str::uuid()), [
             'invoice_day' => 15,
             'selection_payload' => json_encode($items, JSON_THROW_ON_ERROR),
         ])
@@ -359,7 +360,7 @@ test('payload JSON lebih dari 500 pelanggan ditolak', function () {
 
 test('payload JSON rusak ditolak sebelum proses impor', function () {
     $this->actingAs($this->importActor)
-        ->postJson(route('customer-pppoe.commit', (string) \Illuminate\Support\Str::uuid()), [
+        ->postJson(route('customer-pppoe.commit', (string) Str::uuid()), [
             'invoice_day' => 15,
             'selection_payload' => '{"rusak":',
         ])

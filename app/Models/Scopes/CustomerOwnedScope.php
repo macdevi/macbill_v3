@@ -20,7 +20,7 @@ class CustomerOwnedScope implements Scope
         $table = $model->getTable();
         $hasColumn[$table] ??= Schema::hasColumn($table, 'customer_id');
 
-        if (!$hasColumn[$table]) {
+        if (! $hasColumn[$table]) {
             return;
         }
 

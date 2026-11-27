@@ -6,10 +6,12 @@ use App\Models\BillingSetting;
 use App\Models\Customer;
 use App\Models\InternetPackage;
 use App\Models\NetworkRouter;
-use Illuminate\Http\Request;
 use App\Models\Scopes\WilayahScope;
 use App\Models\Wilayah;
+use App\Services\CustomerIsolation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -60,13 +62,13 @@ class CustomerController extends Controller
             $query->where('service_type', $filters['type']);
         }
 
-        $manualIsolationAvailable = \App\Services\CustomerIsolation::available();
+        $manualIsolationAvailable = CustomerIsolation::available();
 
-        if (\Illuminate\Support\Facades\Schema::hasTable('customer_billing_pauses')) {
+        if (Schema::hasTable('customer_billing_pauses')) {
             $query->with('billingPause');
         }
 
-        if (\Illuminate\Support\Facades\Schema::hasTable('customer_network_actions')) {
+        if (Schema::hasTable('customer_network_actions')) {
             $query->with('networkAction');
         }
 
@@ -143,13 +145,13 @@ class CustomerController extends Controller
         }
 
         $allowedWilayah = WilayahScope::allowedIds();
-        if ($allowedWilayah !== null && !in_array((int) $data['wilayah_id'], $allowedWilayah, true)) {
+        if ($allowedWilayah !== null && ! in_array((int) $data['wilayah_id'], $allowedWilayah, true)) {
             return $back(['wilayah_id' => 'Anda tidak memiliki akses ke wilayah ini.']);
         }
 
         if (
             WilayahScope::enforced()
-            && !DB::table('network_router_wilayah')
+            && ! DB::table('network_router_wilayah')
                 ->where('wilayah_id', $data['wilayah_id'])
                 ->where('network_router_id', $data['network_router_id'])
                 ->exists()
@@ -164,7 +166,7 @@ class CustomerController extends Controller
             && (int) $customer->network_router_id === (int) $data['network_router_id']
             && $customer->service_type === $data['service_type'];
 
-        if (!$package->is_active && !$sameAssignment) {
+        if (! $package->is_active && ! $sameAssignment) {
             return $back(['internet_package_id' => 'Paket nonaktif tidak dapat dipilih untuk penempatan baru.']);
         }
 
@@ -174,7 +176,7 @@ class CustomerController extends Controller
 
         if (
             $data['service_type'] === 'pppoe' &&
-            !$package->routers()->where('network_routers.id', $data['network_router_id'])->exists()
+            ! $package->routers()->where('network_routers.id', $data['network_router_id'])->exists()
         ) {
             return $back(['internet_package_id' => 'Paket belum dipetakan pada router yang dipilih.']);
         }
@@ -184,7 +186,7 @@ class CustomerController extends Controller
             $data['pppoe_password'] = null;
         } else {
             $data['static_ip'] = null;
-            if (!$request->filled('pppoe_password')) {
+            if (! $request->filled('pppoe_password')) {
                 unset($data['pppoe_password']);
             }
         }

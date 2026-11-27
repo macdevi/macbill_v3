@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\NetworkRouter;
+use Carbon\CarbonImmutable;
 use RouterOS\Client;
 use RouterOS\Config;
 use RouterOS\Query;
@@ -65,13 +66,13 @@ class CustomerPppActionGateway
 
         $rows = $this->client->query($query)->read();
 
-        if (!is_array($rows)) {
+        if (! is_array($rows)) {
             throw new \RuntimeException('Respons router tidak valid.');
         }
 
         foreach ($rows as $row) {
             if (
-                !is_array($row)
+                ! is_array($row)
                 || array_key_exists('!trap', $row)
                 || array_key_exists('!fatal', $row)
                 || array_key_exists('message', $row)
@@ -117,11 +118,11 @@ class CustomerPppActionGateway
         if (
             empty($row['.id'])
             || ($row['name'] ?? null) !== $username
-            || !isset($row['profile'])
-            || !is_string($row['profile'])
-            || !in_array($row['service'] ?? null, ['pppoe', 'any'], true)
-            || !array_key_exists('disabled', $row)
-            || !in_array(
+            || ! isset($row['profile'])
+            || ! is_string($row['profile'])
+            || ! in_array($row['service'] ?? null, ['pppoe', 'any'], true)
+            || ! array_key_exists('disabled', $row)
+            || ! in_array(
                 $row['disabled'],
                 [false, 'false', 'no', '0', 0],
                 true
@@ -178,7 +179,7 @@ class CustomerPppActionGateway
                 'profile' => $after['profile'],
                 'session_count' => count($sessions),
                 'verification_scope' => 'account_profile_only',
-                'verified_at' => \Carbon\CarbonImmutable::now(
+                'verified_at' => CarbonImmutable::now(
                     InvoicePeriod::TZ
                 )->toIso8601String(),
             ];
@@ -324,7 +325,7 @@ class CustomerPppActionGateway
             return [
                 'profile' => $targetProfile,
                 'reset_sessions' => $resetCount,
-                'verified_at' => \Carbon\CarbonImmutable::now(
+                'verified_at' => CarbonImmutable::now(
                     InvoicePeriod::TZ
                 )->toIso8601String(),
             ];
@@ -388,7 +389,7 @@ class CustomerPppActionGateway
             return [
                 'account_id' => $created['id'],
                 'profile' => $created['profile'],
-                'verified_at' => \Carbon\CarbonImmutable::now(
+                'verified_at' => CarbonImmutable::now(
                     InvoicePeriod::TZ
                 )->toIso8601String(),
             ];
@@ -428,7 +429,7 @@ class CustomerPppActionGateway
                 throw new \RuntimeException('Akun tidak dapat dipastikan.');
             }
 
-            $verifiedAt = fn () => \Carbon\CarbonImmutable::now(
+            $verifiedAt = fn () => CarbonImmutable::now(
                 InvoicePeriod::TZ
             )->toIso8601String();
 
@@ -446,7 +447,7 @@ class CustomerPppActionGateway
             if (
                 empty($row['.id'])
                 || ($row['name'] ?? null) !== $username
-                || !in_array($row['service'] ?? null, ['pppoe', 'any'], true)
+                || ! in_array($row['service'] ?? null, ['pppoe', 'any'], true)
             ) {
                 throw new \RuntimeException('Akun tidak aman untuk dihapus.');
             }

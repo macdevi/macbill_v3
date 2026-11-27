@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InternetPackage;
 use App\Models\NetworkRouter;
 use App\Services\PackageProfileGateway;
+use App\Services\PackageRateLimit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ class PackageSyncController extends Controller
         }
 
         try {
-            \App\Services\PackageRateLimit::parse($target['rate']);
+            PackageRateLimit::parse($target['rate']);
         } catch (\Throwable $ignored) {
             $reasons[] = 'Format rate-limit paket belum valid.';
         }
@@ -94,7 +95,7 @@ class PackageSyncController extends Controller
         $same = $before['rate'] === $target['rate'];
         $token = null;
 
-        if (!$reasons) {
+        if (! $reasons) {
             $token = (string) Str::uuid();
             Cache::store('file')->put('package-preview.'.$token, [
                 'user_id' => $request->user()->id,

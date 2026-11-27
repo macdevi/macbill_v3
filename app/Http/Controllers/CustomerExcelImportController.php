@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Scopes\WilayahScope;
+use App\Models\Wilayah;
 use App\Services\CustomerExcelImporter;
+use App\Services\ImportWilayah;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Crypt;
@@ -25,9 +28,9 @@ class CustomerExcelImportController extends Controller
             'wilayah_id' => ['nullable', 'integer', 'exists:wilayah,id'],
         ]);
 
-        $allowedArea = \App\Models\Scopes\WilayahScope::allowedIds();
-        if (!empty($data['wilayah_id']) && $allowedArea !== null
-            && !in_array((int) $data['wilayah_id'], $allowedArea, true)) {
+        $allowedArea = WilayahScope::allowedIds();
+        if (! empty($data['wilayah_id']) && $allowedArea !== null
+            && ! in_array((int) $data['wilayah_id'], $allowedArea, true)) {
             return back()->withErrors(['wilayah_id' => 'Anda tidak memiliki akses ke wilayah ini.']);
         }
 
@@ -43,7 +46,7 @@ class CustomerExcelImportController extends Controller
             $payload = Crypt::encryptString(json_encode([
                 'rows' => $rows,
                 'started_at' => $data['started_at'],
-                'wilayah_id' => !empty($data['wilayah_id']) ? (int) $data['wilayah_id'] : null,
+                'wilayah_id' => ! empty($data['wilayah_id']) ? (int) $data['wilayah_id'] : null,
                 'signatures' => $signatures,
             ], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
         } catch (\Throwable $ignored) {
@@ -74,7 +77,7 @@ class CustomerExcelImportController extends Controller
             ->where('id', $batch)->where('user_id', $request->user()->id)
             ->where('expires_at', '>', now())->first();
 
-        if (!$snapshot) {
+        if (! $snapshot) {
             return redirect()->route('customer-excel-import.index')
                 ->withErrors(['preview' => 'Preview tidak tersedia atau kedaluwarsa. Unggah ulang file.']);
         }
@@ -96,7 +99,7 @@ class CustomerExcelImportController extends Controller
         foreach ($review as $i => $row) {
             if (
                 $row['ready'] &&
-                !hash_equals($payload['signatures'][$i], $row['signature'])
+                ! hash_equals($payload['signatures'][$i], $row['signature'])
             ) {
                 $row['ready'] = false;
                 $row['errors'][] = 'Pengaturan/router/paket berubah sejak unggah. Buat preview baru.';
@@ -154,7 +157,7 @@ class CustomerExcelImportController extends Controller
                     ->where('id', $batch)->where('user_id', $request->user()->id)
                     ->where('expires_at', '>', now())->lockForUpdate()->first();
 
-                if (!$snapshot) {
+                if (! $snapshot) {
                     throw new \RuntimeException('Preview unavailable');
                 }
 
@@ -168,28 +171,30 @@ class CustomerExcelImportController extends Controller
 
                 foreach ($data['selected'] as $index) {
                     $index = (int) $index;
-                    if (!isset($review[$index])) {
+                    if (! isset($review[$index])) {
                         throw new \RuntimeException('Invalid row');
                     }
 
                     $row = $review[$index];
                     if ($row['duplicate']) {
                         $skipped++;
+
                         continue;
                     }
 
                     if (
-                        !$row['ready'] ||
-                        !hash_equals($payload['signatures'][$index], $row['signature'])
+                        ! $row['ready'] ||
+                        ! hash_equals($payload['signatures'][$index], $row['signature'])
                     ) {
                         throw new \RuntimeException('Review changed');
                     }
 
                     $customer = new Customer($row['data']);
-                    $customer->wilayah_id = \App\Services\ImportWilayah::resolve(!empty($payload['wilayah_id']) ? (int) $payload['wilayah_id'] : null, (int) $customer->network_router_id);
+                    $customer->wilayah_id = ImportWilayah::resolve(! empty($payload['wilayah_id']) ? (int) $payload['wilayah_id'] : null, (int) $customer->network_router_id);
                     $customer->save();
                     $created++;
                 }
+
                 return compact('created', 'skipped');
             });
         } catch (\DomainException $e) {
@@ -221,8 +226,8 @@ class CustomerExcelImportController extends Controller
 
     private function page(array $data)
     {
-        $allowedArea = \App\Models\Scopes\WilayahScope::allowedIds();
-        $choices = \App\Models\Wilayah::query()
+        $allowedArea = WilayahScope::allowedIds();
+        $choices = Wilayah::query()
             ->when($allowedArea !== null, fn ($q) => $q->whereIn('id', $allowedArea))
             ->orderBy('name')->get(['id', 'name']);
 

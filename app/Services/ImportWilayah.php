@@ -30,7 +30,7 @@ class ImportWilayah
         $candidates = self::candidates($routerId);
 
         if ($requested !== null) {
-            if (!in_array($requested, $candidates, true)) {
+            if (! in_array($requested, $candidates, true)) {
                 throw new \DomainException('Wilayah tidak sesuai dengan router atau di luar akses Anda. Import dibatalkan.');
             }
 
@@ -41,7 +41,7 @@ class ImportWilayah
             return $candidates[0];
         }
 
-        if ($candidates === [] && !WilayahScope::enforced()) {
+        if ($candidates === [] && ! WilayahScope::enforced()) {
             return null;
         }
 

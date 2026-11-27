@@ -1,16 +1,19 @@
 <?php
 
 use App\Models\BillingSetting;
+use App\Models\Customer;
 use App\Models\CustomerBillingPause;
 use App\Models\Invoice;
 use App\Services\CustomerBillingProrata;
 use App\Services\InvoiceGenerator;
 use App\Services\InvoicePeriod;
+use Carbon\CarbonImmutable;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 function billingPauseFixture(
-    \App\Models\Customer $customer,
+    Customer $customer,
     string $from,
     ?string $resume = null
 ): CustomerBillingPause {
@@ -29,8 +32,8 @@ function billingPauseFixture(
 }
 
 beforeEach(function () {
-    \Carbon\CarbonImmutable::setTestNow(
-        \Carbon\CarbonImmutable::parse(
+    CarbonImmutable::setTestNow(
+        CarbonImmutable::parse(
             '2026-12-15 12:00:00',
             InvoicePeriod::TZ
         )
@@ -53,7 +56,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    \Carbon\CarbonImmutable::setTestNow();
+    CarbonImmutable::setTestNow();
 });
 
 test('tanpa riwayat jeda harga invoice tetap penuh', function () {

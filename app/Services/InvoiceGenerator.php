@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Models\BillingSetting;
 use App\Models\Customer;
+use App\Models\CustomerNetworkAction;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class InvoiceGenerator
 {
@@ -40,8 +42,8 @@ class InvoiceGenerator
         bool $auto = false
     ): array {
         if (
-            \Illuminate\Support\Facades\Schema::hasTable('customer_network_actions')
-            && \App\Models\CustomerNetworkAction::where(
+            Schema::hasTable('customer_network_actions')
+            && CustomerNetworkAction::where(
                 'open_customer_id', $customer->id
             )->exists()
         ) {
@@ -65,7 +67,7 @@ class InvoiceGenerator
             return [null, 'Sudah ada invoice '.$existing->number.'.'];
         }
 
-        if ($auto && $customer->first_billing_mode === null && !Invoice::where('customer_id', $customer->id)
+        if ($auto && $customer->first_billing_mode === null && ! Invoice::where('customer_id', $customer->id)
             ->where('status', '!=', 'void')->exists()) {
             return [null, 'Belum ada tagihan awal. Generate manual dahulu.'];
         }
@@ -160,7 +162,7 @@ class InvoiceGenerator
     ): array {
         return DB::transaction(function () use ($customerId, $year, $month, $user, $source, $auto) {
             $customer = Customer::whereKey($customerId)->lockForUpdate()->first();
-            if (!$customer) {
+            if (! $customer) {
                 return [null, 'Pelanggan tidak ditemukan.'];
             }
 
@@ -177,7 +179,7 @@ class InvoiceGenerator
             [$quote, $reason] = $this->prepare(
                 $customer, BillingSetting::current(), $year, $month, $auto
             );
-            if (!$quote) {
+            if (! $quote) {
                 return [null, $reason];
             }
 

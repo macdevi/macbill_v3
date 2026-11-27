@@ -68,7 +68,7 @@ class BillingLedger
         array $input,
         string $kind = 'payment'
     ): BillingReceipt {
-        if (!in_array($kind, ['payment', 'deposit'], true)) {
+        if (! in_array($kind, ['payment', 'deposit'], true)) {
             $this->fail('Jenis penerimaan tidak valid.');
         }
 

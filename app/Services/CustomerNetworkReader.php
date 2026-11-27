@@ -18,7 +18,7 @@ class CustomerNetworkReader
         $router = $customer->router;
         $package = $customer->package;
 
-        if (!$router || !$package) {
+        if (! $router || ! $package) {
             throw new \RuntimeException('Missing assignment');
         }
 
@@ -57,7 +57,7 @@ class CustomerNetworkReader
                     ->where('name', $username)
             )->read();
 
-            if (!is_array($secrets) || count($secrets) > 1) {
+            if (! is_array($secrets) || count($secrets) > 1) {
                 throw new \RuntimeException('Unexpected account response');
             }
 
@@ -65,13 +65,13 @@ class CustomerNetworkReader
 
             foreach ($secrets as $row) {
                 if (
-                    !is_array($row) ||
-                    !isset($row['name'], $row['profile'], $row['service']) ||
+                    ! is_array($row) ||
+                    ! isset($row['name'], $row['profile'], $row['service']) ||
                     $row['name'] !== $username ||
-                    !is_string($row['profile']) ||
-                    !is_string($row['service']) ||
-                    !array_key_exists('disabled', $row) ||
-                    !in_array(
+                    ! is_string($row['profile']) ||
+                    ! is_string($row['service']) ||
+                    ! array_key_exists('disabled', $row) ||
+                    ! in_array(
                         $row['disabled'],
                         [true, false, 'true', 'false', 'yes', 'no', '1', '0', 1, 0],
                         true
@@ -96,13 +96,13 @@ class CustomerNetworkReader
                     ->where('service', 'pppoe')
             )->read();
 
-            if (!is_array($activeRows) || count($activeRows) > 100) {
+            if (! is_array($activeRows) || count($activeRows) > 100) {
                 throw new \RuntimeException('Unexpected session response');
             }
 
             foreach ($activeRows as $row) {
                 if (
-                    !is_array($row) ||
+                    ! is_array($row) ||
                     ($row['name'] ?? null) !== $username ||
                     ($row['service'] ?? null) !== 'pppoe'
                 ) {
@@ -135,7 +135,7 @@ class CustomerNetworkReader
         if ($secret === null) {
             $access = 'Akun lokal tidak ditemukan';
             $notes[] = 'Tidak ditemukan pada PPP secret router yang dipilih. Akun berbasis RADIUS tidak dapat dipastikan dari pemeriksaan akun lokal ini.';
-        } elseif (!in_array($secret['service'], ['pppoe', 'any'], true)) {
+        } elseif (! in_array($secret['service'], ['pppoe', 'any'], true)) {
             $access = 'Jenis akun bukan PPPoE';
             $notes[] = 'Ada akun dengan nama yang sama, tetapi jenis layanannya bukan PPPoE/any.';
         } elseif ($secret['disabled']) {

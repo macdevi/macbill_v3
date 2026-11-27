@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerIsolationController;
 use App\Http\Controllers\CustomerNetworkController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,5 @@ Route::middleware([
 Route::middleware([
     'auth', 'verified', 'can:access-billing', 'throttle:5,1',
 ])->post('/customers/{customer}/isolation', [
-    \App\Http\Controllers\CustomerIsolationController::class, 'store',
+    CustomerIsolationController::class, 'store',
 ])->whereNumber('customer')->name('customers.isolation.store');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DashboardConnectionSummary;
 use App\Services\DashboardSummary;
 use App\Services\InvoicePeriod;
 use Carbon\CarbonImmutable;
@@ -12,9 +13,8 @@ class DashboardController extends Controller
     public function index(
         Request $request,
         DashboardSummary $summary,
-        \App\Services\DashboardConnectionSummary $connections
-    )
-    {
+        DashboardConnectionSummary $connections
+    ) {
         $data = $request->validate([
             'month' => [
                 'nullable',

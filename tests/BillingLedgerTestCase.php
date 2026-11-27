@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\BillingReceipt;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\User;
@@ -24,10 +25,10 @@ abstract class BillingLedgerTestCase extends TestCase
         $settings = config('database.connections.'.$connection, []);
 
         if (
-            !$this->app->environment('testing')
+            ! $this->app->environment('testing')
             || ($settings['driver'] ?? null) !== 'sqlite'
             || ($settings['database'] ?? null) !== ':memory:'
-            || !empty($settings['url'])
+            || ! empty($settings['url'])
         ) {
             throw new \RuntimeException(
                 'STOP: pengujian ledger hanya boleh memakai SQLite :memory: pada lingkungan testing.'
@@ -35,7 +36,7 @@ abstract class BillingLedgerTestCase extends TestCase
         }
 
         foreach (DB::connection()->select('PRAGMA database_list') as $database) {
-            if (!empty($database->file)) {
+            if (! empty($database->file)) {
                 throw new \RuntimeException(
                     'STOP: koneksi SQLite menunjuk file. RefreshDatabase dibatalkan.'
                 );
@@ -127,7 +128,7 @@ abstract class BillingLedgerTestCase extends TestCase
         int $amount,
         array $extra = [],
         string $kind = 'payment'
-    ): \App\Models\BillingReceipt {
+    ): BillingReceipt {
         return app(BillingLedger::class)->receive(
             $customer->id,
             $user,

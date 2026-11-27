@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\WilayahScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Expense extends Model
 {
     protected static function booted(): void
     {
-        static::addGlobalScope(new \App\Models\Scopes\WilayahScope);
+        static::addGlobalScope(new WilayahScope);
 
         static::creating(function ($model) {
             if ($model->wilayah_id !== null) {
                 return;
             }
 
-            $allowed = \App\Models\Scopes\WilayahScope::allowedIds();
-            $query = \Illuminate\Support\Facades\DB::table('wilayah')->orderBy('id');
+            $allowed = WilayahScope::allowedIds();
+            $query = DB::table('wilayah')->orderBy('id');
 
             if ($allowed !== null) {
                 $query->whereIn('id', $allowed);

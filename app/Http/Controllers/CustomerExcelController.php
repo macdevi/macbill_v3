@@ -104,9 +104,9 @@ class CustomerExcelController extends Controller
 
         try {
             if (
-                !is_dir($directory) &&
-                !mkdir($directory, 0700, true) &&
-                !is_dir($directory)
+                ! is_dir($directory) &&
+                ! mkdir($directory, 0700, true) &&
+                ! is_dir($directory)
             ) {
                 throw new \RuntimeException('Temporary directory unavailable');
             }
@@ -121,7 +121,7 @@ class CustomerExcelController extends Controller
             if ($path === false) {
                 throw new \RuntimeException('Temporary file unavailable');
             }
-            if (!chmod($path, 0600)) {
+            if (! chmod($path, 0600)) {
                 throw new \RuntimeException('Temporary file permissions failed');
             }
 

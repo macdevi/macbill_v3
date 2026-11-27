@@ -19,7 +19,7 @@ class PackageRateLimit
 
     private static function rate(string $value): float
     {
-        if (!preg_match('/^(\d+(?:\.\d+)?)([kKmMgG]?)$/D', $value, $m)) {
+        if (! preg_match('/^(\d+(?:\.\d+)?)([kKmMgG]?)$/D', $value, $m)) {
             throw new \InvalidArgumentException('Invalid rate');
         }
 
@@ -41,7 +41,7 @@ class PackageRateLimit
     public static function parse(string $rate): array
     {
         $tokens = preg_split('/\s+/', trim($rate));
-        if (!$tokens || count($tokens) > 6 || $tokens[0] === '') {
+        if (! $tokens || count($tokens) > 6 || $tokens[0] === '') {
             throw new \InvalidArgumentException('Invalid rate-limit');
         }
 
@@ -62,14 +62,15 @@ class PackageRateLimit
 
         if (isset($tokens[3])) {
             self::pair($tokens[3], function ($value) {
-                if (!preg_match('/^\d+s?$/D', $value)) {
+                if (! preg_match('/^\d+s?$/D', $value)) {
                     throw new \InvalidArgumentException('Unsupported burst time');
                 }
+
                 return (int) $value;
             });
         }
 
-        if (isset($tokens[4]) && !preg_match('/^[1-8]$/D', $tokens[4])) {
+        if (isset($tokens[4]) && ! preg_match('/^[1-8]$/D', $tokens[4])) {
             throw new \InvalidArgumentException('Invalid priority');
         }
 

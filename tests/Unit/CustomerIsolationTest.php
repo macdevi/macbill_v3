@@ -6,13 +6,16 @@ use App\Models\User;
 use App\Services\CustomerIsolation;
 use App\Services\CustomerPppActionGateway;
 use App\Services\InvoicePeriod;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
-    \Carbon\CarbonImmutable::setTestNow(
-        \Carbon\CarbonImmutable::parse(
+    CarbonImmutable::setTestNow(
+        CarbonImmutable::parse(
             '2026-11-24 12:00:00', InvoicePeriod::TZ
         )
     );
@@ -32,7 +35,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    \Carbon\CarbonImmutable::setTestNow();
+    CarbonImmutable::setTestNow();
 });
 
 function isolationGatewayResult(): array
@@ -62,6 +65,7 @@ test('isolir terverifikasi membuat jeda mulai besok', function () {
         function ($router, $username, $from, $to, $beforeWrite) {
             expect($from)->toBe('normal')->and($to)->toBe('isolir');
             $beforeWrite(['account_id' => '*A']);
+
             return isolationGatewayResult();
         }
     );
@@ -129,7 +133,7 @@ test('gagal setelah siap menulis menahan kunci sebagai belum pasti', function ()
         'isolate',
         (string) Str::uuid(),
         'Percobaan tindakan kedua'
-    ))->toThrow(\Illuminate\Validation\ValidationException::class);
+    ))->toThrow(ValidationException::class);
 
     expect(CustomerNetworkAction::count())->toBe(1);
 });
@@ -139,6 +143,7 @@ test('request key yang sama tidak memanggil router dua kali', function () {
     $gateway->shouldReceive('change')->once()->andReturnUsing(
         function ($router, $username, $from, $to, $beforeWrite) {
             $beforeWrite(['account_id' => '*A']);
+
             return isolationGatewayResult();
         }
     );
@@ -160,7 +165,7 @@ test('request key yang sama tidak memanggil router dua kali', function () {
         'isolate',
         $key,
         'Belum membayar tagihan'
-    ))->toThrow(\Illuminate\Validation\ValidationException::class);
+    ))->toThrow(ValidationException::class);
 
     expect(CustomerNetworkAction::count())->toBe(1);
 });
@@ -173,6 +178,7 @@ test('pemulihan hari berikutnya mengakhiri jeda pada hari pemulihan', function (
         function ($router, $username, $from, $to, $beforeWrite) {
             expect($from)->toBe('isolir')->and($to)->toBe('normal');
             $beforeWrite(['account_id' => '*A']);
+
             return [
                 'profile' => 'normal',
                 'reset_sessions' => 0,
@@ -202,6 +208,7 @@ test('isolir dan buka pada hari sama menghasilkan jeda kosong', function () {
     $gateway->shouldReceive('change')->once()->andReturnUsing(
         function ($router, $username, $from, $to, $beforeWrite) {
             $beforeWrite(['account_id' => '*A']);
+
             return [
                 'profile' => 'normal',
                 'reset_sessions' => 0,
@@ -238,7 +245,7 @@ test('riwayat pemulihan yang tidak cocok ditolak sebelum router', function () {
         (string) Str::uuid(),
         'Pemulihan riwayat salah',
         999999
-    ))->toThrow(\Illuminate\Validation\ValidationException::class);
+    ))->toThrow(ValidationException::class);
 
     expect(CustomerNetworkAction::count())->toBe(0);
 });
@@ -259,8 +266,7 @@ test('timestamp audit memakai UTC dan tanggal jeda tetap WIB', function (
 
     $gateway = Mockery::mock(CustomerPppActionGateway::class);
     $gateway->shouldReceive('change')->once()->andReturnUsing(
-        function ($router, $username, $from, $to, $beforeWrite)
-            use ($verifiedAt, $profile) {
+        function ($router, $username, $from, $to, $beforeWrite) use ($verifiedAt, $profile) {
             expect($to)->toBe($profile);
             $beforeWrite(['account_id' => '*A']);
 
@@ -288,7 +294,7 @@ test('timestamp audit memakai UTC dan tanggal jeda tetap WIB', function (
     expect($action->status)->toBe('succeeded')
         ->and($stored->getRawOriginal($timestampField))->toBe($expectedUtc)
         ->and($stored->getAttribute($timestampField)->getTimestamp())
-        ->toBe(\Carbon\CarbonImmutable::parse($verifiedAt)->getTimestamp())
+        ->toBe(CarbonImmutable::parse($verifiedAt)->getTimestamp())
         ->and(
             $stored->getAttribute($timestampField)
                 ->setTimezone(InvoicePeriod::TZ)

@@ -5,8 +5,9 @@ use App\Models\CustomerNetworkAction;
 use App\Models\User;
 use App\Services\CustomerPppActionGateway;
 use Illuminate\Support\Str;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
     $this->bulkActor = User::factory()->createQuietly();
@@ -30,7 +31,7 @@ function bulkPriceItem($test, Customer $customer, ?int $amount): array
 
     $row = collect($rows)->firstWhere('id', $customer->id);
 
-    if (!$row) {
+    if (! $row) {
         throw new RuntimeException('Pelanggan fixture tidak ditemukan.');
     }
 

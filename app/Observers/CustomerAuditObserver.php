@@ -48,7 +48,7 @@ class CustomerAuditObserver
 
     public function updated(Customer $customer): void
     {
-        if (!isset($this->before[$customer])) {
+        if (! isset($this->before[$customer])) {
             return;
         }
 

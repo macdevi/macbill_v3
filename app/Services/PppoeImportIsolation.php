@@ -13,14 +13,12 @@ use Illuminate\Support\Str;
 
 class PppoeImportIsolation
 {
-    public function __construct(private CustomerPppActionGateway $gateway)
-    {
-    }
+    public function __construct(private CustomerPppActionGateway $gateway) {}
 
     public function record(Customer $source, User $actor): bool
     {
         return DB::transaction(function () use ($source, $actor) {
-            if (!CustomerIsolation::available()) {
+            if (! CustomerIsolation::available()) {
                 throw new \RuntimeException('Pencatatan isolir belum tersedia.');
             }
 
@@ -43,7 +41,7 @@ class PppoeImportIsolation
 
             $package = $customer->package;
 
-            if (!$package || !$package->is_active || $package->service_type !== 'pppoe') {
+            if (! $package || ! $package->is_active || $package->service_type !== 'pppoe') {
                 throw new \RuntimeException('Paket normal tidak tersedia.');
             }
 
@@ -109,8 +107,8 @@ class PppoeImportIsolation
             if (
                 ($result['profile'] ?? null) !== $isolation
                 || empty($result['account_id'])
-                || !is_string($result['verified_at'] ?? null)
-                || !is_int($result['session_count'] ?? null)
+                || ! is_string($result['verified_at'] ?? null)
+                || ! is_int($result['session_count'] ?? null)
                 || $result['session_count'] < 0
             ) {
                 throw new \RuntimeException('Hasil pemeriksaan tidak valid.');

@@ -22,12 +22,12 @@ class WilayahScope implements Scope
      */
     public static function allowedIds(): ?array
     {
-        if (!self::enforced()) {
+        if (! self::enforced()) {
             return null;
         }
 
         $user = Auth::user();
-        if (!$user || $user->isSuperAdmin()) {
+        if (! $user || $user->isSuperAdmin()) {
             return null;
         }
 

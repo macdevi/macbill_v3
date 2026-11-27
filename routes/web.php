@@ -1,21 +1,24 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardCustomerConnectionController;
+use App\Http\Controllers\DashboardCustomerDetailController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('dashboard/customer-connections/{router}', [
-        \App\Http\Controllers\DashboardCustomerConnectionController::class,
+        DashboardCustomerConnectionController::class,
         '__invoke',
     ])->middleware(['can:access-billing', 'throttle:90,1'])
         ->whereNumber('router')
         ->name('dashboard.customer-status');
 
     Route::get('dashboard/customer-details', [
-        \App\Http\Controllers\DashboardCustomerDetailController::class,
+        DashboardCustomerDetailController::class,
         '__invoke',
     ])->middleware(['can:access-billing', 'throttle:90,1'])
         ->name('dashboard.customer-details');

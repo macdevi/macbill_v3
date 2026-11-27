@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\NetworkRouter;
+use App\Models\Scopes\WilayahScope;
+use App\Models\Wilayah;
+use App\Services\ImportWilayah;
+use App\Services\RouterProfileReader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class NetworkRouterController extends Controller
@@ -14,11 +20,11 @@ class NetworkRouterController extends Controller
             ?: $request->integer('edit');
 
         $editing = $editId
-            ? \App\Services\ImportWilayah::routers()->findOrFail((int) $editId)
+            ? ImportWilayah::routers()->findOrFail((int) $editId)
             : null;
 
         return view('routers.index', [
-            'routers' => \App\Services\ImportWilayah::routers()->get(),
+            'routers' => ImportWilayah::routers()->get(),
             'editing' => $editing,
         ]);
     }
@@ -30,23 +36,23 @@ class NetworkRouterController extends Controller
 
     public function update(Request $request, NetworkRouter $router)
     {
-        abort_unless(\App\Services\ImportWilayah::routers()->whereKey($router->id)->exists(), 404);
+        abort_unless(ImportWilayah::routers()->whereKey($router->id)->exists(), 404);
 
         return $this->persist($request, $router);
     }
 
     public function destroy(NetworkRouter $router)
     {
-        abort_unless(\App\Services\ImportWilayah::routers()->whereKey($router->id)->exists(), 404);
+        abort_unless(ImportWilayah::routers()->whereKey($router->id)->exists(), 404);
 
-        if (\App\Models\Customer::withoutGlobalScopes()->where('network_router_id', $router->id)->exists()) {
+        if (Customer::withoutGlobalScopes()->where('network_router_id', $router->id)->exists()) {
             return redirect()->route('routers.index')->with(
                 'status',
                 'Belum dapat dihapus karena masih digunakan pelanggan. Pertahankan data untuk riwayat layanan.'
             );
         }
 
-        if (\Illuminate\Support\Facades\DB::table('internet_package_router')
+        if (DB::table('internet_package_router')
             ->where('network_router_id', $router->id)->exists()) {
             return redirect()->route('routers.index')->with(
                 'status',
@@ -55,8 +61,8 @@ class NetworkRouterController extends Controller
         }
 
         $name = $router->name;
-        \Illuminate\Support\Facades\DB::transaction(function () use ($router) {
-            \Illuminate\Support\Facades\DB::table('network_router_wilayah')
+        DB::transaction(function () use ($router) {
+            DB::table('network_router_wilayah')
                 ->where('network_router_id', $router->id)->delete();
             $router->delete();
         });
@@ -74,7 +80,7 @@ class NetworkRouterController extends Controller
                 function ($attribute, $value, $fail) {
                     $valid = filter_var($value, FILTER_VALIDATE_IP)
                         || filter_var($value, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
-                    if (!$valid) {
+                    if (! $valid) {
                         $fail('Isi alamat IP atau hostname saja, tanpa protokol dan port.');
                     }
                 },
@@ -109,36 +115,36 @@ class NetworkRouterController extends Controller
             $candidate = clone $router;
             $candidateData = $data;
 
-            if ($router->exists && !$request->filled('password')) {
+            if ($router->exists && ! $request->filled('password')) {
                 unset($candidateData['password']);
             }
 
             $candidate->fill($candidateData);
 
             try {
-                $profiles = app(\App\Services\RouterProfileReader::class)->read($candidate);
+                $profiles = app(RouterProfileReader::class)->read($candidate);
             } catch (\Throwable $ignored) {
                 return back()->withErrors([
                     'isolation_profile' => 'Profil belum dapat diverifikasi. Periksa koneksi dan hak baca API, lalu coba lagi.',
                 ])->withInput($request->except(['password', '_token', '_method']));
             }
 
-            if (!in_array($data['isolation_profile'] ?? '', $profiles, true)) {
+            if (! in_array($data['isolation_profile'] ?? '', $profiles, true)) {
                 return back()->withErrors([
                     'isolation_profile' => 'Pilih profil isolir yang tersedia pada router ini.',
                 ])->withInput($request->except(['password', '_token', '_method']));
             }
         }
 
-        if ($router->exists && !$request->filled('password')) {
+        if ($router->exists && ! $request->filled('password')) {
             unset($data['password']);
         }
 
-        $isNew = !$router->exists;
+        $isNew = ! $router->exists;
         $router->fill($data)->save();
 
-        if ($isNew && ($ownAreas = \App\Models\Scopes\WilayahScope::allowedIds()) !== null) {
-            \App\Models\Wilayah::whereIn('id', $ownAreas)->get()
+        if ($isNew && ($ownAreas = WilayahScope::allowedIds()) !== null) {
+            Wilayah::whereIn('id', $ownAreas)->get()
                 ->each(fn ($area) => $area->routers()->syncWithoutDetaching([$router->id]));
         }
 

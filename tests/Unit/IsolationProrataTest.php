@@ -133,7 +133,7 @@ test('tanggal tidak valid ditolak', function () {
     IsolationProrata::calculate(
         150000, '2026-02-30', '2026-03-14', []
     );
-})->throws(\InvalidArgumentException::class);
+})->throws(InvalidArgumentException::class);
 
 test('pemulihan sebelum awal jeda ditolak', function () {
     IsolationProrata::calculate(
@@ -145,4 +145,4 @@ test('pemulihan sebelum awal jeda ditolak', function () {
             'resumed_on' => '2026-11-19',
         ]]
     );
-})->throws(\InvalidArgumentException::class);
+})->throws(InvalidArgumentException::class);

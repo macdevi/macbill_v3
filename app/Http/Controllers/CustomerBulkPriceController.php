@@ -96,7 +96,7 @@ class CustomerBulkPriceController extends Controller
 
                 $item = $items->get($customer->id);
 
-                if (!hash_equals($this->version($customer), $item['version'])) {
+                if (! hash_equals($this->version($customer), $item['version'])) {
                     throw ValidationException::withMessages([
                         'prices' => 'Data '.$customer->name
                             .' berubah sejak popup dibuka. Muat ulang sebelum menyimpan.',
@@ -117,7 +117,7 @@ class CustomerBulkPriceController extends Controller
                 $amount = $item['custom_monthly_price'];
                 $amount = $amount === null ? null : (int) $amount;
 
-                if ($amount === null && !$customer->package) {
+                if ($amount === null && ! $customer->package) {
                     throw ValidationException::withMessages([
                         'prices' => 'Paket '.$customer->name.' belum tersedia.',
                     ]);

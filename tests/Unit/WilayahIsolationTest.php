@@ -4,8 +4,9 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\DB;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 function wilVisibleIds(): array
 {

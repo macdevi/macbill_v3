@@ -13,7 +13,7 @@ class PackageCustomerGuard
         array $data,
         array $sync
     ): array {
-        if (!$package->exists) {
+        if (! $package->exists) {
             return [];
         }
 
@@ -59,7 +59,7 @@ class PackageCustomerGuard
         }
 
         foreach (array_unique($usedRouterIds) as $routerId) {
-            if (!array_key_exists($routerId, $newMappings)) {
+            if (! array_key_exists($routerId, $newMappings)) {
                 return [
                     'mappings' => 'Pemetaan router belum dapat dilepas karena masih ada pelanggan paket ini pada router tersebut.',
                 ];

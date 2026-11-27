@@ -2,8 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\WilayahScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\ValidationException;
 
 class Customer extends Model
 {
@@ -13,7 +19,7 @@ class Customer extends Model
     {
         static $ids = null;
 
-        return $ids ??= \Illuminate\Support\Facades\DB::table('customers')
+        return $ids ??= DB::table('customers')
             ->whereNotNull('deleted_at')->pluck('id')->flip()->all();
     }
 
@@ -37,14 +43,14 @@ class Customer extends Model
             }
 
             if ($this->exists) {
-                $pending = \Illuminate\Support\Facades\Schema::hasTable(
+                $pending = Schema::hasTable(
                     'customer_network_actions'
-                ) && \App\Models\CustomerNetworkAction::where(
+                ) && CustomerNetworkAction::where(
                     'open_customer_id', $this->getKey()
                 )->exists();
 
                 if ($pending) {
-                    throw \Illuminate\Validation\ValidationException::withMessages([
+                    throw ValidationException::withMessages([
                         'customer' => 'Data pelanggan dikunci karena masih ada tindakan jaringan yang belum selesai.',
                     ]);
                 }
@@ -55,11 +61,11 @@ class Customer extends Model
                         'pppoe_username', 'service_type',
                         'service_status', 'invoice_day', 'started_at',
                     ])
-                    && \App\Models\CustomerBillingPause::where(
+                    && CustomerBillingPause::where(
                         'open_customer_id', $this->getKey()
                     )->exists()
                 ) {
-                    throw \Illuminate\Validation\ValidationException::withMessages([
+                    throw ValidationException::withMessages([
                         'customer' => 'Identitas jaringan, status, dan tanggal tagihan tidak boleh diubah selama jeda isolir terbuka.',
                     ]);
                 }
@@ -71,17 +77,17 @@ class Customer extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new \App\Models\Scopes\WilayahScope);
+        static::addGlobalScope(new WilayahScope);
 
         static::creating(function (self $customer) {
             if ($customer->wilayah_id === null) {
-                $customer->wilayah_id = \Illuminate\Support\Facades\DB::table('wilayah')
+                $customer->wilayah_id = DB::table('wilayah')
                     ->orderBy('id')->value('id');
             }
         });
     }
 
-    public function wilayah()
+    public function wilayah(): BelongsTo
     {
         return $this->belongsTo(Wilayah::class, 'wilayah_id');
     }
@@ -103,30 +109,30 @@ class Customer extends Model
         return 'PLG-'.str_pad((string) $this->id, 6, '0', STR_PAD_LEFT);
     }
 
-    public function billingPause()
+    public function billingPause(): HasOne
     {
         return $this->hasOne(CustomerBillingPause::class)
             ->whereNotNull('open_customer_id');
     }
 
-    public function networkAction()
+    public function networkAction(): HasOne
     {
         return $this->hasOne(CustomerNetworkAction::class)
             ->whereNotNull('open_customer_id');
     }
 
-    public function latestChange()
+    public function latestChange(): HasOne
     {
         return $this->hasOne(CustomerChange::class, 'customer_id')
             ->latestOfMany();
     }
 
-    public function router()
+    public function router(): BelongsTo
     {
         return $this->belongsTo(NetworkRouter::class, 'network_router_id');
     }
 
-    public function package()
+    public function package(): BelongsTo
     {
         return $this->belongsTo(InternetPackage::class, 'internet_package_id');
     }

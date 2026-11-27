@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\NetworkRouter;
+use App\Services\CustomerConnectionMonitor;
 use App\Services\CustomerNetworkReader;
+use Illuminate\Http\Request;
 
 class CustomerNetworkController extends Controller
 {
     public function status(
-        \Illuminate\Http\Request $request,
-        \App\Services\CustomerConnectionMonitor $monitor
+        Request $request,
+        CustomerConnectionMonitor $monitor
     ) {
         $data = $request->validate([
             'customer_ids' => ['required', 'array', 'min:1', 'max:25'],
@@ -39,7 +42,7 @@ class CustomerNetworkController extends Controller
         ];
 
         if ($routerIds->count() === 1) {
-            $router = \App\Models\NetworkRouter::find($routerIds->first());
+            $router = NetworkRouter::find($routerIds->first());
             if ($router) {
                 $snapshot = $monitor->snapshot($router);
             }

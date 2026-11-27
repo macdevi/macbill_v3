@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillingSetting;
+use App\Services\ReceiptText;
+use App\Services\WhatsAppMessage;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class BillingSettingController extends Controller
 {
@@ -39,24 +42,24 @@ class BillingSettingController extends Controller
 
         $allowedMarkers = array_map(
             fn ($marker) => trim($marker, '{}'),
-            \App\Services\WhatsAppMessage::PLACEHOLDERS
+            WhatsAppMessage::PLACEHOLDERS
         );
         preg_match_all('/\{([a-z_]+)\}/', (string) ($data['wa_template'] ?? ''), $found);
         $unknown = array_values(array_diff($found[1], $allowedMarkers));
         if ($unknown) {
-            throw \Illuminate\Validation\ValidationException::withMessages([
+            throw ValidationException::withMessages([
                 'wa_template' => 'Penanda tidak dikenal: {'.implode('}, {', $unknown).'}',
             ]);
         }
 
         $receiptMarkers = array_map(
             fn ($marker) => trim($marker, '{}'),
-            \App\Services\ReceiptText::PLACEHOLDERS
+            ReceiptText::PLACEHOLDERS
         );
         preg_match_all('/\{([a-z_]+)\}/', (string) ($data['receipt_template'] ?? ''), $receiptFound);
         $receiptUnknown = array_values(array_diff($receiptFound[1], $receiptMarkers));
         if ($receiptUnknown) {
-            throw \Illuminate\Validation\ValidationException::withMessages([
+            throw ValidationException::withMessages([
                 'receipt_template' => 'Penanda nota tidak dikenal: {'.implode('}, {', $receiptUnknown).'}',
             ]);
         }

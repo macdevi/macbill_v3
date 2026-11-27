@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CustomerOwnedScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
     protected static function booted(): void
     {
-        static::addGlobalScope(new \App\Models\Scopes\CustomerOwnedScope);
+        static::addGlobalScope(new CustomerOwnedScope);
     }
 
     protected $guarded = ['id'];

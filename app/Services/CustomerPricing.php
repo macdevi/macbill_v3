@@ -16,7 +16,7 @@ class CustomerPricing
         if (
             $price < 0 || $price > 1000000000 ||
             $rateBps < 0 || $rateBps > 10000 ||
-            !in_array($mode, ['include', 'exclude'], true)
+            ! in_array($mode, ['include', 'exclude'], true)
         ) {
             throw new \InvalidArgumentException('Invalid pricing configuration');
         }

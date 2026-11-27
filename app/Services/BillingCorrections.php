@@ -14,9 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 class BillingCorrections
 {
-    public function __construct(private BillingLedger $ledger)
-    {
-    }
+    public function __construct(private BillingLedger $ledger) {}
 
     public function voidReceipt(
         int $receiptId,
@@ -108,7 +106,7 @@ class BillingCorrections
             if (
                 $entry->type !== 'use'
                 || $entry->status !== 'active'
-                || !$entry->invoice_id
+                || ! $entry->invoice_id
             ) {
                 $this->fail('Pemakaian saldo ini tidak dapat dibatalkan.');
             }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NetworkRouter;
+use App\Services\ImportWilayah;
 use Illuminate\Support\Facades\Cache;
 use RouterOS\Client;
 use RouterOS\Query;
@@ -13,9 +13,9 @@ class RouterMonitorController extends Controller
     public function __invoke()
     {
         // Sementara memakai router dengan ID paling awal.
-        $router = \App\Services\ImportWilayah::routers()->reorder('id')->first();
+        $router = ImportWilayah::routers()->reorder('id')->first();
 
-        if (!$router) {
+        if (! $router) {
             return response()->json(['state' => 'unconfigured'])
                 ->header('Cache-Control', 'private, no-store');
         }
@@ -31,7 +31,7 @@ class RouterMonitorController extends Controller
 
         $lock = $cache->lock($key.'.lock', 90);
 
-        if (!$lock->get()) {
+        if (! $lock->get()) {
             return $this->output($snapshot ?: ['state' => 'pending']);
         }
 
@@ -70,8 +70,8 @@ class RouterMonitorController extends Controller
             $resource = $resource[0] ?? [];
 
             if (
-                !isset($identity[0]['name'], $resource['uptime']) ||
-                !array_key_exists('cpu-load', $resource)
+                ! isset($identity[0]['name'], $resource['uptime']) ||
+                ! array_key_exists('cpu-load', $resource)
             ) {
                 throw new \RuntimeException('Incomplete system response');
             }
@@ -133,7 +133,7 @@ class RouterMonitorController extends Controller
             }
 
             // Lock dilepas setelah hasil ditulis di bawah.
-            if (!isset($result)) {
+            if (! isset($result)) {
                 $lock->release();
             }
         }

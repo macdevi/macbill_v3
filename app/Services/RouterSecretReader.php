@@ -41,24 +41,24 @@ class RouterSecretReader
                 )
             )->read();
 
-            if (!is_array($response) || count($response) > 5000) {
+            if (! is_array($response) || count($response) > 5000) {
                 throw new \RuntimeException('Unsupported secret response');
             }
 
             $result = [];
             foreach ($response as $row) {
-                if (!is_array($row) || !isset($row['name']) || !is_string($row['name'])) {
+                if (! is_array($row) || ! isset($row['name']) || ! is_string($row['name'])) {
                     throw new \RuntimeException('Invalid secret response');
                 }
 
                 $service = (string) ($row['service'] ?? 'any');
-                if (!in_array($service, ['pppoe', 'any'], true)) {
+                if (! in_array($service, ['pppoe', 'any'], true)) {
                     continue;
                 }
 
                 $password = $row['password'] ?? null;
                 if (
-                    !is_string($password) ||
+                    ! is_string($password) ||
                     $password === '' ||
                     preg_match('/^\*+$/D', $password) ||
                     in_array(strtolower($password), ['<hidden>', '[hidden]'], true)

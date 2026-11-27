@@ -15,8 +15,9 @@ class SetupLoginAccount extends Command
 
     public function handle(): int
     {
-        if (!app()->environment('local')) {
+        if (! app()->environment('local')) {
             $this->error('Perintah ini hanya untuk pengembangan lokal.');
+
             return self::FAILURE;
         }
 
@@ -45,6 +46,7 @@ class SetupLoginAccount extends Command
             foreach ($validator->errors()->all() as $message) {
                 $this->error($message);
             }
+
             return self::FAILURE;
         }
 
@@ -54,10 +56,11 @@ class SetupLoginAccount extends Command
 
         if ($duplicate) {
             $this->error('Username sudah digunakan akun lain.');
+
             return self::FAILURE;
         }
 
-        if ($user && !$this->confirm(
+        if ($user && ! $this->confirm(
             'Akun email tersebut ditemukan. Tambahkan/ganti username akun ini?',
             false
         )) {
@@ -67,7 +70,7 @@ class SetupLoginAccount extends Command
         $name = $user?->name
             ?? trim((string) $this->ask('Nama pengelola'));
 
-        $changePassword = !$user || $this->confirm(
+        $changePassword = ! $user || $this->confirm(
             'Ganti password akun ini juga?',
             false
         );
@@ -91,12 +94,13 @@ class SetupLoginAccount extends Command
                 foreach ($validator->errors()->all() as $message) {
                     $this->error($message);
                 }
+
                 return self::FAILURE;
             }
         }
 
-        $isNew = !$user;
-        $user ??= new User();
+        $isNew = ! $user;
+        $user ??= new User;
 
         $user->name = $name;
         $user->email = $email;

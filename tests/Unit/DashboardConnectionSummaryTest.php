@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Customer;
 use App\Models\User;
 use App\Services\CustomerConnectionMonitor;
 use App\Services\DashboardConnectionSummary;
 use Illuminate\Support\Facades\Gate;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 beforeEach(function () {
     $this->connectionActor = User::factory()->createQuietly();
@@ -18,7 +20,7 @@ beforeEach(function () {
 test('ringkasan koneksi memakai total pelanggan billing', function () {
     $context = app(DashboardConnectionSummary::class)->context();
 
-    expect($context['total'])->toBe(\App\Models\Customer::count())
+    expect($context['total'])->toBe(Customer::count())
         ->and($context['routers'])->toContain([
             'id' => (int) $this->connectionCustomer->network_router_id,
             'total' => 1,

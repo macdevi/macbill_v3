@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wilayah extends Model
 {
@@ -11,7 +12,7 @@ class Wilayah extends Model
 
     protected $fillable = ['name', 'code'];
 
-    public function customers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);
     }

@@ -31,7 +31,7 @@ class CustomerDeletionController extends Controller
 
             if (
                 blank($customer->pppoe_username)
-                || !hash_equals(
+                || ! hash_equals(
                     (string) $customer->pppoe_username,
                     (string) ($data['confirm_username'] ?? '')
                 )

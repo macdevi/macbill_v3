@@ -17,8 +17,7 @@ class CustomerRemoval
 {
     public function __construct(
         private CustomerPppActionGateway $gateway
-    ) {
-    }
+    ) {}
 
     private function reject(string $message): never
     {
@@ -90,7 +89,7 @@ class CustomerRemoval
         User $actor,
         string $requestKey
     ): CustomerNetworkAction {
-        if (!Str::isUuid($requestKey)) {
+        if (! Str::isUuid($requestKey)) {
             $this->reject('Permintaan tindakan tidak valid.');
         }
 
@@ -108,7 +107,7 @@ class CustomerRemoval
                 if (
                     $customer->service_type !== 'pppoe'
                     || blank($customer->pppoe_username)
-                    || !$customer->router
+                    || ! $customer->router
                 ) {
                     $this->reject('Pelanggan ini tidak memiliki akun PPPoE di router.');
                 }
@@ -146,7 +145,7 @@ class CustomerRemoval
             $customer->load('router');
 
             if (
-                !$customer->router
+                ! $customer->router
                 || (int) $customer->network_router_id !== $context['router_id']
                 || $customer->pppoe_username !== $context['username']
             ) {
@@ -175,7 +174,7 @@ class CustomerRemoval
                 }
             );
 
-            if (!is_string($result['verified_at'] ?? null)) {
+            if (! is_string($result['verified_at'] ?? null)) {
                 throw new \RuntimeException('Invalid gateway result');
             }
 
@@ -185,7 +184,7 @@ class CustomerRemoval
                     ->lockForUpdate()->firstOrFail();
 
                 if (
-                    !in_array($locked->status, ['reserved', 'sending'], true)
+                    ! in_array($locked->status, ['reserved', 'sending'], true)
                     || $customer->pppoe_username !== $context['username']
                 ) {
                     throw new \RuntimeException('Operation changed after write');

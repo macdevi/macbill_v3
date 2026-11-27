@@ -2,10 +2,12 @@
 
 use App\Models\Expense;
 use App\Models\User;
+use App\Models\Wilayah;
 use App\Services\InvoicePeriod;
 use Illuminate\Support\Str;
+use Tests\BillingLedgerTestCase;
 
-uses(\Tests\BillingLedgerTestCase::class);
+uses(BillingLedgerTestCase::class);
 
 function expenseTestPayload(array $extra = []): array
 {
@@ -16,7 +18,7 @@ function expenseTestPayload(array $extra = []): array
         'amount' => 150000,
         'method' => 'cash',
         'description' => 'Token listrik kantor',
-        'wilayah_id' => \App\Models\Wilayah::firstOrCreate(['code' => 'TST'], ['name' => 'Wilayah Uji'])->id,
+        'wilayah_id' => Wilayah::firstOrCreate(['code' => 'TST'], ['name' => 'Wilayah Uji'])->id,
     ], $extra);
 }
 
