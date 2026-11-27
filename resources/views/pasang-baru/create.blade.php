@@ -16,7 +16,8 @@
 
 <main class="pb-page">
     <div class="pb-heading">
-        <h1>Pasang Baru</h1>
+        <span class="pb-eyebrow">PELANGGAN BARU</span>
+        <h1 class="pb-sr">Pasang Baru</h1>
         <p>Daftarkan pelanggan baru. Akun PPPoE dibuat di MikroTik saat disimpan.</p>
     </div>
 
@@ -173,6 +174,10 @@
         </section>
     @endif
 </main>
+
+@include('partials.billing-launcher')
+
+<script src="{{ asset('js/billing-launcher.js') }}?v={{ filemtime(public_path('js/billing-launcher.js')) }}" defer></script>
 
 <script>
 (function () {
