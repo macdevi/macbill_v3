@@ -54,7 +54,7 @@
                         for="dd-saldo-month-direct"
                         title="Pilih bulan dan tahun">
                         @php
-                            $dashboardCalendarToday = now();
+                            $dashboardCalendarToday = \App\Services\InvoicePeriod::today();
                             $dashboardCalendarMonths = [
                                 1 => 'JAN', 2 => 'FEB', 3 => 'MAR',
                                 4 => 'APR', 5 => 'MEI', 6 => 'JUN',
