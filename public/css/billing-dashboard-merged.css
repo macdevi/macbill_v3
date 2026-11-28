@@ -1,0 +1,103 @@
+/* Status Pelanggan + Trafik Jaringan: blok datar tanpa kartu */
+.nm-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    margin: 6px 0 18px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--ui-text);
+}
+
+.nm-card::before { content: none; }
+
+.nm-card .sc-card,
+.nm-card #router-live-panel.tf-card {
+    margin: 0;
+    padding: 12px 2px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--ui-text);
+}
+
+.nm-card .dd-monitor-top {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.nm-both .dd-monitor-top {
+    margin-top: 6px;
+    border-top: 1px solid var(--ui-line);
+}
+
+.nm-both .dd-monitor-top #router-live-panel.tf-card {
+    padding-top: 18px;
+}
+
+/* Teks mengikuti tema terang atau gelap */
+.nm-card .sc-title,
+.nm-card #router-live-panel .tf-title { color: var(--ui-muted); }
+
+.nm-card .sc-total strong,
+.nm-card .sc-ring b,
+.nm-card .sc-chip strong,
+.nm-card #router-live-panel .tf-big strong,
+.nm-card #router-live-panel .tf-info span,
+.nm-card .sc-chip .sc-name { color: var(--ui-text); }
+
+.nm-card .sc-total span,
+.nm-card .sc-ring small,
+.nm-card .sc-note,
+.nm-card #router-live-panel .tf-big small,
+.nm-card #router-live-panel .tf-info,
+.nm-card #router-live-panel .tf-foot,
+.nm-card #router-live-panel .tf-live { color: var(--ui-muted); }
+
+.nm-card #router-live-panel .tf-foot a { color: var(--ui-accent); }
+
+.nm-card .sc-ring > div { background: var(--ui-surface); }
+
+.nm-card #router-live-panel .mikrotik-api-status {
+    background: var(--ui-surface-soft);
+    color: var(--ui-muted);
+}
+
+.nm-card #router-live-panel .mikrotik-api-status[data-state="connected"] {
+    background: rgba(16, 185, 129, .14);
+    color: #10b981;
+}
+
+.nm-card #router-live-panel .mikrotik-api-status[data-state="disconnected"] {
+    background: rgba(239, 68, 68, .14);
+    color: #ef4444;
+}
+
+@media (min-width: 900px) {
+    .nm-both { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+    .nm-both .sc-card { padding-right: 24px; }
+
+    .nm-both .dd-monitor-top {
+        margin-top: 0;
+        border-top: 0;
+        border-left: 1px solid var(--ui-line);
+    }
+
+    .nm-both .dd-monitor-top #router-live-panel.tf-card {
+        padding: 12px 2px 12px 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nm-card { margin-bottom: 14px; }
+
+    .nm-card .sc-card,
+    .nm-card #router-live-panel.tf-card { padding: 10px 2px; }
+
+    .nm-both .dd-monitor-top #router-live-panel.tf-card { padding-top: 16px; }
+}

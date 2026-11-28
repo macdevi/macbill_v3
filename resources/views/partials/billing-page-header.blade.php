@@ -8,19 +8,19 @@
 
     <div class="billing-header-inner">
         <div class="billing-header-start">
-            @php($dashboardActive = request()->routeIs('dashboard'))
-            <a class="billing-header-dashboard {{ $dashboardActive ? 'is-active' : '' }}"
-                style="--tone: #60a5fa"
-                href="{{ route('dashboard') }}"
-                @if($dashboardActive) aria-current="page" @endif>
-                <svg width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="1.6"
-                    stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true">
-                    <path d="M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z"/>
+            <button type="button" class="billing-header-menu"
+                data-launcher-open
+                title="Menu"
+                aria-label="Buka menu"
+                aria-haspopup="dialog"
+                aria-controls="billing-launcher"
+                aria-expanded="false">
+                <svg width="22" height="22" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6h16 M4 12h16 M4 18h16"/>
                 </svg>
-                <span>Dashboard</span>
-            </a>
+            </button>
         </div>
 
         <div class="billing-header-end">

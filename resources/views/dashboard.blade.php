@@ -15,6 +15,7 @@
         'billing-router-status',
         'billing-dashboard-v2',
         'billing-dashboard-finance',
+        'billing-dashboard-merged',
     ] as $file)
         @if(is_file(public_path('css/'.$file.'.css')))
             <link rel="stylesheet" href="{{ asset('css/'.$file.'.css') }}?v={{ filemtime(public_path('css/'.$file.'.css')) }}">
@@ -140,13 +141,17 @@
         </script>
     @endif
 
-    @if($canBilling)
-        @include('dashboard._customer-connections')
-    @endif
+    @if($canBilling || $canManage)
+        <div class="nm-card {{ $canBilling && $canManage ? 'nm-both' : '' }}">
+            @if($canBilling)
+                @include('dashboard._customer-connections')
+            @endif
 
-    @if($canManage)
-        <div class="dd-monitor-top">
-            @include('dashboard._router-monitor')
+            @if($canManage)
+                <div class="dd-monitor-top">
+                    @include('dashboard._router-monitor')
+                </div>
+            @endif
         </div>
     @endif
 

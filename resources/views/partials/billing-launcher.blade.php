@@ -109,12 +109,11 @@
 @endphp
 
 @php
-    $barLabels = ['Pelanggan', 'Tagihan', 'Pengeluaran', 'Pasang Baru', 'Titip Saldo'];
+    $barLabels = ['Dashboard', 'Pelanggan', 'Tagihan', 'Pengeluaran', 'Pasang Baru', 'Titip Saldo'];
     $barItems = collect($launcherItems)->filter(function ($item) use ($barLabels) {
         return in_array($item['label'], $barLabels, true)
             && (!$item['gate'] || auth()->user()->can($item['gate']));
-    })->values();
-    $barHasActive = $barItems->contains(fn ($item) => $item['match'] && request()->routeIs($item['match']));
+    })->sortBy(fn ($item) => array_search($item['label'], $barLabels))->values();
 @endphp
 
 <nav class="billing-bottom-nav" aria-label="Menu bawah">
@@ -146,24 +145,6 @@
             </button>
         @endif
     @endforeach
-
-
-    <button type="button"
-        class="billing-bottom-item {{ $barHasActive ? '' : 'is-active' }}"
-        data-launcher-open
-        aria-label="Buka menu lainnya"
-        aria-haspopup="dialog"
-        aria-controls="billing-launcher"
-        aria-expanded="false">
-        <svg width="22" height="22" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="1.6"
-            stroke-linecap="round" stroke-linejoin="round"
-            aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="m10 8 4 4-4 4"/>
-        </svg>
-        <span>Lainnya</span>
-    </button>
 </nav>
 
 <nav class="billing-desktop-nav" aria-label="Menu utama desktop">

@@ -217,3 +217,45 @@
         font-size: 12px;
     }
 }
+
+
+/* Tombol hamburger pembuka menu */
+.billing-header-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid var(--ui-line);
+    border-radius: 13px;
+    background: var(--ui-surface-soft);
+    color: var(--ui-text);
+    font: inherit;
+    cursor: pointer;
+    transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+
+.billing-header-menu:hover {
+    border-color: var(--ui-accent);
+    color: var(--ui-accent);
+}
+
+.billing-header-menu:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .billing-header-menu {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .billing-header-menu { transition: none; }
+}
