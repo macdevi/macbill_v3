@@ -26,7 +26,7 @@
         <div class="settings-heading">
             <span class="settings-eyebrow">PREFERENSI BILLING</span>
             <h1>Pengaturan</h1>
-            <p>Atur jatuh tempo bawaan dan kebijakan isolir layanan.</p>
+            <p>Pilih menu di bawah untuk membuka pengaturannya.</p>
         </div>
 
         @if(session('status'))
@@ -47,14 +47,17 @@
             @csrf
             @method('PUT')
 
-            <section class="settings-section" aria-labelledby="billing-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" {{ $errors->hasAny(['default_invoice_day', 'due_grace_days']) ? 'open' : '' }} aria-labelledby="billing-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">01</span>
                     <div>
                         <h2 id="billing-heading">Penagihan</h2>
                         <p>Nilai bawaan untuk pelanggan yang mengikuti pengaturan bersama.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-field" style="margin-top:18px">
                     <label for="default-invoice-day">Tanggal tagihan bawaan</label>
@@ -78,16 +81,20 @@
                     <p class="settings-help">0 berarti jatuh tempo sama dengan tanggal terbit. Berlaku untuk invoice yang diterbitkan setelah ini.</p>
                 </div>
 
-            </section>
+            </div>
+            </details>
 
-            <section class="settings-section" aria-labelledby="isolation-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" aria-labelledby="isolation-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">02</span>
                     <div>
                         <h2 id="isolation-heading">Isolir layanan</h2>
                         <p>Pengaturan ini tidak langsung menjalankan tindakan pada router.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-mode">
                     <div>
@@ -120,16 +127,20 @@
                     Masa tenggang belum diaktifkan karena mode otomatis belum tersedia.
                     Menyimpan pengaturan tidak mengisolir atau memulihkan pelanggan.
                 </p>
-            </section>
+            </div>
+            </details>
 
-            <section class="settings-section" aria-labelledby="tax-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" {{ $errors->hasAny(['tax_name', 'tax_rate', 'tax_mode', 'default_tax_enabled']) ? 'open' : '' }} aria-labelledby="tax-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">03</span>
                     <div>
                         <h2 id="tax-heading">Pajak</h2>
                         <p>Digunakan untuk pelanggan yang mengikuti pengaturan pajak.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-field">
                     <label for="tax-name">Nama pajak</label>
@@ -160,16 +171,20 @@
                     </select>
                 </div>
                 <p class="settings-help">Perubahan default tidak mengubah pilihan pajak pelanggan lama.</p>
-            </section>
+            </div>
+            </details>
 
-            <section class="settings-section" aria-labelledby="wa-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" {{ $errors->hasAny(['wa_template']) ? 'open' : '' }} aria-labelledby="wa-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">04</span>
                     <div>
                         <h2 id="wa-heading">Pesan WhatsApp</h2>
                         <p>Template pesan informasi tagihan untuk tombol WhatsApp.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-field">
                     <label for="wa-template">Template pesan</label>
@@ -183,32 +198,39 @@
                         Jangan menuliskan password atau data rahasia di template.
                     </p>
                 </div>
-            </section>
+            </div>
+            </details>
 
-            <section class="settings-section" aria-labelledby="generate-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" aria-labelledby="generate-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">05</span>
                     <div>
                         <h2 id="generate-heading">Penerbitan tagihan</h2>
                         <p>Terbitkan invoice manual per bulan untuk pelanggan yang dipilih. Penerbitan otomatis belum dijadwalkan.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-field" style="margin-top:18px">
-                    <a class="settings-save" href="{{ route('invoices.create') }}"
-                        style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none">Generate tagihan</a>
+                    <a class="settings-save settings-button-link" href="{{ route('invoices.create') }}">Generate tagihan</a>
                     <p class="settings-help">Halaman ini hanya membuka daftar pelanggan yang bisa ditagih. Invoice baru terbit setelah Anda memilih dan mengonfirmasi.</p>
                 </div>
-            </section>
+            </div>
+            </details>
 
-            <section class="settings-section" aria-labelledby="receipt-heading">
-                <div class="settings-section-heading">
+            <details class="settings-section settings-menu" {{ $errors->hasAny(['receipt_template']) ? 'open' : '' }} aria-labelledby="receipt-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                     <span class="settings-number" aria-hidden="true">06</span>
                     <div>
                         <h2 id="receipt-heading">Template nota</h2>
                         <p>Isi nota pembayaran untuk tampilan, WhatsApp, dan cetak.</p>
                     </div>
-                </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
                 <div class="settings-field">
                     <label for="receipt-template">Template nota</label>
@@ -222,7 +244,8 @@
                         Baris yang berisi {sisa_tagihan}, {titip_saldo}, atau {saldo_titip} otomatis hilang jika nilainya nol. Kosongkan lalu simpan untuk memakai template bawaan.
                     </p>
                 </div>
-            </section>
+            </div>
+            </details>
 
             <div class="settings-save-row">
                 <p>
@@ -241,21 +264,24 @@
             </p>
         </form>
 
-        <section class="settings-section" aria-labelledby="reset-heading">
-            <div class="settings-section-heading">
+        <details class="settings-section settings-menu settings-danger" {{ $errors->hasAny(['confirmation', 'password']) ? 'open' : '' }} aria-labelledby="reset-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
                 <span class="settings-number" aria-hidden="true">07</span>
                 <div>
                     <h2 id="reset-heading">Reset data billing</h2>
                     <p>Kosongkan router, paket, pelanggan, tagihan, pembayaran, dan pengeluaran. Pengguna, wilayah, dan pengaturan di atas tidak diubah.</p>
                 </div>
-            </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
 
-            <table style="width:100%;margin-top:18px;border-collapse:collapse">
+            <table class="settings-counts">
                 <tbody>
                     @foreach(\App\Services\BillingReset::counts() as $table => $count)
                         <tr>
-                            <td style="padding:6px 0"><code>{{ $table }}</code></td>
-                            <td style="padding:6px 0;text-align:right">{{ number_format($count, 0, ',', '.') }}</td>
+                            <td><code>{{ $table }}</code></td>
+                            <td class="settings-count-value">{{ number_format($count, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -285,11 +311,35 @@
 
                     <div class="settings-save-row">
                         <p>Hanya super admin yang bisa melakukan ini.</p>
-                        <button class="settings-save" type="submit" style="background:#b42318">Kosongkan semua data</button>
+                        <button class="settings-save settings-save-danger" type="submit">Kosongkan semua data</button>
                     </div>
                 </form>
             @endif
-        </section>
+        </div>
+            </details>
+
+        <script>
+        (function () {
+            var items = Array.prototype.slice.call(document.querySelectorAll('details.settings-menu'));
+
+            items.forEach(function (item) {
+                item.querySelector('.settings-menu-summary').addEventListener('click', function () {
+                    if (item.open) return;
+                    items.forEach(function (other) {
+                        if (other !== item) other.open = false;
+                    });
+                });
+            });
+
+            var form = document.querySelector('.settings-page > form');
+            if (form) {
+                form.addEventListener('invalid', function (event) {
+                    var holder = event.target.closest('details');
+                    if (holder) holder.open = true;
+                }, true);
+            }
+        })();
+        </script>
     </main>
 
     @include('partials.billing-launcher')
