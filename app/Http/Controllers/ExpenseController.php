@@ -19,18 +19,25 @@ class ExpenseController extends Controller
     {
         $filters = $request->validate([
             'month' => ['nullable', 'regex:/^\d{4}-(0[1-9]|1[0-2])$/'],
+            'wilayah_id' => ['nullable', 'integer'],
         ]);
 
         $month = $filters['month'] ?? InvoicePeriod::today()->format('Y-m');
         $start = $month.'-01';
         $end = date('Y-m-t', strtotime($start));
 
-        $base = Expense::query()->whereBetween('spent_on', [$start, $end]);
+        $base = Expense::query()
+            ->whereBetween('spent_on', [$start, $end])
+            ->when(
+                $filters['wilayah_id'] ?? null,
+                fn ($query, $wilayah) => $query->where('wilayah_id', (int) $wilayah)
+            );
 
         $activeTotal = (int) (clone $base)->where('status', 'active')->sum('amount');
         $activeCount = (clone $base)->where('status', 'active')->count();
 
         $expenses = (clone $base)
+            ->with('wilayah:id,name')
             ->orderByDesc('spent_on')
             ->orderByDesc('id')
             ->paginate(15)
@@ -39,6 +46,7 @@ class ExpenseController extends Controller
         return response()->view('expenses.index', [
             'expenses' => $expenses,
             'month' => $month,
+            'wilayahId' => $filters['wilayah_id'] ?? null,
             'activeTotal' => $activeTotal,
             'activeCount' => $activeCount,
             'requestKey' => (string) Str::uuid(),

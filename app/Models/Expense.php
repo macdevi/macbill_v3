@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Scopes\WilayahScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class Expense extends Model
@@ -40,6 +41,14 @@ class Expense extends Model
     ];
 
     protected $guarded = ['id'];
+
+    /**
+     * @return BelongsTo<Wilayah, $this>
+     */
+    public function wilayah(): BelongsTo
+    {
+        return $this->belongsTo(Wilayah::class);
+    }
 
     protected function casts(): array
     {

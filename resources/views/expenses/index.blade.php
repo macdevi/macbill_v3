@@ -43,6 +43,15 @@
                 value="{{ $month }}"
                 required
                 onchange="this.form.requestSubmit()">
+            @if($wilayahList->count() > 1)
+                <label for="ex-filter-wilayah">Wilayah</label>
+                <select id="ex-filter-wilayah" name="wilayah_id" onchange="this.form.requestSubmit()">
+                    <option value="">Semua wilayah</option>
+                    @foreach($wilayahList as $area)
+                        <option value="{{ $area->id }}" @selected((string) $wilayahId === (string) $area->id)>{{ $area->name }}</option>
+                    @endforeach
+                </select>
+            @endif
             <noscript>
                 <button type="submit" class="cu-button">Tampilkan</button>
             </noscript>
@@ -74,6 +83,7 @@
             {{ $expense->spent_on->format('d/m/Y') }}
             · {{ $expense->category_label }}
             · {{ $expense->method_label }}
+            · {{ $expense->wilayah?->name ?? 'Tanpa wilayah' }}
         </p>
         <p class="ex-item-desc">{{ $expense->description }}</p>
         <p class="iv-muted">Dicatat oleh {{ $expense->recorded_by_name }}</p>
@@ -94,6 +104,7 @@
                     <div><dt>Tanggal</dt><dd>{{ $expense->spent_on->format('d/m/Y') }}</dd></div>
                     <div><dt>Kategori</dt><dd>{{ $expense->category_label }}</dd></div>
                     <div><dt>Metode</dt><dd>{{ $expense->method_label }}</dd></div>
+                    <div><dt>Wilayah</dt><dd>{{ $expense->wilayah?->name ?? 'Tanpa wilayah' }}</dd></div>
                     <div><dt>Dicatat oleh</dt><dd>{{ $expense->recorded_by_name }}</dd></div>
                     <div class="iv-wide"><dt>Waktu pencatatan</dt><dd>{{ $recordedAt ?? '-' }} WIB</dd></div>
                     <div class="iv-wide"><dt>Keterangan</dt><dd class="ex-pre">{{ $expense->description }}</dd></div>

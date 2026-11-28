@@ -12,7 +12,13 @@
 </div>
 
 @if($due > 0)
-    <p class="iv-muted">Pelanggan ini punya tunggakan. Untuk membayar invoice, gunakan tombol Bayar di halaman Tagihan. Setoran saldo baru dipakai otomatis saat invoice berikutnya terbit.</p>
+    <p class="iv-muted">Pelanggan ini punya tunggakan. Setoran titip saldo langsung dipakai melunasi tunggakan, mulai dari invoice tertua.</p>
+    @if($balance > 0)
+        <form method="POST" action="{{ route('balances.apply', $customer) }}" style="margin-bottom:16px">
+            @csrf
+            <button class="cu-button cu-primary" type="submit">Pakai saldo untuk tunggakan</button>
+        </form>
+    @endif
 @endif
 
 <form class="iv-panel iv-form" method="POST" action="{{ route('balances.deposit', $customer) }}">
@@ -68,7 +74,7 @@
         @elseif($e->receipt?->kind === 'deposit' && $e->receipt->status === 'active')
             @include('payments._void', ['action' => route('payments.void', $e->receipt), 'id' => 'd'.$e->id, 'label' => 'Batalkan setoran'])
         @else
-            <p class="iv-muted">Koreksi lewat menu Pembayaran.</p>
+            <p class="iv-muted">Koreksi lewat Tagihan, buka Rincian invoice, lalu Lihat riwayat pembayaran.</p>
         @endif
     </article>
 @empty

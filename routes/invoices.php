@@ -31,9 +31,13 @@ Route::middleware(['auth', 'verified', 'can:access-billing'])->group(function ()
         ->whereNumber('receipt')->middleware('throttle:10,1')->name('payments.void');
 
     Route::get('/balances', [$b, 'index'])->name('balances.index');
+    Route::get('/balances/search', [$b, 'search'])
+        ->middleware('throttle:60,1')->name('balances.search');
     Route::get('/balances/{customer}', [$b, 'show'])->whereNumber('customer')->name('balances.show');
     Route::post('/balances/{customer}/deposit', [$b, 'deposit'])
         ->whereNumber('customer')->middleware('throttle:20,1')->name('balances.deposit');
+    Route::post('/balances/{customer}/apply', [$b, 'apply'])
+        ->whereNumber('customer')->middleware('throttle:20,1')->name('balances.apply');
     Route::post('/balance-entries/{entry}/void', [$b, 'voidUse'])
         ->whereNumber('entry')->middleware('throttle:10,1')->name('balances.void-use');
 });

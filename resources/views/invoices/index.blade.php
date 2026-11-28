@@ -183,8 +183,14 @@ window.IV_OPEN = @json($openByCustomer);
         var ordered = current.filter(function (i) { return prio[i.id]; })
             .concat(current.filter(function (i) { return !prio[i.id]; }));
         var rem = parseInt(amt.value, 10) || 0;
+        var totalDue = current.reduce(function (sum, i) { return sum + i.due; }, 0);
         box.textContent = '';
         if (rem <= 0) { box.textContent = 'Isi nominal untuk melihat alokasi.'; return; }
+
+        var total = document.createElement('p');
+        total.className = 'iv-muted';
+        total.textContent = 'Total tagihan terbuka: ' + fmt(totalDue);
+        box.appendChild(total);
 
         var ul = document.createElement('ul');
         ordered.forEach(function (i) {
@@ -197,9 +203,13 @@ window.IV_OPEN = @json($openByCustomer);
         });
         box.appendChild(ul);
         if (rem > 0) {
-            var p = document.createElement('p');
-            p.textContent = 'Titip saldo: ' + fmt(rem);
-            box.appendChild(p);
+            var warn = document.createElement('p');
+            warn.className = 'iv-overpay';
+            warn.setAttribute('role', 'alert');
+            warn.textContent = 'Nominal melebihi total tagihan terbuka ('
+                + fmt(totalDue) + '). Kelebihan ' + fmt(rem)
+                + ' akan menjadi titip saldo pelanggan.';
+            box.appendChild(warn);
         }
     }
 

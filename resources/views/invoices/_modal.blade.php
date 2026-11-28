@@ -44,6 +44,8 @@
                     <button class="cu-button" type="submit">Konfirmasi pembatalan</button>
                 </form>
             </details>
+        @elseif(in_array($invoice->status, ['partial', 'paid'], true))
+            <p class="iv-muted">Invoice yang sudah menerima pembayaran tidak bisa dibatalkan langsung. Batalkan penerimaannya lebih dulu lewat Lihat riwayat pembayaran.</p>
         @endif
     </div>
 

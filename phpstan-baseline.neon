@@ -115,12 +115,6 @@ parameters:
 			path: app/Console/Commands/SetupLoginAccount.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\BillingBalanceEntry\:\:\$saldo\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/BalanceController.php
-
-		-
 			message: '#^Method App\\Http\\Controllers\\BalanceController\:\:deposit\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
