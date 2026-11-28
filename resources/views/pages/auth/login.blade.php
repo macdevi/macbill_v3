@@ -63,6 +63,11 @@
         .error{border:1px solid #ff9ba540;background:#ff9ba50b;color:#ffc4cb}
         .status{border:1px solid #64e3f140;background:#64e3f10b;color:#a5f1f7}
         .footer{margin-top:28px;color:#72869e;font-size:11px;letter-spacing:.2px}
+        .features{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:12px;max-width:430px}
+        .features li{display:flex;align-items:flex-start;gap:12px;color:var(--muted);font-size:13px;line-height:1.6}
+        .features svg{flex-shrink:0;margin-top:2px;color:var(--cyan)}
+        .features strong{display:block;color:var(--text);font-size:13px;font-weight:600}
+        .hint{margin:8px 0 0;color:var(--ui-danger,#ffc4cb);font-size:12px}
         @keyframes flow{to{stroke-dashoffset:-252}}
         @keyframes pulse{0%,100%{opacity:.3;transform:scale(.95)}50%{opacity:.8;transform:scale(1.08)}}
         @media(min-width:1500px){.visual{padding:60px 7vw}}
@@ -105,6 +110,12 @@
                 <div class="eyebrow">Billing & pengelolaan layanan</div>
                 <h1>Jaringan tertata.<br><span>Tagihan terkelola.</span></h1>
                 <p>Satu ruang kerja untuk mengelola pelanggan, layanan internet, dan pencatatan pembayaran.</p>
+
+                <ul class="features">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h14v16l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M8 9h8M8 13h5"/></svg><span><strong>Tagihan otomatis</strong>Invoice terbit tiap periode, lengkap dengan pajak.</span></li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M7 15h4"/></svg><span><strong>Pembayaran dan titip saldo</strong>Bayar sebagian, lebih bayar, dan saldo tercatat rapi.</span></li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 4v5c0 5-8 9-8 9s-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg><span><strong>Akses per wilayah</strong>Setiap admin hanya melihat data wilayahnya.</span></li>
+                </ul>
 
                 <svg class="network" viewBox="0 0 460 220" aria-hidden="true">
                     <path class="wire" d="M80 65L230 115L380 55M230 115L370 180M230 115L90 180M230 115V25"/>
@@ -187,7 +198,7 @@
                             <input id="login" name="login" type="text"
                                 value="{{ old('login') }}"
                                 placeholder="Username atau alamat email"
-                                autocomplete="username" required autofocus
+                                autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus
                                 @if ($errors->any()) aria-describedby="login-errors" @endif
                                 @error('login') aria-invalid="true" @enderror>
                         </div>
@@ -208,6 +219,7 @@
                                 aria-controls="password" aria-pressed="false"
                                 aria-label="Tampilkan password" hidden>Lihat</button>
                         </div>
+                        <p class="hint" id="caps-hint" role="status" hidden>Caps Lock sedang aktif.</p>
                     </div>
 
                     <div class="options">
@@ -242,6 +254,14 @@
         const form = document.getElementById('login-form');
         const submit = form.querySelector('button[type="submit"]');
         const submitLabel = document.getElementById('submit-label');
+
+        const capsHint = document.getElementById('caps-hint');
+        const checkCaps = (event) => {
+            capsHint.hidden = !(event.getModifierState && event.getModifierState('CapsLock'));
+        };
+        password.addEventListener('keydown', checkCaps);
+        password.addEventListener('keyup', checkCaps);
+        password.addEventListener('blur', () => { capsHint.hidden = true; });
 
         toggle.hidden = false;
         toggle.addEventListener('click', () => {

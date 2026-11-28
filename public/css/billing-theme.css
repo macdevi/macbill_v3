@@ -523,3 +523,91 @@ body.billing-login {
     color: var(--ui-success);
 }
 /* UNIFIED THEME TOKENS END */
+
+
+/* UI REFINEMENT v1 START
+   Lapisan penyempurnaan: transisi, fokus, hierarki tombol, angka rapi.
+   Tidak mengubah tata letak halaman. */
+:root {
+    --ui-ease: cubic-bezier(.2, .7, .2, 1);
+    --ui-shadow-card: 0 1px 2px rgb(2 6 23 / 12%), 0 8px 24px rgb(2 6 23 / 10%);
+}
+html[data-theme="light"] {
+    --ui-shadow-card: 0 1px 2px rgb(15 23 42 / 6%), 0 6px 20px rgb(30 58 85 / 7%);
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Nominal rupiah sejajar rapi */
+.iv-invoice-total, .iv-hist-amount, .ex-item-amount, .ex-month-total,
+.iv-recap strong, .iv-cards strong, .stat-value, .cu-details dd {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Tombol: hierarki dan umpan balik */
+.cu-button {
+    font-weight: 600;
+    transition: background-color .16s var(--ui-ease), border-color .16s var(--ui-ease),
+        transform .16s var(--ui-ease), box-shadow .16s var(--ui-ease);
+}
+:where(.cu-button:not(.cu-primary)):hover { background: var(--ui-surface-hover); }
+.cu-button:active { transform: translateY(1px); }
+.cu-primary { box-shadow: 0 1px 0 rgb(255 255 255 / 12%) inset, 0 2px 8px rgb(15 118 110 / 28%); }
+.cu-primary:hover { background: var(--ui-primary-hover); border-color: var(--ui-accent); }
+
+/* Kartu dan panel yang bisa diklik */
+.cu-card, .iv-panel { transition: border-color .16s var(--ui-ease), box-shadow .16s var(--ui-ease); }
+.cu-card:hover { border-color: var(--ui-line-strong); box-shadow: var(--ui-shadow-card); }
+a.iv-panel:hover { border-color: var(--ui-accent); box-shadow: var(--ui-shadow-card); }
+
+/* Kolom isian: cincin fokus jelas */
+:is(input, select, textarea):not([type=checkbox], [type=radio], [type=hidden]) {
+    transition: border-color .16s var(--ui-ease), box-shadow .16s var(--ui-ease);
+}
+:is(input, select, textarea):focus-visible {
+    outline: none;
+    border-color: var(--ui-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-accent) 22%, transparent);
+}
+
+/* Notifikasi dan lencana */
+.cu-notice, .cu-error { border-left-width: 4px; }
+.cu-status, .iv-badge { font-weight: 600; letter-spacing: .2px; }
+
+/* Dialog muncul halus */
+@keyframes ui-pop {
+    from { opacity: 0; transform: translateY(8px) scale(.985); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes ui-fade { from { opacity: 0; } to { opacity: 1; } }
+dialog[open] { animation: ui-pop .18s var(--ui-ease); }
+dialog::backdrop { backdrop-filter: blur(3px); }
+.customer-page { animation: ui-fade .22s var(--ui-ease); }
+
+/* Header menempel agar navigasi selalu terjangkau */
+.topbar.billing-page-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--ui-surface) 90%, transparent);
+    backdrop-filter: blur(10px);
+}
+
+/* Layar sentuh: target 44px dan tanpa zoom otomatis di iPhone */
+@media (pointer: coarse) {
+    .cu-button, .billing-header-shortcut, .billing-header-dashboard { min-height: 44px; }
+    input:not([type=checkbox], [type=radio], [type=hidden]), select, textarea {
+        font-size: 16px !important;
+    }
+}
+@media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+    dialog[open], .customer-page { animation: none; }
+    .cu-button, .cu-card, .iv-panel { transition: none; }
+}
+/* UI REFINEMENT v1 END */
