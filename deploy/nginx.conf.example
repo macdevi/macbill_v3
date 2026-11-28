@@ -1,0 +1,43 @@
+# Salin ke /etc/nginx/sites-available/tagihan, lalu tautkan ke sites-enabled, nginx -t, systemctl reload nginx.
+#
+# Varian uji: hanya localhost, diakses lewat terowongan SSH:
+#   ssh -L 8090:127.0.0.1:8090 user@server
+server {
+    listen 127.0.0.1:8090;
+    server_name _;
+    root /var/www/tagihan/public;
+    index index.php;
+    client_max_body_size 10m;
+
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+
+    location ~ ^/index\.php(/|$) {
+        # Samakan dengan versi PHP-FPM yang terpasang (ls /run/php/)
+        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* { deny all; }
+}
+
+# Varian produksi: ganti blok di atas dengan ini setelah domain mengarah ke server,
+# lalu jalankan: certbot --nginx -d GANTI.contoh.com (certbot menambahkan TLS)
+#
+# server {
+#     listen 80;
+#     server_name GANTI.contoh.com;
+#     root /var/www/tagihan/public;
+#     index index.php;
+#     client_max_body_size 10m;
+#
+#     location / { try_files $uri $uri/ /index.php?$query_string; }
+#
+#     location ~ ^/index\.php(/|$) {
+#         fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+#         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+#         include fastcgi_params;
+#     }
+#
+#     location ~ /\.(?!well-known).* { deny all; }
+# }
