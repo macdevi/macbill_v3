@@ -376,3 +376,26 @@ body {
     .settings-menu-summary,
     .settings-menu-summary::after { transition: none; }
 }
+
+
+/* Pratinjau tampilan login */
+.settings-preview {
+    margin: 8px 0 0;
+    padding: 14px;
+    border: 1px solid var(--ui-line);
+    border-radius: 10px;
+    background: #050a07;
+    color: #33ff66;
+    font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.settings-preview[data-accent="cyan"] { color: #5eead4; }
+.settings-preview[data-accent="amber"] { color: #ffb000; }
+.settings-preview[data-accent="white"] { color: #e6edf3; }
+.settings-save-secondary {
+    background: transparent;
+    color: var(--ui-text);
+    border: 1px solid var(--ui-line-strong);
+    margin-right: 8px;
+}

@@ -264,10 +264,142 @@
             </p>
         </form>
 
+        @php($loginForm = \App\Services\LoginScreen::raw($settings->getAttribute('login_screen')))
+        <form method="POST" action="{{ route('billing-settings.login-screen') }}" id="login-screen-form"
+            data-name="{{ $settings->business_name }}"
+            data-slug="{{ \Illuminate\Support\Str::slug((string) $settings->business_name) ?: 'macbilling' }}">
+            @csrf
+            @method('PUT')
+
+            <details class="settings-section settings-menu" {{ $errors->hasAny(['login_command', 'login_title', 'login_tagline', 'login_modules', 'login_spinner', 'login_message', 'login_splash', 'login_rain', 'login_accent']) ? 'open' : '' }} aria-labelledby="login-screen-heading">
+                <summary class="settings-menu-summary">
+                    <div class="settings-section-heading">
+                    <span class="settings-number" aria-hidden="true">07</span>
+                    <div>
+                        <h2 id="login-screen-heading">Tampilan login</h2>
+                        <p>Teks layar pembuka dan terminal pada halaman masuk.</p>
+                    </div>
+                    </div>
+                </summary>
+                <div class="settings-menu-body">
+
+                <p class="settings-help">
+                    Penanda yang tersedia:
+                    @foreach(\App\Services\LoginScreen::PLACEHOLDERS as $marker)
+                        <code>{{ $marker }}</code>
+                    @endforeach
+                    . Nama usaha diubah di <a href="{{ route('business-profile.edit') }}">Profil Usaha</a>.
+                </p>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-command">Perintah pembuka</label>
+                    <input id="login-command" name="login_command" required maxlength="80"
+                        value="{{ old('login_command', $loginForm['command']) }}">
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-title">Baris judul</label>
+                    <input id="login-title" name="login_title" required maxlength="120"
+                        value="{{ old('login_title', $loginForm['title']) }}">
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-tagline">Tagline</label>
+                    <input id="login-tagline" name="login_tagline" required maxlength="80"
+                        value="{{ old('login_tagline', $loginForm['tagline']) }}">
+                    <p class="settings-help">Tampil juga di layar pembuka setelah nama usaha.</p>
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-modules">Modul yang dimuat</label>
+                    <textarea id="login-modules" name="login_modules" rows="4" required maxlength="400">{{ old('login_modules', implode("\n", (array) $loginForm['modules'])) }}</textarea>
+                    <p class="settings-help">Satu modul per baris, maksimal 6 baris dan 30 karakter per baris.</p>
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-spinner">Teks langkah terakhir</label>
+                    <input id="login-spinner" name="login_spinner" required maxlength="60"
+                        value="{{ old('login_spinner', $loginForm['spinner']) }}">
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-message">Pesan sebelum login</label>
+                    <input id="login-message" name="login_message" required maxlength="100"
+                        value="{{ old('login_message', $loginForm['message']) }}">
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-accent">Warna terminal</label>
+                    <select id="login-accent" name="login_accent" required>
+                        @foreach(\App\Services\LoginScreen::ACCENTS as $key => $accent)
+                            <option value="{{ $key }}" @selected(old('login_accent', $loginForm['accent']) === $key)>{{ $accent['label'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-splash">Layar pembuka (nama usaha)</label>
+                    <select id="login-splash" name="login_splash" required>
+                        <option value="1" @selected((string) old('login_splash', (int) $loginForm['splash']) === '1')>Tampilkan</option>
+                        <option value="0" @selected((string) old('login_splash', (int) $loginForm['splash']) === '0')>Sembunyikan</option>
+                    </select>
+                </div>
+
+                <div class="settings-field" style="margin-top:18px">
+                    <label for="login-rain">Hujan karakter di latar</label>
+                    <select id="login-rain" name="login_rain" required>
+                        <option value="1" @selected((string) old('login_rain', (int) $loginForm['rain']) === '1')>Tampilkan</option>
+                        <option value="0" @selected((string) old('login_rain', (int) $loginForm['rain']) === '0')>Sembunyikan</option>
+                    </select>
+                </div>
+
+                <p class="settings-help" style="margin-top:18px">Pratinjau:</p>
+                <pre class="settings-preview" id="login-preview" aria-live="polite"></pre>
+
+                <div class="settings-save-row">
+                    <p>Lihat hasilnya dengan keluar lalu membuka halaman login.</p>
+                    <div>
+                        <button class="settings-save settings-save-secondary" type="submit" name="reset" value="1" formnovalidate
+                            onclick="return confirm('Kembalikan tampilan login ke bawaan?')">Kembalikan bawaan</button>
+                        <button class="settings-save" type="submit">Simpan tampilan login</button>
+                    </div>
+                </div>
+            </div>
+            </details>
+        </form>
+
+        <script>
+        (function () {
+            var f = document.getElementById('login-screen-form');
+            if (!f) return;
+            var box = document.getElementById('login-preview');
+            var name = f.dataset.name, slug = f.dataset.slug;
+            function sub(t) { return t.replace(/\{nama\}/g, name).replace(/\{slug\}/g, slug); }
+            function val(n) { return f.elements[n].value; }
+            function render() {
+                var mods = val('login_modules').split(/\r?\n/)
+                    .map(function (s) { return s.trim(); })
+                    .filter(Boolean).slice(0, 6);
+                var out = [sub(val('login_command')), sub(val('login_title')), sub(val('login_tagline'))];
+                mods.forEach(function (m) { out.push(sub(m).padEnd(26, '.') + ' [ OK ]'); });
+                out.push('* ' + sub(val('login_spinner')) + ' selesai', '', sub(val('login_message')), '', 'login: _');
+                box.textContent = out.join('\n');
+                box.dataset.accent = val('login_accent');
+            }
+            f.addEventListener('input', render);
+            f.addEventListener('change', render);
+            f.addEventListener('invalid', function (event) {
+                var holder = event.target.closest('details');
+                if (holder) holder.open = true;
+            }, true);
+            render();
+        })();
+        </script>
+
         <details class="settings-section settings-menu settings-danger" {{ $errors->hasAny(['confirmation', 'password']) ? 'open' : '' }} aria-labelledby="reset-heading">
                 <summary class="settings-menu-summary">
                     <div class="settings-section-heading">
-                <span class="settings-number" aria-hidden="true">07</span>
+                <span class="settings-number" aria-hidden="true">08</span>
                 <div>
                     <h2 id="reset-heading">Reset data billing</h2>
                     <p>Kosongkan router, paket, pelanggan, tagihan, pembayaran, dan pengeluaran. Pengguna, wilayah, dan pengaturan di atas tidak diubah.</p>

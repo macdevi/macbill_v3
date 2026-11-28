@@ -23,6 +23,7 @@ class BillingSetting extends Model
             'default_invoice_day' => 'integer',
             'tax_rate_bps' => 'integer',
             'default_tax_enabled' => 'boolean',
+            'login_screen' => 'array',
         ];
     }
 

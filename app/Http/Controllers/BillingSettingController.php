@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillingSetting;
+use App\Services\LoginScreen;
 use App\Services\ReceiptText;
 use App\Services\WhatsAppMessage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class BillingSettingController extends Controller
@@ -82,5 +85,85 @@ class BillingSettingController extends Controller
 
         return redirect()->route('billing-settings.index')
             ->with('status', 'Pengaturan disimpan. Tidak ada tagihan lama atau konfigurasi MikroTik yang diubah.');
+    }
+
+    public function updateLoginScreen(Request $request): RedirectResponse
+    {
+        $settings = BillingSetting::current();
+
+        if ($request->has('reset')) {
+            $settings->forceFill(['login_screen' => null])->save();
+
+            return redirect()->route('billing-settings.index')
+                ->with('status', 'Tampilan login dikembalikan ke bawaan.');
+        }
+
+        $line = ['required', 'string', 'regex:/^[^\r\n]*$/'];
+
+        $data = $request->validate([
+            'login_command' => [...$line, 'max:80'],
+            'login_title' => [...$line, 'max:120'],
+            'login_tagline' => [...$line, 'max:80'],
+            'login_modules' => ['required', 'string', 'max:400'],
+            'login_spinner' => [...$line, 'max:60'],
+            'login_message' => [...$line, 'max:100'],
+            'login_splash' => ['required', 'boolean'],
+            'login_rain' => ['required', 'boolean'],
+            'login_accent' => ['required', Rule::in(array_keys(LoginScreen::ACCENTS))],
+        ], [
+            'login_command.regex' => 'Perintah pembuka harus satu baris.',
+            'login_title.regex' => 'Baris judul harus satu baris.',
+            'login_tagline.regex' => 'Tagline harus satu baris.',
+            'login_spinner.regex' => 'Teks spinner harus satu baris.',
+            'login_message.regex' => 'Pesan sebelum login harus satu baris.',
+            'login_accent.in' => 'Warna terminal tidak valid.',
+        ]);
+
+        $modules = array_values(array_filter(
+            array_map('trim', preg_split('/\r\n|\r|\n/', $data['login_modules']) ?: []),
+            fn ($module) => $module !== ''
+        ));
+
+        if ($modules === [] || count($modules) > 6) {
+            throw ValidationException::withMessages([
+                'login_modules' => 'Isi 1 sampai 6 baris modul, satu modul per baris.',
+            ]);
+        }
+
+        foreach ($modules as $module) {
+            if (mb_strlen($module) > 30) {
+                throw ValidationException::withMessages([
+                    'login_modules' => 'Setiap nama modul maksimal 30 karakter.',
+                ]);
+            }
+        }
+
+        $allowed = array_map(fn ($marker) => trim($marker, '{}'), LoginScreen::PLACEHOLDERS);
+
+        foreach (['login_command', 'login_title', 'login_tagline', 'login_spinner', 'login_message', 'login_modules'] as $field) {
+            preg_match_all('/\{([a-z_]+)\}/', (string) $data[$field], $found);
+            $unknown = array_values(array_diff($found[1], $allowed));
+
+            if ($unknown) {
+                throw ValidationException::withMessages([
+                    $field => 'Penanda tidak dikenal: {'.implode('}, {', $unknown).'}',
+                ]);
+            }
+        }
+
+        $settings->forceFill(['login_screen' => [
+            'command' => trim($data['login_command']),
+            'title' => trim($data['login_title']),
+            'tagline' => trim($data['login_tagline']),
+            'modules' => $modules,
+            'spinner' => trim($data['login_spinner']),
+            'message' => trim($data['login_message']),
+            'splash' => (bool) $data['login_splash'],
+            'rain' => (bool) $data['login_rain'],
+            'accent' => $data['login_accent'],
+        ]])->save();
+
+        return redirect()->route('billing-settings.index')
+            ->with('status', 'Tampilan login disimpan.');
     }
 }

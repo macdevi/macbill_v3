@@ -11,4 +11,7 @@ Route::middleware(['auth', 'verified', 'can:manage-users'])
         Route::put('/', [BillingSettingController::class, 'update'])
             ->middleware('throttle:20,1')
             ->name('update');
+        Route::put('/login-screen', [BillingSettingController::class, 'updateLoginScreen'])
+            ->middleware('throttle:20,1')
+            ->name('login-screen');
     });
